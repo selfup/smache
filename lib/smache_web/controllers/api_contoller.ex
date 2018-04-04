@@ -8,7 +8,7 @@ defmodule SmacheWeb.ApiController do
 
   def show(conn, %{"key" => key} = _params) do
     case key_is_nil?(conn, key) do
-      false ->
+      :proceed ->
         valid_key = Shard.is_num_or_str?(key)
 
         valid_data = valid_key |> data()
@@ -18,26 +18,26 @@ defmodule SmacheWeb.ApiController do
           data: valid_data
         })
       
-      res ->
-        res
+      forbidden_key_type_response ->
+        forbidden_key_type_response
     end
   end
 
   def create_or_update(conn, %{"key" => key, "data" => data} = _params) do
     case key_is_nil?(conn, key) do
-      false ->
+      :proceed ->
         {ukey, table} = ets_table(key)
 
         json(conn, fetch(ukey, data, table))
 
-      res ->
-        res
+      forbidden_key_type_response ->
+        forbidden_key_type_response
     end
   end
 
   def cmd(conn, %{"key" => key, "cmd" => cmd} = _params) do
     case key_is_nil?(conn, key) do
-      false ->
+      :proceed ->
         %{"query" => query, "keys" => keys} = cmd
 
         case Cmd.exe(query, keys, data(key)) do
@@ -50,8 +50,8 @@ defmodule SmacheWeb.ApiController do
             json(conn, data)
         end
       
-      res ->
-        res
+      forbidden_key_type_response ->
+        forbidden_key_type_response
     end
   end
 
@@ -85,7 +85,7 @@ defmodule SmacheWeb.ApiController do
         |> put_status(403)
         |> json(%{message: "key cannot be null"})
     else
-      false
+      :proceed
     end
   end
 end
