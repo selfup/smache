@@ -1,5 +1,5 @@
 defmodule Smache.Cache.Shard.Model do
-  def shard_count_tables(type) do
+  def tables(type) do
     case Integer.parse(System.get_env("SHARD_LIMIT") || "") do
       :error ->
         0..3 |> make_tables(type)

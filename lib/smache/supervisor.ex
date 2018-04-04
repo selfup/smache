@@ -9,7 +9,7 @@ defmodule Smache.Supervisor do
   end
 
   def init(:ok) do
-    ets_table_names = Shard.shard_count_tables(:ets)
+    ets_table_names = Shard.tables(:ets)
 
     children =
       ets_table_names

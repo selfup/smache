@@ -4,7 +4,7 @@ defmodule SmacheWeb.ApiController do
 
   use SmacheWeb, :controller
 
-  @ets_tables Shard.shard_count_tables(:ets)
+  @ets_tables Shard.tables(:ets)
 
   def show(conn, %{"id" => id} = _params) do
     if is_nil(id) do

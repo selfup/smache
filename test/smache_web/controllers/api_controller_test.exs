@@ -3,7 +3,7 @@ defmodule SmacheWeb.ApiControllerTest do
   use SmacheWeb.ConnCase
 
   setup do
-    Shard.make_tables(0..3, :ets)
+    Shard.tables(:ets)
     |> Enum.each(fn t -> :ets.delete_all_objects(t) end)        
   end
 
