@@ -5,7 +5,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    command: ./bin/exdaas foreground
+    command: ./bin/smache foreground
     ports:
       - "4000:4000"
     volumes:

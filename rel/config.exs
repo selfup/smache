@@ -18,8 +18,8 @@ environment :prod do
   set cookie: :"Lo)lqpD/B<w4=]w6gKMxMP!%~:C|neoXTN}87UU)hRrtVQfb9o|_QNd%:ZY[9{tx"
 end
 
-release :exdaas do
-  set version: current_version(:exdaas)
+release :smache do
+  set version: current_version(:smache)
   set applications: [
     :runtime_tools
   ]

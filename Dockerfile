@@ -3,7 +3,7 @@ FROM bitwalker/alpine-elixir:1.6.3
 EXPOSE 4000
 ENV PORT=4000 \
   VERSION=0.0.1 \
-  APP=exdaas \
+  APP=smache \
   MIX_ENV=prod
 
 RUN apk --update add make bash && rm -rf /var/cache/apk/*
@@ -27,4 +27,4 @@ RUN source .env \
 
 WORKDIR /opt/$APP
 
-CMD ["./bin/exdaas", "foreground"]
+CMD ["./bin/smache", "foreground"]

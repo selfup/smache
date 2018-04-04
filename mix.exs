@@ -1,9 +1,9 @@
-defmodule ExDaas.Mixfile do
+defmodule Smache.Mixfile do
   use Mix.Project
 
   def project do
     [
-      app: :exdaas,
+      app: :smache,
       version: "0.0.1",
       elixir: "~> 1.6.3",
       elixirc_paths: elixirc_paths(Mix.env()),
@@ -18,7 +18,7 @@ defmodule ExDaas.Mixfile do
   # Type `mix help compile.app` for more information.
   def application do
     [
-      mod: {ExDaas.Application, []},
+      mod: {Smache.Application, []},
       extra_applications: [:logger, :runtime_tools]
     ]
   end

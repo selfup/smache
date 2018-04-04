@@ -10,37 +10,37 @@ Server Hostname:        0.0.0.0
 Server Port:            4000
 
 Document Path:          /api
-Document Length:        32 bytes
+Document Length:        25 bytes
 
-Concurrency Level:      500
-Time taken for tests:   3.885 seconds
+Concurrency Level:      200
+Time taken for tests:   17.230 seconds
 Complete requests:      50000
 Failed requests:        0
-Keep-Alive requests:    49641
-Total transferred:      14341384 bytes
+Keep-Alive requests:    49600
+Total transferred:      13990400 bytes
 Total body sent:        12150000
-HTML transferred:       1600000 bytes
-Requests per second:    12869.86 [#/sec] (mean)
-Time per request:       38.850 [ms] (mean)
-Time per request:       0.078 [ms] (mean, across all concurrent requests)
-Transfer rate:          3604.91 [Kbytes/sec] received
-                        3054.08 kb/s sent
-                        6658.99 kb/s total
+HTML transferred:       1250000 bytes
+Requests per second:    2901.95 [#/sec] (mean)
+Time per request:       68.919 [ms] (mean)
+Time per request:       0.345 [ms] (mean, across all concurrent requests)
+Transfer rate:          792.96 [Kbytes/sec] received
+                        688.65 kb/s sent
+                        1481.60 kb/s total
 
 Connection Times (ms)
               min  mean[+/-sd] median   max
-Connect:        0    2  46.5      0    1013
-Processing:     1   36  16.4     34     150
-Waiting:        1   36  16.4     34     150
-Total:          1   39  51.5     34    1147
+Connect:        0    0   6.2      0     281
+Processing:     4   69  32.8     62     331
+Waiting:        4   69  32.8     62     331
+Total:          4   69  33.6     62     374
 
 Percentage of the requests served within a certain time (ms)
-  50%     34
-  66%     41
-  75%     45
-  80%     47
-  90%     57
-  95%     66
-  98%     81
-  99%     92
- 100%   1147 (longest request)
+  50%     62
+  66%     77
+  75%     89
+  80%     96
+  90%    115
+  95%    130
+  98%    150
+  99%    166
+ 100%    374 (longest request)

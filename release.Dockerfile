@@ -26,7 +26,7 @@ WORKDIR /
 EXPOSE 4000
 ENV PORT=4000 \
     VERSION=0.0.1 \
-    APP=exdaas \
+    APP=smache \
     MIX_ENV=prod
 
 COPY mix.exs mix.lock ./

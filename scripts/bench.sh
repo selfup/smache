@@ -18,7 +18,7 @@ function cflag () {
 
 ab \
   -n 50000 \
-  -c 500 \
+  -c 200 \
   -k -v 1 \
   -H "Accept-Encoding: gzip, deflate" \
   -T "application/json" \

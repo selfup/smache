@@ -6,11 +6,11 @@
 use Mix.Config
 
 # Configures the endpoint
-config :exdaas, ExDaasWeb.Endpoint,
+config :smache, SmacheWeb.Endpoint,
   url: [host: "localhost"],
   secret_key_base: "gi5/Mtpp81FVVqbDlGAIfEO7ks9hL4OShUDQnmnXazyYGZJYeNl1y9E50GNF99fD",
-  render_errors: [view: ExDaasWeb.ErrorView, accepts: ~w(html json)],
-  pubsub: [name: ExDaas.PubSub,
+  render_errors: [view: SmacheWeb.ErrorView, accepts: ~w(html json)],
+  pubsub: [name: Smache.PubSub,
            adapter: Phoenix.PubSub.PG2]
 
 # Configures Elixir's Logger

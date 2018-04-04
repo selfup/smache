@@ -2,4 +2,4 @@
 
 ./scripts/secret.sh \
     && echo 'CONTAINER WILL BUILD' \
-    && docker-compose build
+    && docker-compose up --build

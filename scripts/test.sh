@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 
 ./scripts/secret.sh
-./scripts/first.boot.sh
 
 echo 'GRABBING AND COMPILING DEPENDENCIES' \
     && mix deps.get \

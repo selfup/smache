@@ -7,7 +7,6 @@ erl_crash.dump
 .env
 run.log
 *.DS_Store
-exdaas_*
 *_*_release
 *_release
 *release
