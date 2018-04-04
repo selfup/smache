@@ -6,83 +6,86 @@ defmodule SmacheWeb.ApiController do
 
   @ets_tables Shard.tables(:ets)
 
-  def show(conn, %{"id" => id} = _params) do
-    if is_nil(id) do
-      conn
-        |> put_status(500)
-        |> json(%{message: "ID cannot be null"})
-    end
-
-    json(conn, %{id: is_num_or_str?(id), data: is_num_or_str?(id) |> data()})
-  end
-
-  def create_or_update(conn, %{"id" => id, "data" => data} = _params) do
-    if is_nil(id) do
-      conn
-        |> put_status(500)
-        |> json(%{message: "ID cannot be null"})
-    end
-
-    {uid, table} = ets_table(id)
-
-    json(conn, fetch(uid, data, table))
-  end
-
-  def cmd(conn, %{"id" => id, "cmd" => cmd} = _params) do
-    if is_nil(id) do
-      conn
-        |> put_status(500)
-        |> json(%{message: "ID cannot be null"})
-    end
-
-    %{"query" => query, "keys" => keys} = cmd
-
-    case Cmd.exe(query, keys, data(id)) do
-      :error ->
-        conn
-        |> put_status(500)
-        |> json(%{message: "#{query} not supported"})
-
-      data ->
-        json(conn, data)
-    end
-  end
-
-  defp fetch(id, data, ets_table) do
-    Smache.Ets.Table.fetch(id, data, ets_table)
-  end
-
-  defp data(id) do
-    {_uid, table} = ets_table(id)
-
-    case :ets.lookup(table, id) do
-      [] -> nil
-      [{_id, data}] -> data 
-    end
-  end
-
-  defp ets_table(id) do
-    uid = is_num_or_str?(id)
-    shard = rem(uid, length(@ets_tables))
-
-    {uid, Enum.at(@ets_tables, shard)}
-  end
-
-  defp is_num_or_str?(id) do
-    case is_number(id) do
-      true -> id
-
+  def show(conn, %{"key" => key} = _params) do
+    case key_is_nil?(conn, key) do
       false ->
-        case is_binary(id) do
-          true ->
-            hex = Base.encode16(id)
-            {num_id, _} = Integer.parse(hex, 16)
-            num_id
+        valid_key = Shard.is_num_or_str?(key)
 
-          false ->
-            {num_id, _} = Integer.parse(id)
-            num_id
+        valid_data = valid_key |> data()
+
+        json(conn, %{
+          key: valid_key,
+          data: valid_data
+        })
+      
+      res ->
+        res
+    end
+  end
+
+  def create_or_update(conn, %{"key" => key, "data" => data} = _params) do
+    case key_is_nil?(conn, key) do
+      false ->
+        {ukey, table} = ets_table(key)
+
+        json(conn, fetch(ukey, data, table))
+
+      res ->
+        res
+    end
+  end
+
+  def cmd(conn, %{"key" => key, "cmd" => cmd} = _params) do
+    case key_is_nil?(conn, key) do
+      false ->
+        %{"query" => query, "keys" => keys} = cmd
+
+        case Cmd.exe(query, keys, data(key)) do
+          :error ->
+            conn
+            |> put_status(403)
+            |> json(%{message: "#{query} not supported"})
+
+          data ->
+            json(conn, data)
         end
+      
+      res ->
+        res
+    end
+  end
+
+  defp fetch(key, data, ets_table) do
+    Smache.Ets.Table.fetch(key, data, ets_table)
+  end
+
+  defp data(key) do
+    {_ukey, table} = ets_table(key)
+
+    case :ets.lookup(table, key) do
+      [] ->
+        nil
+
+      [{_key, data}] ->
+        data
+    end
+  end
+
+  defp ets_table(key) do
+    ukey = Shard.is_num_or_str?(key)
+
+    shard = rem(ukey, length(@ets_tables))
+
+    {ukey, Enum.at(@ets_tables, shard)}
+  end
+
+  defp key_is_nil?(conn, key) do
+    if is_nil(key) do
+      conn
+        |> put_status(403)
+        |> json(%{message: "key cannot be null"})
+    else
+      false
     end
   end
 end
