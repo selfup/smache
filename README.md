@@ -12,9 +12,9 @@ Default shard size is 4. Any other wanted size can be set via `SHARD_LIMIT` (Any
 
 RAM IO and all cache is handled using [ETS](https://elixir-lang.org/getting-started/mix-otp/ets.html).
 
-Example supervision tree of a default shard size (4):
+Example supervision tree of a default shard size (16):
 
-![](https://user-images.githubusercontent.com/9837366/37997853-005b93e0-31e2-11e8-9fe7-0e33eb54f943.PNG) 
+![smache](https://user-images.githubusercontent.com/9837366/38340903-7fc9865a-383b-11e8-9adc-b0641291a5c7.PNG)
 
 _Suprisingly performant_ :smile:
 
