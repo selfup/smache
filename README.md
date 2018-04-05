@@ -116,7 +116,7 @@ You will need two tabs/panes/shell for this:
 
 ### Another Alternative for Benching
 
-_Default sharding is set to 4_
+_Default sharding is set to 16_
 
 ```bash
 ./scripts/console.bench.sh
