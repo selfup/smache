@@ -13,3 +13,15 @@ services:
     environment:
       - MIX_ENV=prod
       - PORT=4000
+  pubsub_registry:
+    build:
+      context: .
+      dockerfile: pubsub.Dockerfile
+    command: ./bin/pubsub_registry foreground
+    ports:
+      - "4001:4001"
+    volumes:
+      - .:/opt/app
+    environment:
+      - MIX_ENV=prod
+      - PORT=4001

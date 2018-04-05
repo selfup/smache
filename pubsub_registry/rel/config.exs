@@ -9,11 +9,11 @@ use Mix.Releases.Config,
 environment :prod do
   set include_erts: true
   set include_src: false
-  set cookie: :"Lo)lqpD/B<w4=]w6gKMxMP!%~:C|neoXTN}87UU)hRrtVQfb9o|_QNd%:ZY[9{tx"
+  set cookie: :"Lo)lqpD/B<w4=]adsfasdfasdfasdfw6gKMxMP!%~:C|neoXTN}87UU)hRrtVQfb9o|_QNd%:ZY[9{tx"
 end
 
-release :smache do
-  set version: current_version(:smache)
+release :pubsub_registry do
+  set version: current_version(:pubsub_registry)
   set applications: [
     :runtime_tools
   ]

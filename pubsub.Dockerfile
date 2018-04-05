@@ -1,9 +1,9 @@
 FROM bitwalker/alpine-elixir:1.6.3
 
-EXPOSE 4000
-ENV PORT=4000 \
+EXPOSE 4001
+ENV PORT=4001 \
   VERSION=0.0.1 \
-  APP=smache \
+  APP=pubsub_registry \
   MIX_ENV=prod
 
 RUN apk --update add make bash && rm -rf /var/cache/apk/*
@@ -13,7 +13,8 @@ WORKDIR ${HOME}
 COPY mix.exs mix.lock ./
 RUN mix do deps.get, deps.compile
 
-COPY . .
+COPY pubsub_registry .
+COPY .env .
 RUN source .env \
   && mix do deps.get, compile, release --verbose --env=prod \
   && mkdir -p /opt/$APP/log \
@@ -22,8 +23,9 @@ RUN source .env \
   && tar -xzf $APP.tar.gz \
   && rm $APP.tar.gz \
   && rm -rf /opt/app/* \
-  && chmod -R 777 /opt/$APP
+  && chmod -R 777 /opt/$APP \
+  && echo "$APP $PORT"
 
 WORKDIR /opt/$APP
 
-CMD ["./bin/smache", "foreground"]
+CMD ["./bin/pubsub_registry", "foreground"]
