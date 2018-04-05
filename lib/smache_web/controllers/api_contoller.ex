@@ -1,6 +1,5 @@
 defmodule SmacheWeb.ApiController do
   alias Smache.Cache.Shard.Model, as: Shard
-  alias Smache.Cmd.Model, as: Cmd
 
   use SmacheWeb, :controller
 
