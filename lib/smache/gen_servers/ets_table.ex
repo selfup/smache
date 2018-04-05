@@ -9,7 +9,7 @@ defmodule Smache.Ets.Table do
     GenServer.start_link(
       __MODULE__,
       [
-        {:name, name},
+        {:name, name}
       ],
       opts
     )

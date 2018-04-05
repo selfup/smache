@@ -17,7 +17,7 @@ defmodule SmacheWeb.ApiController do
           key: valid_key,
           data: valid_data
         })
-      
+
       forbidden_key_type_response ->
         forbidden_key_type_response
     end
@@ -30,26 +30,6 @@ defmodule SmacheWeb.ApiController do
 
         json(conn, fetch(ukey, data, table))
 
-      forbidden_key_type_response ->
-        forbidden_key_type_response
-    end
-  end
-
-  def cmd(conn, %{"key" => key, "cmd" => cmd} = _params) do
-    case key_is_nil?(conn, key) do
-      :proceed_with_request ->
-        %{"query" => query, "keys" => keys} = cmd
-
-        case Cmd.exe(query, keys, data(key)) do
-          :error ->
-            conn
-            |> put_status(403)
-            |> json(%{message: "#{query} not supported"})
-
-          data ->
-            json(conn, data)
-        end
-      
       forbidden_key_type_response ->
         forbidden_key_type_response
     end
@@ -82,8 +62,8 @@ defmodule SmacheWeb.ApiController do
   defp key_is_nil?(conn, key) do
     if is_nil(key) do
       conn
-        |> put_status(403)
-        |> json(%{message: "key cannot be null"})
+      |> put_status(403)
+      |> json(%{message: "key cannot be null"})
     else
       :proceed_with_request
     end

@@ -4,7 +4,7 @@ defmodule SmacheWeb.ApiControllerTest do
 
   setup do
     Shard.tables(:ets)
-    |> Enum.each(fn t -> :ets.delete_all_objects(t) end)        
+    |> Enum.each(fn t -> :ets.delete_all_objects(t) end)
   end
 
   def post_query(key) do

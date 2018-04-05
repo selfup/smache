@@ -11,6 +11,5 @@ defmodule SmacheWeb.Router do
     post("/", ApiController, :create_or_update)
 
     get("/", ApiController, :show)
-    get("/cmd", ApiController, :cmd)
   end
 end

@@ -26,7 +26,7 @@ defmodule Smache.Cache.Shard.Model do
             hex = Base.encode16(key)
 
             {num_key, _} = Integer.parse(hex, 16)
-            
+
             num_key
 
           false ->
