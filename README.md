@@ -24,7 +24,7 @@ To auto shard at scale, all keys are turned into an integer if not already an in
 
 All nil/null keys are rejected with a 403 :boom:
 
-If you plan to store integers as well as regular strings, please consider a different strategy :thinking:
+If you plan to store integers (as keys) as well as regular strings (as keys), please consider a different strategy :thinking:
 
 ## Development
 
