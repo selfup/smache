@@ -8,7 +8,7 @@ Provides a RESTful API that can handle concurrent requests (Phoenix) but seriali
 
 All serialized writes can be split up by amount of shards.
 
-Default shard size is 4. Any other wanted size can be set via `SHARD_LIMIT` (Any number above 0).
+Default shard size is 17. Any other wanted size can be set via `SHARD_LIMIT` (Any number above 0).
 
 RAM IO and all cache is handled using [ETS](https://elixir-lang.org/getting-started/mix-otp/ets.html).
 
