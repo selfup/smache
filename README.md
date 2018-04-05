@@ -2,7 +2,7 @@
 
 Elixir Cache as a Service
 
-Serialized - fault tolerant - self caching - self sharding - Key Value Cache :rocket:
+Serialized - fault tolerant - self sharding - Key Value Cache :rocket:
 
 Provides a RESTful API that can handle concurrent requests (Phoenix) but serializes all writes to memory.
 
@@ -17,6 +17,14 @@ Example supervision tree of a default shard size (4):
 ![](https://user-images.githubusercontent.com/9837366/37997853-005b93e0-31e2-11e8-9fe7-0e33eb54f943.PNG) 
 
 _Suprisingly performant_ :smile:
+
+## Caveats
+
+To auto shard at scale, all keys are turned into an integer if not already an integer :thinking:
+
+All nil/null keys are rejected with a 403 :boom:
+
+If you plan to store integers as well as regular strings, please consider a different strategy :thinking:
 
 ## Development
 
