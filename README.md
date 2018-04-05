@@ -12,7 +12,7 @@ Default shard size is 4. Any other wanted size can be set via `SHARD_LIMIT` (Any
 
 RAM IO and all cache is handled using [ETS](https://elixir-lang.org/getting-started/mix-otp/ets.html).
 
-Example supervision tree of a default shard size (16):
+Example supervision tree of a default shard size (17):
 
 ![smache](https://user-images.githubusercontent.com/9837366/38340903-7fc9865a-383b-11e8-9adc-b0641291a5c7.PNG)
 
@@ -89,6 +89,8 @@ Make sure you have your ssh key as an authorized key for your target node!
 
 ## Current Benchmarks
 
+On a single shard (so imagine just one ets table)
+
 ~13k req/s in an Alpine Docker Container running on Ubuntu 17.10 in production mode on a 2 Core Intel i7 from 2013
 
 **CPU Info**
@@ -113,48 +115,6 @@ You will need two tabs/panes/shell for this:
         a. To keep changes in git HEAD pass the `-c` flag
         b. Ex: `./scripts/bench.sh -c`
         c. Otherwise the `.results.log` file will be checked out
-
-### Another Alternative for Benching
-
-_Default sharding is set to 16_
-
-```bash
-./scripts/console.bench.sh
-```
-
-**If you want to increase the shard size**
-
-_You may set `SHARD_LIMIT` to any positive number over 0_
-
-```bash
-SHARD_LIMIT=24 ./scripts/console.bench.sh
-```
-
-_Remember this is synchronous and using a stream or a parallel map can be more realistic_
-
-```elixir
-alias Smache.Ets.Table, as: EtsTable
-
-data = %{color: "blue"}
-
-# if you changed SHARD_LIMIT
-# ex: SHARD_LIMIT=99
-# change 0..16 to 0..98 (or limit - 1)
-
-ets_tables = 0..16 |> Enum.map(fn i -> :"ets_table_#{i}" end)
-
-# this will be cold cache
-0..20_000 |> Enum.each(fn i ->
-  table_id = rem(i, length(ets_tables))
-  EtsTable.fetch(i, data, Enum.at(ets_tables, table_id))
-end)
-
-# this will be warm cache
-0..20_000 |> Enum.each(fn i ->
-  table_id = rem(i, length(ets_tables))
-  EtsTable.fetch(i, data, Enum.at(ets_tables, table_id))
-end)
-```
 
 ## LICENSE
 
