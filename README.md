@@ -127,7 +127,7 @@ _Default sharding is set to 4_
 _You may set `SHARD_LIMIT` to any positive number over 0_
 
 ```bash
-SHARD_LIMIT=16 ./scripts/console.bench.sh
+SHARD_LIMIT=24 ./scripts/console.bench.sh
 ```
 
 _Remember this is synchronous and using a stream or a parallel map can be more realistic_
@@ -138,9 +138,10 @@ alias Smache.Ets.Table, as: EtsTable
 data = %{color: "blue"}
 
 # if you changed SHARD_LIMIT
-# ex: SHARD_LIMIT=24
-# change 0..3 to 0..23 (or limit - 1)
-ets_tables = 0..3 |> Enum.map(fn i -> :"ets_table_#{i}" end)
+# ex: SHARD_LIMIT=99
+# change 0..16 to 0..98 (or limit - 1)
+
+ets_tables = 0..16 |> Enum.map(fn i -> :"ets_table_#{i}" end)
 
 # this will be cold cache
 0..20_000 |> Enum.each(fn i ->
