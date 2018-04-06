@@ -39,15 +39,14 @@ If you plan to store integers (as keys) as well as regular strings (as keys), pl
 `./scripts/test.sh`
 
 1. Generate Secret
-1. Ensure all needed directories are made
-1. Ensure everything is installed
+1. Ensure deps are installed and compiled
 1. Run tests
-1. Create an Alpine Docker Container
-1. Build release (not exposed, just testing it can build)
 
 Essentially the _bootstrapping_ script :rocket:
 
-Called test, because it ensures that your dev enviornment is ready to roll, and it runs tests :smile:
+Now do: `./scripts/service.sh`
+
+This will build two containers and run them. Once they run ctrl + c to shutdown
 
 ## Deploying to Heroku (for testing purposes)
 
