@@ -32,21 +32,21 @@ If you plan to store integers (as keys) as well as regular strings (as keys), pl
 
 1. Docker
 1. Elixir
+1. Go
+1. Makefile runner
 1. Bash (masOS, Linux, WSL (Win10))
 
 **On first boot**:
 
-`./scripts/test.sh`
+`./scripts/test.sh && ./scripts/services.sh`
 
 1. Generate Secret
 1. Ensure deps are installed and compiled
 1. Run tests
+1. Build all 3 containers
+1. Run all containers
 
-Essentially the _bootstrapping_ script :rocket:
-
-Now do: `./scripts/service.sh`
-
-This will build two containers and run them. Once they run ctrl + c to shutdown
+Essentially the _bootstrapping_ scripts :rocket:
 
 ## Deploying to Heroku (for testing purposes)
 

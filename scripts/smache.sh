@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
 
 ./scripts/secret.sh \
-    && echo 'CONTAINER WILL BUILD' \
+    && echo 'SMACHE CONTAINER WILL BUILD AND RUN' \
     && docker-compose -f docker-compose.smache.yml up --build

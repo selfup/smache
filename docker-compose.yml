@@ -25,3 +25,12 @@ services:
     environment:
       - MIX_ENV=prod
       - PORT=4001
+  mitigator:
+    build:
+      context: .
+      dockerfile: Dock.mitigator.Dockerfile
+    command: /opt/bin/mitigator
+    ports:
+      - "8081:8081"
+    volumes:
+      - .:/opt/app

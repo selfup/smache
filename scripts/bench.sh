@@ -2,6 +2,7 @@
 
 SMACHE_LOG_FILE=.results.smache.log
 PUB_SUB_LOG_FILE=.results.ps.log
+MITIGATOR_LOG_FILE=.results.mitigator.log
 
 function cflag () {
   if [ "$1" == "-c" ]
@@ -21,8 +22,8 @@ function cflag () {
 # the script will keep changes in git for the logfile
 
 ab \
-  -n 50000 \
-  -c 200 \
+  -n 2000 \
+  -c 35 \
   -k -v 1 \
   -H "Accept-Encoding: gzip, deflate" \
   -T "application/json" \
@@ -34,13 +35,24 @@ ab \
   " \
   && cflag $1 \
   && ab \
-    -n 50000 \
-    -c 200 \
+    -n 2000 \
+    -c 35 \
     -k -v 1 \
     "http://0.0.0.0:4001/api" > $PUB_SUB_LOG_FILE \
     && echo "" \
     && echo "--> results:
       $(grep seconds $PUB_SUB_LOG_FILE)
       $(grep -w second $PUB_SUB_LOG_FILE)
+    " \
+  && cflag $1 \
+  && ab \
+    -n 2000 \
+    -c 35 \
+    -k -v 1 \
+    "http://0.0.0.0:8081/" > $MITIGATOR_LOG_FILE \
+    && echo "" \
+    && echo "--> results:
+      $(grep seconds $MITIGATOR_LOG_FILE)
+      $(grep -w second $MITIGATOR_LOG_FILE)
     " \
     && cflag $1 \
