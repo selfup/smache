@@ -1,18 +1,18 @@
-*_build
+# build artifacts
+*build
 /db
 *deps
-/*.ez
-erl_crash.dump
-/config/*.secret.exs
+*.ez
+
+# shh
+*.secret.exs
 .env
-run.log
-*.DS_Store
-*_*_release
-*_release
-*release
-*.tar.gz
-dets_table_*
-dets_counter
-archive
-archive*
+
+# side effectts
+*.dump
+*.log
 *.zip
+*.tar.gz
+*.log
+*.DS_Store
+*release

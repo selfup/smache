@@ -1,10 +1,10 @@
 # phoenix stuff
 _build
-deps
-test
-scripts
+*deps
+*test
 
 # dev files
+scripts
 .git
 .gitignore
 *Dockerfile*
@@ -16,3 +16,6 @@ scripts
 *.tar.gz
 *.log
 *.md
+
+# don't ignore
+!*mitigator
