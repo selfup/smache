@@ -21,8 +21,8 @@ function cflag () {
 # the script will keep changes in git for the logfile
 
 ab \
-  -n 5000 \
-  -c 50 \
+  -n 50000 \
+  -c 200 \
   -k -v 1 \
   -H "Accept-Encoding: gzip, deflate" \
   -T "application/json" \
@@ -34,8 +34,8 @@ ab \
   " \
   && cflag $1 \
   && ab \
-    -n 5000 \
-    -c 50 \
+    -n 50000 \
+    -c 200 \
     -k -v 1 \
     "http://0.0.0.0:4001/api" > $PUB_SUB_LOG_FILE \
     && echo "" \

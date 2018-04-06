@@ -1,4 +1,4 @@
-This is ApacheBench, Version 2.3 <$Revision: 1807734 $>
+This is ApacheBench, Version 2.3 <$Revision: 1796539 $>
 Copyright 1996 Adam Twiss, Zeus Technology Ltd, http://www.zeustech.net/
 Licensed to The Apache Software Foundation, http://www.apache.org/
 
@@ -12,32 +12,32 @@ Server Port:            4001
 Document Path:          /api
 Document Length:        2 bytes
 
-Concurrency Level:      50
-Time taken for tests:   0.636 seconds
-Complete requests:      5000
+Concurrency Level:      200
+Time taken for tests:   2.705 seconds
+Complete requests:      50000
 Failed requests:        0
-Keep-Alive requests:    4974
-Total transferred:      1079376 bytes
-HTML transferred:       10000 bytes
-Requests per second:    7862.27 [#/sec] (mean)
-Time per request:       6.359 [ms] (mean)
-Time per request:       0.127 [ms] (mean, across all concurrent requests)
-Transfer rate:          1657.49 [Kbytes/sec] received
+Keep-Alive requests:    49600
+Total transferred:      10790400 bytes
+HTML transferred:       100000 bytes
+Requests per second:    18483.35 [#/sec] (mean)
+Time per request:       10.821 [ms] (mean)
+Time per request:       0.054 [ms] (mean, across all concurrent requests)
+Transfer rate:          3895.37 [Kbytes/sec] received
 
 Connection Times (ms)
               min  mean[+/-sd] median   max
-Connect:        0    0   0.1      0       2
-Processing:     0    6   4.2      5      45
-Waiting:        0    6   4.2      5      45
-Total:          0    6   4.3      5      46
+Connect:        0    0   0.3      0       7
+Processing:     0   11   5.9     10      59
+Waiting:        0   11   5.9     10      59
+Total:          0   11   5.9     10      63
 
 Percentage of the requests served within a certain time (ms)
-  50%      5
-  66%      7
-  75%      8
-  80%      9
-  90%     12
-  95%     14
-  98%     18
-  99%     21
- 100%     46 (longest request)
+  50%     10
+  66%     12
+  75%     13
+  80%     15
+  90%     18
+  95%     22
+  98%     27
+  99%     30
+ 100%     63 (longest request)
