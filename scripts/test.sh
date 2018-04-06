@@ -2,10 +2,17 @@
 
 ./scripts/secret.sh
 
-echo 'GRABBING AND COMPILING DEPENDENCIES' \
+cd smache \
+    && echo 'GRABBING AND COMPILING DEPENDENCIES' \
     && mix deps.get \
     && mix deps.compile \
-    && echo 'TESTING APP' \
+    && echo 'TESTING SMACHE APP' \
     && mix test \
-    && echo 'CONTAINER WILL RUN AFTER BEING BUILT' \
-    && docker-compose build \
+    && cd ../pubsub_registry \
+    && echo 'GRABBING AND COMPILING DEPENDENCIES' \
+    && mix deps.get \
+    && mix deps.compile \
+    && echo 'TESTING SMACHE APP' \
+    && mix test \
+    && cd .. \
+    && echo 'ALL TESTS PASS'

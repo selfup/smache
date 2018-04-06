@@ -29,15 +29,11 @@ ENV PORT=4000 \
     APP=smache \
     MIX_ENV=prod
 
-COPY mix.exs mix.lock ./
-
-RUN mix do deps.get, deps.compile
-
-COPY ./ ./
+COPY ./smache ./
 
 RUN apt-get install pwgen -y
 
-RUN SECRET_KEY_BASE=$(pwgen 43 1) mix do compile, release --verbose --env=prod \
+RUN SECRET_KEY_BASE=$(pwgen 43 1) mix do deps.get, compile, release --verbose --env=prod \
     && cp _build/prod/rel/$APP/releases/$VERSION/$APP.tar.gz $APP.tar.gz \
     && ls -lah \
     && echo "COPY FROM DOCKER NOW" \
