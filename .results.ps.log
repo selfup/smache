@@ -9,35 +9,35 @@ Server Software:        Cowboy
 Server Hostname:        0.0.0.0
 Server Port:            4001
 
-Document Path:          /api
+Document Path:          /api/
 Document Length:        2 bytes
 
 Concurrency Level:      200
-Time taken for tests:   2.701 seconds
-Complete requests:      50000
+Time taken for tests:   1.219 seconds
+Complete requests:      20000
 Failed requests:        0
-Keep-Alive requests:    49600
-Total transferred:      10790400 bytes
-HTML transferred:       100000 bytes
-Requests per second:    18514.25 [#/sec] (mean)
-Time per request:       10.802 [ms] (mean)
-Time per request:       0.054 [ms] (mean, across all concurrent requests)
-Transfer rate:          3901.88 [Kbytes/sec] received
+Keep-Alive requests:    19827
+Total transferred:      4315848 bytes
+HTML transferred:       40000 bytes
+Requests per second:    16400.37 [#/sec] (mean)
+Time per request:       12.195 [ms] (mean)
+Time per request:       0.061 [ms] (mean, across all concurrent requests)
+Transfer rate:          3456.13 [Kbytes/sec] received
 
 Connection Times (ms)
               min  mean[+/-sd] median   max
-Connect:        0    0   0.3      0       7
-Processing:     0   11   5.9     10      80
-Waiting:        0   11   5.9     10      80
-Total:          0   11   5.9     10      80
+Connect:        0    0   0.6      0       9
+Processing:     0   12  31.5     10    1080
+Waiting:        0   12  31.5     10    1080
+Total:          0   12  31.7     10    1086
 
 Percentage of the requests served within a certain time (ms)
   50%     10
-  66%     12
-  75%     13
+  66%     13
+  75%     14
   80%     15
-  90%     18
+  90%     19
   95%     22
-  98%     26
-  99%     31
- 100%     80 (longest request)
+  98%     28
+  99%     32
+ 100%   1086 (longest request)

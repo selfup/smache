@@ -7,11 +7,7 @@ MITIGATOR_LOG_FILE=.results.mitigator.log
 function cflag () {
   if [ "$1" == "-c" ]
   then
-    echo "--> entire benchmark output:
-      updated in $(pwd)/$SMACHE_LOG_FILE
-      and
-      updated in $(pwd)/$PUB_SUB_LOG_FILE
-    "
+    echo "--> entire benchmark output: "
   else
     git checkout -- $SMACHE_LOG_FILE
     git checkout -- $PUB_SUB_LOG_FILE
@@ -23,7 +19,7 @@ function cflag () {
 # the script will keep changes in git for the logfile
 
 ab \
-  -n 50000 \
+  -n 20000 \
   -c 200 \
   -k -v 1 \
   -H "Accept-Encoding: gzip, deflate" \
@@ -36,10 +32,10 @@ ab \
   " \
   && cflag $1 \
   && ab \
-    -n 50000 \
+    -n 20000 \
     -c 200 \
     -k -v 1 \
-    "http://0.0.0.0:4001/api" > $PUB_SUB_LOG_FILE \
+    "http://0.0.0.0:4001/api/" > $PUB_SUB_LOG_FILE \
     && echo "" \
     && echo "--> results:
       $(grep seconds $PUB_SUB_LOG_FILE)
@@ -47,8 +43,8 @@ ab \
     " \
   && cflag $1 \
   && ab \
-    -n 50000 \
-    -c 200 \
+    -n 20000 \
+    -c 400 \
     -k -v 1 \
     "http://0.0.0.0:8081/" > $MITIGATOR_LOG_FILE \
     && echo "" \

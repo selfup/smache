@@ -1,18 +1,21 @@
 version: '3.1'
 
 services:
-  # mitigator:
-  #   build:
-  #     context: .
-  #     dockerfile: Dock.mitigator.Dockerfile
-  #   command: /opt/bin/mitigator
-  #   ports:
-  #     - "8081:8081"
-  #   volumes:
-  #     - .:/opt/app
+  mitigator:
+    links:
+      - prod1
+      - prod2
+    build:
+      context: .
+      dockerfile: Dock.mitigator.Dockerfile
+    command: /opt/bin/mitigator
+    ports:
+      - "8081:8081"
+    volumes:
+      - .:/opt/app
   pubsub_registry:
-    # depends_on:
-    #   - mitigator
+    depends_on:
+      - mitigator
     build:
       context: .
       dockerfile: Dock.pubsub.Dockerfile
@@ -25,8 +28,6 @@ services:
       - MIX_ENV=prod
       - PORT=4001
   prod1:
-    depends_on:
-      - pubsub_registry
     build:
       context: .
       dockerfile: Dock.smache.Dockerfile
@@ -39,8 +40,6 @@ services:
       - MIX_ENV=prod
       - PORT=4000
   prod2:
-    depends_on:
-      - pubsub_registry
     build:
       context: .
       dockerfile: Dock.smache.Dockerfile

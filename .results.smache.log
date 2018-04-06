@@ -7,40 +7,40 @@ Benchmarking 0.0.0.0 (be patient)
 
 Server Software:        Cowboy
 Server Hostname:        0.0.0.0
-Server Port:            4000
+Server Port:            1234
 
 Document Path:          /api
 Document Length:        25 bytes
 
 Concurrency Level:      200
-Time taken for tests:   3.815 seconds
-Complete requests:      50000
+Time taken for tests:   1.722 seconds
+Complete requests:      20000
 Failed requests:        0
-Keep-Alive requests:    49600
-Total transferred:      13990400 bytes
-Total body sent:        13150000
-HTML transferred:       1250000 bytes
-Requests per second:    13106.74 [#/sec] (mean)
-Time per request:       15.259 [ms] (mean)
-Time per request:       0.076 [ms] (mean, across all concurrent requests)
-Transfer rate:          3581.42 [Kbytes/sec] received
-                        3366.28 kb/s sent
-                        6947.70 kb/s total
+Keep-Alive requests:    19895
+Total transferred:      5597480 bytes
+Total body sent:        5260000
+HTML transferred:       500000 bytes
+Requests per second:    11615.20 [#/sec] (mean)
+Time per request:       17.219 [ms] (mean)
+Time per request:       0.086 [ms] (mean, across all concurrent requests)
+Transfer rate:          3174.60 [Kbytes/sec] received
+                        2983.20 kb/s sent
+                        6157.80 kb/s total
 
 Connection Times (ms)
               min  mean[+/-sd] median   max
-Connect:        0    0   0.4      0       9
-Processing:     1   15   7.1     14      68
-Waiting:        1   15   7.1     14      68
-Total:          1   15   7.2     14      68
+Connect:        0    0   0.5      0       8
+Processing:     1   17   7.8     16      76
+Waiting:        1   17   7.8     16      76
+Total:          1   17   7.9     16      76
 
 Percentage of the requests served within a certain time (ms)
-  50%     14
-  66%     17
-  75%     19
-  80%     20
-  90%     25
-  95%     29
-  98%     34
-  99%     38
- 100%     68 (longest request)
+  50%     16
+  66%     19
+  75%     22
+  80%     23
+  90%     28
+  95%     31
+  98%     37
+  99%     40
+ 100%     76 (longest request)
