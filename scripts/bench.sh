@@ -15,6 +15,7 @@ function cflag () {
   else
     git checkout -- $SMACHE_LOG_FILE
     git checkout -- $PUB_SUB_LOG_FILE
+    git checkout -- $MITIGATOR_LOG_FILE
   fi
 }
 
