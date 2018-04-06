@@ -10,20 +10,17 @@ RUN apk --update add make bash && rm -rf /var/cache/apk/*
 
 WORKDIR ${HOME}
 
-COPY mix.exs mix.lock ./
-RUN mix do deps.get, deps.compile
-
 COPY . .
 RUN source .env \
-  && mix do compile, release --verbose --env=prod \
+  && mix do deps.get, compile, release --verbose --env=prod \
   && mkdir -p /opt/$APP/log \
-  && mkdir -p /opt/$APP/persistance_dir \
   && cp _build/prod/rel/$APP/releases/$VERSION/$APP.tar.gz /opt/$APP/ \
   && cd /opt/$APP \
   && tar -xzf $APP.tar.gz \
   && rm $APP.tar.gz \
   && rm -rf /opt/app/* \
-  && chmod -R 777 /opt/$APP
+  && chmod -R 777 /opt/$APP \
+  && echo "$APP $PORT"
 
 WORKDIR /opt/$APP
 

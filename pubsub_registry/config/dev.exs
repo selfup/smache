@@ -1,19 +1,19 @@
 use Mix.Config
 
-config :smache, SmacheWeb.Endpoint,
-  http: [port: 4000],
+config :pubsub_registry, PubsubRegistryWeb.Endpoint,
+  http: [port: 4001],
   debug_errors: true,
   code_reloader: true,
   check_origin: false,
   watchers: []
 
-config :smache, SmacheWeb.Endpoint,
+config :pubsub_registry, PubsubRegistryWeb.Endpoint,
   live_reload: [
     patterns: [
       ~r{priv/static/.*(js|css|png|jpeg|jpg|gif|svg)$},
       ~r{priv/gettext/.*(po)$},
-      ~r{lib/smache_web/views/.*(ex)$},
-      ~r{lib/smache_web/templates/.*(eex)$}
+      ~r{lib/pubsub_registry_web/views/.*(ex)$},
+      ~r{lib/pubsub_registry_web/templates/.*(eex)$}
     ]
   ]
 

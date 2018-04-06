@@ -1,11 +1,11 @@
 version: '3.1'
 
 services:
-  release:
+  prod:
     build:
       context: .
-      dockerfile: release.Dockerfile
-    command: /bin/sleep 400
+      dockerfile: Dock.smache.Dockerfile
+    command: ./bin/smache foreground
     ports:
       - "4000:4000"
     volumes:
