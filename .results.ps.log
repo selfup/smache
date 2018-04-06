@@ -13,23 +13,23 @@ Document Path:          /api
 Document Length:        2 bytes
 
 Concurrency Level:      200
-Time taken for tests:   2.705 seconds
+Time taken for tests:   2.701 seconds
 Complete requests:      50000
 Failed requests:        0
 Keep-Alive requests:    49600
 Total transferred:      10790400 bytes
 HTML transferred:       100000 bytes
-Requests per second:    18483.35 [#/sec] (mean)
-Time per request:       10.821 [ms] (mean)
+Requests per second:    18514.25 [#/sec] (mean)
+Time per request:       10.802 [ms] (mean)
 Time per request:       0.054 [ms] (mean, across all concurrent requests)
-Transfer rate:          3895.37 [Kbytes/sec] received
+Transfer rate:          3901.88 [Kbytes/sec] received
 
 Connection Times (ms)
               min  mean[+/-sd] median   max
 Connect:        0    0   0.3      0       7
-Processing:     0   11   5.9     10      59
-Waiting:        0   11   5.9     10      59
-Total:          0   11   5.9     10      63
+Processing:     0   11   5.9     10      80
+Waiting:        0   11   5.9     10      80
+Total:          0   11   5.9     10      80
 
 Percentage of the requests served within a certain time (ms)
   50%     10
@@ -38,6 +38,6 @@ Percentage of the requests served within a certain time (ms)
   80%     15
   90%     18
   95%     22
-  98%     27
-  99%     30
- 100%     63 (longest request)
+  98%     26
+  99%     31
+ 100%     80 (longest request)
