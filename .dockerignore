@@ -1,7 +1,10 @@
 # phoenix stuff
+*/*_build
 _build
-*deps
-*test
+*/*deps
+deps
+*/*test
+test
 
 # dev files
 scripts
@@ -16,6 +19,3 @@ scripts
 *.tar.gz
 *.log
 *.md
-
-# don't ignore
-!*mitigator
