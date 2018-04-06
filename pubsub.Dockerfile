@@ -10,9 +10,6 @@ RUN apk --update add make bash && rm -rf /var/cache/apk/*
 
 WORKDIR ${HOME}
 
-COPY mix.exs mix.lock ./
-RUN mix do deps.get, deps.compile
-
 COPY pubsub_registry .
 COPY .env .
 RUN source .env \
