@@ -19,7 +19,8 @@ RUN source .env \
   && tar -xzf $APP.tar.gz \
   && rm $APP.tar.gz \
   && rm -rf /opt/app/* \
-  && chmod -R 777 /opt/$APP
+  && chmod -R 777 /opt/$APP \
+  && echo "$APP $PORT"
 
 WORKDIR /opt/$APP
 
