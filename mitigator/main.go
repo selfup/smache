@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"runtime"
 	"sync"
 
 	"github.com/valyala/fasthttp"
@@ -28,14 +27,14 @@ func fastHTTPHandler(ctx *fasthttp.RequestCtx) {
 	_, body, err := fasthttp.Get(nil, uri)
 
 	if err != nil {
-		fmt.Fprintf(ctx, "call to node failed")
+		failedURI := fmt.Sprintf("call to %s failed", uri)
+
+		fmt.Fprintf(ctx, failedURI)
 	}
 
 	ctx.Write(body)
 }
 
 func main() {
-	runtime.GOMAXPROCS(8)
-
 	fasthttp.ListenAndServe(":8081", fastHTTPHandler)
 }
