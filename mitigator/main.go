@@ -47,6 +47,7 @@ func main() {
 		TLSHandshakeTimeout: 0 * time.Second,
 	}
 
+	// frontload client to greatly increase perf
 	client = &http.Client{Transport: transport}
 
 	http.HandleFunc("/", httpHandler)
