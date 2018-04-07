@@ -29,7 +29,10 @@ function run () {
         $(grep -w second $MITIGATOR_LOG_FILE)
       " \
       && cflag $1
-  else
+  fi
+
+  if [ "$1" == "" ]
+  then
     ab \
     -n 20000 \
     -c 200 \
@@ -55,7 +58,7 @@ function run () {
       " \
     && cflag $1 \
     && ab \
-      -n 20000 \
+      -n 40000 \
       -c 400 \
       -k -v 1 \
       "http://0.0.0.0:8081/" > $MITIGATOR_LOG_FILE \

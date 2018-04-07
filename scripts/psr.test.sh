@@ -2,7 +2,7 @@
 
 ./scripts/secret.sh
 
-cd pubsub_registry \
+cd registry \
     && echo 'GRABBING AND COMPILING DEPENDENCIES' \
     && mix deps.get \
     && mix deps.compile \

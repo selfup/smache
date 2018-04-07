@@ -19,7 +19,7 @@ var (
 
 func httpHandler(w http.ResponseWriter, r *http.Request) {
 	mutex.Lock()
-	uri := fmt.Sprintf("http://%s%s", ips[count], "/api/?key=1")
+	uri := fmt.Sprintf("http://%s%s", dockers[count], "/api/?key=1")
 
 	if count == 1 {
 		count--

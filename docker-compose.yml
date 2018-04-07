@@ -13,13 +13,13 @@ services:
       - "8081:8081"
     volumes:
       - .:/opt/app
-  pubsub_registry:
+  registry:
     depends_on:
       - mitigator
     build:
       context: .
-      dockerfile: Dock.pubsub.Dockerfile
-    command: ./bin/pubsub_registry foreground
+      dockerfile: Dock.registry.Dockerfile
+    command: ./bin/registry foreground
     ports:
       - "4001:4001"
     volumes:

@@ -1,11 +1,11 @@
 version: '3.1'
 
 services:
-  pubsub_registry:
+  registry:
     build:
       context: .
-      dockerfile: Dock.pubsub.Dockerfile
-    command: ./bin/pubsub_registry foreground
+      dockerfile: Dock.registry.Dockerfile
+    command: ./bin/registry foreground
     ports:
       - "4001:4001"
     volumes:

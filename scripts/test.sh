@@ -8,7 +8,7 @@ cd smache \
     && mix deps.compile \
     && echo 'TESTING SMACHE APP' \
     && mix test \
-    && cd ../pubsub_registry \
+    && cd ../registry \
     && echo 'GRABBING AND COMPILING DEPENDENCIES' \
     && mix deps.get \
     && mix deps.compile \
