@@ -48,6 +48,7 @@ If you plan to store integers (as keys) as well as regular strings (as keys), pl
 
 Essentially the _bootstrapping_ scripts :rocket:
 
+<!--
 ## Deploying to Heroku (for testing purposes)
 
 Make sure the container builds (heroku will rebuild it anyways but just be sure it works)!
@@ -114,6 +115,7 @@ You will need two tabs/panes/shell for this:
         a. To keep changes in git HEAD pass the `-c` flag
         b. Ex: `./scripts/bench.sh -c`
         c. Otherwise the `.results.log` file will be checked out
+-->
 
 ## LICENSE
 
