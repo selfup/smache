@@ -5,39 +5,39 @@ Licensed to The Apache Software Foundation, http://www.apache.org/
 Benchmarking 0.0.0.0 (be patient)
 
 
-Server Software:        fasthttp
+Server Software:        
 Server Hostname:        0.0.0.0
 Server Port:            8081
 
 Document Path:          /
 Document Length:        22 bytes
 
-Concurrency Level:      400
-Time taken for tests:   2.962 seconds
-Complete requests:      20000
+Concurrency Level:      1000
+Time taken for tests:   3.832 seconds
+Complete requests:      50000
 Failed requests:        0
-Keep-Alive requests:    20000
-Total transferred:      3620000 bytes
-HTML transferred:       440000 bytes
-Requests per second:    6753.25 [#/sec] (mean)
-Time per request:       59.231 [ms] (mean)
-Time per request:       0.148 [ms] (mean, across all concurrent requests)
-Transfer rate:          1193.69 [Kbytes/sec] received
+Keep-Alive requests:    50000
+Total transferred:      8150000 bytes
+HTML transferred:       1100000 bytes
+Requests per second:    13049.54 [#/sec] (mean)
+Time per request:       76.631 [ms] (mean)
+Time per request:       0.077 [ms] (mean, across all concurrent requests)
+Transfer rate:          2077.22 [Kbytes/sec] received
 
 Connection Times (ms)
               min  mean[+/-sd] median   max
-Connect:        0    0   1.8      0      15
-Processing:     5   59  71.5     51    1235
-Waiting:        4   59  71.5     51    1235
-Total:          5   59  72.3     51    1250
+Connect:        0    2  18.3      0     314
+Processing:     3   74  27.2     71     208
+Waiting:        3   74  27.2     71     208
+Total:          3   76  32.9     71     414
 
 Percentage of the requests served within a certain time (ms)
-  50%     51
-  66%     61
-  75%     67
-  80%     72
-  90%     87
-  95%    104
-  98%    126
-  99%    147
- 100%   1250 (longest request)
+  50%     71
+  66%     79
+  75%     87
+  80%     94
+  90%    113
+  95%    135
+  98%    154
+  99%    172
+ 100%    414 (longest request)
