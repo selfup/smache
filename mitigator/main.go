@@ -2,18 +2,22 @@ package main
 
 import (
 	"fmt"
+	"io"
+	"log"
+	"net/http"
 	"sync"
-
-	"github.com/valyala/fasthttp"
+	"time"
 )
 
 var (
-	mutex = &sync.Mutex{}
-	count = 0
-	ips   = [2]string{"172.17.0.1:1234", "172.17.0.1:1235"}
+	mutex   = &sync.Mutex{}
+	count   = 0
+	client  *http.Client
+	dockers = [2]string{"172.17.0.1:1234", "172.17.0.1:1235"}
+	ips     = [2]string{"192.168.1.7:1234", "192.168.1.7:1235"}
 )
 
-func fastHTTPHandler(ctx *fasthttp.RequestCtx) {
+func httpHandler(w http.ResponseWriter, r *http.Request) {
 	mutex.Lock()
 	uri := fmt.Sprintf("http://%s%s", ips[count], "/api/?key=1")
 
@@ -24,17 +28,27 @@ func fastHTTPHandler(ctx *fasthttp.RequestCtx) {
 	}
 	mutex.Unlock()
 
-	_, body, err := fasthttp.Get(nil, uri)
+	res, err := client.Get(uri)
 
 	if err != nil {
 		failedURI := fmt.Sprintf("call to %s failed", uri)
 
-		fmt.Fprintf(ctx, failedURI)
+		fmt.Fprintf(w, failedURI)
 	}
 
-	ctx.Write(body)
+	io.Copy(w, res.Body)
+
+	defer res.Body.Close()
 }
 
 func main() {
-	fasthttp.ListenAndServe(":8081", fastHTTPHandler)
+	transport := &http.Transport{
+		MaxIdleConnsPerHost: 1024,
+		TLSHandshakeTimeout: 0 * time.Second,
+	}
+
+	client = &http.Client{Transport: transport}
+
+	http.HandleFunc("/", httpHandler)
+	log.Fatal(http.ListenAndServe(":8081", nil))
 }

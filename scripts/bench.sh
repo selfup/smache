@@ -20,7 +20,7 @@ function run () {
   then
     ab \
       -n 50000 \
-      -c 500 \
+      -c 1000 \
       -k -v 1 \
       "http://0.0.0.0:8081/" > $MITIGATOR_LOG_FILE \
       && echo "" \

@@ -25,4 +25,6 @@ RUN source .env \
 
 WORKDIR /opt/$APP
 
+HEALTHCHECK CMD curl -fs http://localhost:$PORT/ || exit 1
+
 CMD ["./bin/pubsub_registry", "foreground"]
