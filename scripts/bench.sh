@@ -5,7 +5,7 @@ PUB_SUB_LOG_FILE=.results.ps.log
 MITIGATOR_LOG_FILE=.results.mitigator.log
 
 function cflag () {
-  if [ "$1" == "-c" ]
+  if [ "$1" == "-c" ] || [ "$1" == "m" ]
   then
     echo "--> entire benchmark output: "
   else
@@ -19,8 +19,8 @@ function run () {
   if [ "$1" == "m" ]
   then
     ab \
-      -n 50000 \
-      -c 1000 \
+      -n 40000 \
+      -c 400 \
       -k -v 1 \
       "http://0.0.0.0:8081/" > $MITIGATOR_LOG_FILE \
       && echo "" \
