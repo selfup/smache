@@ -2,6 +2,9 @@ version: '3.1'
 
 services:
   mitigator:
+    links:
+      - prod1
+      - prod2
     build:
       context: .
       dockerfile: Dock.mitigator.Dockerfile
@@ -25,8 +28,6 @@ services:
       - MIX_ENV=prod
       - PORT=4001
   prod1:
-    depends_on:
-      - pubsub_registry
     build:
       context: .
       dockerfile: Dock.smache.Dockerfile
@@ -39,8 +40,6 @@ services:
       - MIX_ENV=prod
       - PORT=4000
   prod2:
-    depends_on:
-      - pubsub_registry
     build:
       context: .
       dockerfile: Dock.smache.Dockerfile

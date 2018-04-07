@@ -2,19 +2,39 @@ package main
 
 import (
 	"fmt"
-	"log"
-	"net/http"
+	"sync"
+
+	"github.com/valyala/fasthttp"
 )
 
-func hello(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintf(w, "Hello World")
+var (
+	mutex = &sync.Mutex{}
+	count = 0
+	ips   = [2]string{"172.17.0.1:1234", "172.17.0.1:1235"}
+)
+
+func fastHTTPHandler(ctx *fasthttp.RequestCtx) {
+	mutex.Lock()
+	uri := fmt.Sprintf("http://%s%s", ips[count], "/api/?key=1")
+
+	if count == 1 {
+		count--
+	} else {
+		count++
+	}
+	mutex.Unlock()
+
+	_, body, err := fasthttp.Get(nil, uri)
+
+	if err != nil {
+		failedURI := fmt.Sprintf("call to %s failed", uri)
+
+		fmt.Fprintf(ctx, failedURI)
+	}
+
+	ctx.Write(body)
 }
 
 func main() {
-	http.HandleFunc("/", hello)
-
-	err := http.ListenAndServe(":8081", nil)
-	if err != nil {
-		log.Fatal("ListenAndServe: ", err)
-	}
+	fasthttp.ListenAndServe(":8081", fastHTTPHandler)
 }
