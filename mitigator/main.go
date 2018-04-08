@@ -4,9 +4,9 @@ import (
 	"fmt"
 	"io"
 	"log"
+	"net"
 	"net/http"
 	"sync"
-	"time"
 )
 
 var (
@@ -19,7 +19,7 @@ var (
 
 func httpHandler(w http.ResponseWriter, r *http.Request) {
 	mutex.Lock()
-	uri := fmt.Sprintf("http://%s%s", dockers[count], "/api/?key=1")
+	uri := fmt.Sprintf("http://%s%s", ips[count], "/api/?key=1")
 
 	if count == 1 {
 		count--
@@ -36,19 +36,37 @@ func httpHandler(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprintf(w, failedURI)
 	}
 
-	io.Copy(w, res.Body)
-
 	defer res.Body.Close()
+
+	io.Copy(w, res.Body)
+}
+
+func findMachineIP() string {
+	addrs, err := net.InterfaceAddrs()
+
+	if err != nil {
+		return ""
+	}
+
+	for _, addr := range addrs {
+		networkIP, ok := addr.(*net.IPNet)
+		if ok && !networkIP.IP.IsLoopback() && networkIP.IP.To4() != nil {
+			return networkIP.IP.String()
+		}
+	}
+
+	return ""
 }
 
 func main() {
 	transport := &http.Transport{
-		MaxIdleConnsPerHost: 1024,
-		TLSHandshakeTimeout: 0 * time.Second,
+		MaxIdleConns:        1000,
+		MaxIdleConnsPerHost: 1000,
 	}
 
-	// frontload client to greatly increase perf
 	client = &http.Client{Transport: transport}
+
+	fmt.Println(findMachineIP())
 
 	http.HandleFunc("/", httpHandler)
 	log.Fatal(http.ListenAndServe(":8081", nil))
