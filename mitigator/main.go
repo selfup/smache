@@ -21,15 +21,9 @@ var (
 )
 
 func httpHandler(w http.ResponseWriter, r *http.Request) {
-	mutex.Lock()
-	uri := fmt.Sprintf("http://%s%s", ips[count], "/api/?key=1")
+	countMitigation()
 
-	if count == 1 {
-		count--
-	} else {
-		count++
-	}
-	mutex.Unlock()
+	uri := fmt.Sprintf("http://%s%s", ips[count], "/api/?key=1")
 
 	_, body, err := fasthttp.Get(nil, uri)
 
@@ -40,6 +34,18 @@ func httpHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	w.Write(body)
+}
+
+func countMitigation() {
+	mutex.Lock()
+
+	if count == 1 {
+		count--
+	} else {
+		count++
+	}
+
+	mutex.Unlock()
 }
 
 func definePort() string {
