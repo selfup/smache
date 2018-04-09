@@ -2,17 +2,20 @@ package main
 
 import (
 	"fmt"
-	"io"
 	"log"
 	"net"
 	"net/http"
+	"os"
 	"sync"
+
+	"github.com/valyala/fasthttp"
 )
 
 var (
 	mutex   = &sync.Mutex{}
 	count   = 0
 	client  *http.Client
+	locals  = [2]string{"0.0.0.0:1234", "0.0.0.0:1235"}
 	dockers = [2]string{"172.17.0.1:1234", "172.17.0.1:1235"}
 	ips     = [2]string{"192.168.1.7:1234", "192.168.1.7:1235"}
 )
@@ -28,7 +31,7 @@ func httpHandler(w http.ResponseWriter, r *http.Request) {
 	}
 	mutex.Unlock()
 
-	res, err := client.Get(uri)
+	_, body, err := fasthttp.Get(nil, uri)
 
 	if err != nil {
 		failedURI := fmt.Sprintf("call to %s failed", uri)
@@ -36,9 +39,17 @@ func httpHandler(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprintf(w, failedURI)
 	}
 
-	defer res.Body.Close()
+	w.Write(body)
+}
 
-	io.Copy(w, res.Body)
+func definePort() string {
+	portEnv := os.Getenv("PORT")
+
+	if portEnv != "" {
+		return ":" + portEnv
+	}
+
+	return ":8081"
 }
 
 func findMachineIP() string {
@@ -69,5 +80,5 @@ func main() {
 	fmt.Println(findMachineIP())
 
 	http.HandleFunc("/", httpHandler)
-	log.Fatal(http.ListenAndServe(":8081", nil))
+	log.Fatal(http.ListenAndServe(definePort(), nil))
 }

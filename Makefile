@@ -6,6 +6,7 @@ DOCKER_CMD_MITIGATOR=$(DOCKER_BUILD)/mitigator
 DOCKER_CMD_REGISTRY=$(DOCKER_BUILD)/registry
 
 main:
+	go get -u github.com/valyala/fasthttp
 	rm -rf $(DOCKER_BUILD)
 	mkdir -p $(DOCKER_BUILD)
 	$(GO_BUILD_ENV) go build -v -o $(DOCKER_CMD_MITIGATOR) ./mitigator

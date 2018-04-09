@@ -11,6 +11,8 @@ services:
     command: /opt/bin/mitigator
     ports:
       - "8081:8081"
+    environment:
+      - PORT=8081
     volumes:
       - .:/opt/app
   registry:
@@ -25,7 +27,6 @@ services:
     volumes:
       - .:/opt/app
     environment:
-      - MIX_ENV=prod
       - PORT=4001
   prod1:
     build:
