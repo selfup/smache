@@ -2,13 +2,12 @@ package main
 
 import (
 	"fmt"
+	"io"
 	"log"
 	"net"
 	"net/http"
 	"os"
 	"sync"
-
-	"github.com/valyala/fasthttp"
 )
 
 var (
@@ -25,13 +24,15 @@ func httpHandler(w http.ResponseWriter, r *http.Request) {
 
 	uri := "http://" + ips[count] + "/api/?key=1"
 
-	status, body, err := fasthttp.Get(nil, uri)
+	res, err := client.Get(uri)
 
 	if err != nil {
-		log.Println("|", status, "|", uri, "|", err)
+		log.Println("|", res.Status, "|", uri, "|", err)
 	}
 
-	w.Write(body)
+	defer res.Body.Close()
+
+	io.Copy(w, res.Body)
 }
 
 func countMitigation() {
