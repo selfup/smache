@@ -23,14 +23,12 @@ var (
 func httpHandler(w http.ResponseWriter, r *http.Request) {
 	countMitigation()
 
-	uri := fmt.Sprintf("http://%s%s", ips[count], "/api/?key=1")
+	uri := "http://" + ips[count] + "/api/?key=1"
 
-	_, body, err := fasthttp.Get(nil, uri)
+	status, body, err := fasthttp.Get(nil, uri)
 
 	if err != nil {
-		failedURI := fmt.Sprintf("call to %s failed", uri)
-
-		fmt.Fprintf(w, failedURI)
+		log.Println("|", status, "|", uri, "|", err)
 	}
 
 	w.Write(body)
