@@ -19,10 +19,10 @@ function run () {
   if [ "$1" == "m" ]
   then
     ab \
-      -n 40000 \
-      -c 400 \
+      -n 400000 \
+      -c 1000 \
       -k -v 1 \
-      "http://0.0.0.0:8081/" > $MITIGATOR_LOG_FILE \
+      "http://192.168.1.7:8081/" > $MITIGATOR_LOG_FILE \
       && echo "" \
       && echo "--> results:
         $(grep seconds $MITIGATOR_LOG_FILE)
