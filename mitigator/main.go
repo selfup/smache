@@ -20,9 +20,12 @@ var (
 )
 
 func httpHandler(w http.ResponseWriter, r *http.Request) {
-	countMitigation()
+	mutex.Lock()
 
+	countMitigation()
 	uri := "http://" + ips[count] + "/api/?key=1"
+	
+	mutex.Unlock()
 
 	res, err := client.Get(uri)
 
@@ -36,15 +39,11 @@ func httpHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func countMitigation() {
-	mutex.Lock()
-
 	if count == 1 {
 		count--
 	} else {
 		count++
 	}
-
-	mutex.Unlock()
 }
 
 func definePort() string {
