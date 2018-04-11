@@ -11,7 +11,7 @@ function run () {
       -n 400000 \
       -c 400 \
       -k -v 1 \
-      "http://0.0:8081/" > $MITIGATOR_LOG_FILE \
+      "http://0.0:8081/?key=1" > $MITIGATOR_LOG_FILE \
       && echo "" \
       && echo "--> results:
         $(grep seconds $MITIGATOR_LOG_FILE)

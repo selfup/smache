@@ -7,12 +7,12 @@ import (
 	"net"
 	"net/http"
 	"os"
+	"strconv"
 	"sync"
 )
 
 var (
 	mutex   = &sync.Mutex{}
-	count   = 0
 	client  *http.Client
 	locals  = [2]string{"0.0.0.0:1234", "0.0.0.0:1235"}
 	dockers = [2]string{"172.17.0.1:1234", "172.17.0.1:1235"}
@@ -20,12 +20,17 @@ var (
 )
 
 func httpHandler(w http.ResponseWriter, r *http.Request) {
-	mutex.Lock()
+	key, err := strconv.Atoi(r.URL.Query().Get("key"))
 
-	countMitigation()
-	uri := "http://" + ips[count] + "/api/?key=1"
+	if err != nil {
+		fmt.Fprintf(w, "err reading key")
+		log.Println("reading key failed |", err)
+		return
+	}
 
-	mutex.Unlock()
+	shard := key % 4
+
+	uri := "http://" + ips[shard] + "/api/?key=1"
 
 	res, err := client.Get(uri)
 
@@ -36,14 +41,6 @@ func httpHandler(w http.ResponseWriter, r *http.Request) {
 	defer res.Body.Close()
 
 	io.Copy(w, res.Body)
-}
-
-func countMitigation() {
-	if count == 1 {
-		count--
-	} else {
-		count++
-	}
 }
 
 func definePort() string {
