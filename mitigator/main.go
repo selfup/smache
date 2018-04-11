@@ -16,7 +16,7 @@ var (
 	client  *http.Client
 	locals  = [2]string{"0.0.0.0:1234", "0.0.0.0:1235"}
 	dockers = [2]string{"172.17.0.1:1234", "172.17.0.1:1235"}
-	ips     = [2]string{"192.168.1.7:1234", "192.168.1.7:1235"}
+	ips     = [4]string{"192.168.1.7:1234", "192.168.1.7:1235", "192.168.1.7:1236", "192.168.1.7:12357"}
 )
 
 func httpHandler(w http.ResponseWriter, r *http.Request) {
@@ -24,7 +24,7 @@ func httpHandler(w http.ResponseWriter, r *http.Request) {
 
 	countMitigation()
 	uri := "http://" + ips[count] + "/api/?key=1"
-	
+
 	mutex.Unlock()
 
 	res, err := client.Get(uri)

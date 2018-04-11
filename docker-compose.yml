@@ -52,3 +52,27 @@ services:
     environment:
       - MIX_ENV=prod
       - PORT=4000
+  prod3:
+    build:
+      context: .
+      dockerfile: Dock.smache.Dockerfile
+    command: ./bin/smache foreground
+    ports:
+      - "1236:4000"
+    volumes:
+      - .:/opt/app
+    environment:
+      - MIX_ENV=prod
+      - PORT=4000
+  prod4:
+    build:
+      context: .
+      dockerfile: Dock.smache.Dockerfile
+    command: ./bin/smache foreground
+    ports:
+      - "1237:4000"
+    volumes:
+      - .:/opt/app
+    environment:
+      - MIX_ENV=prod
+      - PORT=4000

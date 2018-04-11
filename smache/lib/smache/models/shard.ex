@@ -2,7 +2,7 @@ defmodule Smache.Cache.Shard.Model do
   def tables(type) do
     case Integer.parse(System.get_env("SHARD_LIMIT") || "") do
       :error ->
-        0..16 |> make_tables(type)
+        0..3 |> make_tables(type)
 
       {limit, _} ->
         0..(limit - 1) |> make_tables(type)
@@ -25,7 +25,7 @@ defmodule Smache.Cache.Shard.Model do
           true ->
             hex = Base.encode16(key)
 
-            {num_key, _} = Integer.parse(hex, 16)
+            {num_key, _} = Integer.parse(hex, 4)
 
             num_key
 
