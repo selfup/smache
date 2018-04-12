@@ -1,43 +1,43 @@
-This is ApacheBench, Version 2.3 <$Revision: 1706008 $>
+This is ApacheBench, Version 2.3 <$Revision: 1796539 $>
 Copyright 1996 Adam Twiss, Zeus Technology Ltd, http://www.zeustech.net/
 Licensed to The Apache Software Foundation, http://www.apache.org/
 
-Benchmarking 0.0 (be patient)
+Benchmarking 0.0.0.0 (be patient)
 
 
 Server Software:        
-Server Hostname:        0.0
-Server Port:            4000
+Server Hostname:        0.0.0.0
+Server Port:            8080
 
-Document Path:          /?key=1
-Document Length:        22 bytes
+Document Path:          /
+Document Length:        5 bytes
 
 Concurrency Level:      1000
-Time taken for tests:   6.743 seconds
-Complete requests:      40000
+Time taken for tests:   2.361 seconds
+Complete requests:      20000
 Failed requests:        0
-Keep-Alive requests:    40000
-Total transferred:      11080000 bytes
-HTML transferred:       880000 bytes
-Requests per second:    5932.32 [#/sec] (mean)
-Time per request:       168.568 [ms] (mean)
-Time per request:       0.169 [ms] (mean, across all concurrent requests)
-Transfer rate:          1604.74 [Kbytes/sec] received
+Keep-Alive requests:    20000
+Total transferred:      2900000 bytes
+HTML transferred:       100000 bytes
+Requests per second:    8469.54 [#/sec] (mean)
+Time per request:       118.070 [ms] (mean)
+Time per request:       0.118 [ms] (mean, across all concurrent requests)
+Transfer rate:          1199.30 [Kbytes/sec] received
 
 Connection Times (ms)
               min  mean[+/-sd] median   max
-Connect:        0    4  26.3      0     264
-Processing:    45  161  38.3    156     335
-Waiting:       43  161  38.2    156     335
-Total:         45  165  55.0    156     595
+Connect:        0   19 138.0      0    1040
+Processing:     0   95  34.1    107     352
+Waiting:        0   95  34.1    107     352
+Total:          0  115 139.4    108    1235
 
 Percentage of the requests served within a certain time (ms)
-  50%    156
-  66%    168
-  75%    179
-  80%    189
-  90%    209
-  95%    236
-  98%    356
-  99%    454
- 100%    595 (longest request)
+  50%    108
+  66%    113
+  75%    118
+  80%    119
+  90%    122
+  95%    153
+  98%    236
+  99%   1110
+ 100%   1235 (longest request)

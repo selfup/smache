@@ -17,5 +17,7 @@ scripts
 *.log
 *.zip
 *.tar.gz
+*.tar
+*.cookie
 *.log
 *.md

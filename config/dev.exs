@@ -17,7 +17,7 @@ config :smache, SmacheWeb.Endpoint,
     ]
   ]
 
-# config :logger, :console, format: "[$level] $message\n"
-config :logger, level: :warn
+config :logger, :console, format: "[$level] $message\n"
+# config :logger, level: :warn
 
 config :phoenix, :stacktrace_depth, 20

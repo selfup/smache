@@ -8,10 +8,10 @@ function run () {
   if [ "$1" == "m" ]
   then
     ab \
-      -n 40000 \
+      -n 20000 \
       -c 1000 \
       -k -v 1 \
-      "http://0.0:4000/?key=1" > $MITIGATOR_LOG_FILE \
+      "http://0.0.0.0:8080/" > $MITIGATOR_LOG_FILE \
       && echo "" \
       && echo "--> results:
         $(grep seconds $MITIGATOR_LOG_FILE)
@@ -23,7 +23,7 @@ function run () {
   then
     ab \
     -n 20000 \
-    -c 200 \
+    -c 250 \
     -k -v 1 \
     -H "Accept-Encoding: gzip, deflate" \
     -T "application/json" \
@@ -34,20 +34,10 @@ function run () {
       $(grep -w second $SMACHE_LOG_FILE)
     " \
     && ab \
-      -n 20000 \
-      -c 200 \
-      -k -v 1 \
-      "http://0.0:4001/api/" > $PUB_SUB_LOG_FILE \
-      && echo "" \
-      && echo "--> results:
-        $(grep seconds $PUB_SUB_LOG_FILE)
-        $(grep -w second $PUB_SUB_LOG_FILE)
-      " \
-    && ab \
       -n 40000 \
-      -c 400 \
+      -c 500 \
       -k -v 1 \
-      "http://0.0:8081/" > $MITIGATOR_LOG_FILE \
+      "http://0.0:8081/healthcheck" > $MITIGATOR_LOG_FILE \
       && echo "" \
       && echo "--> results:
         $(grep seconds $MITIGATOR_LOG_FILE)
