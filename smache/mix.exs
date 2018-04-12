@@ -39,6 +39,7 @@ defmodule Smache.Mixfile do
       {:gettext, "~> 0.11"},
       {:cowboy, "~> 1.0"},
       {:cors_plug, "~> 1.5"},
+      {:httpoison, "~> 1.0"},
       {:distillery, "~> 1.5", runtime: false, only: :prod}
     ]
   end
