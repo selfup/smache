@@ -8,7 +8,7 @@ function run () {
   if [ "$1" == "m" ]
   then
     ab \
-      -n 40000 \
+      -n 400000 \
       -c 1000 \
       -k -v 1 \
       "http://0.0.0.0:8081/" > $MITIGATOR_LOG_FILE \
