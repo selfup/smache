@@ -16,6 +16,8 @@ Example supervision tree of a default shard size (4):
 
 ![smache](https://user-images.githubusercontent.com/9837366/38711264-4f2c4ef6-3e8a-11e8-9a99-8c38e337acf3.PNG)
 
+The 4 random PIDs are for Hackney (HTTPoison) proxy pools :pray:
+
 _Suprisingly performant_ :smile:
 
 ## Caveats
