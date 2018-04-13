@@ -14,7 +14,7 @@ RAM IO and all cache is handled using [ETS](https://elixir-lang.org/getting-star
 
 Example supervision tree of a default shard size (4):
 
-![smache](https://user-images.githubusercontent.com/9837366/38340903-7fc9865a-383b-11e8-9adc-b0641291a5c7.PNG)
+![smache](https://user-images.githubusercontent.com/9837366/38711264-4f2c4ef6-3e8a-11e8-9a99-8c38e337acf3.PNG)
 
 _Suprisingly performant_ :smile:
 
