@@ -2,17 +2,9 @@
 
 ./scripts/secret.sh
 
-cd smache \
-    && echo 'GRABBING AND COMPILING DEPENDENCIES' \
+echo 'GRABBING AND COMPILING DEPENDENCIES' \
     && mix deps.get \
     && mix deps.compile \
     && echo 'TESTING SMACHE APP' \
     && mix test \
-    && cd ../registry \
-    && echo 'GRABBING AND COMPILING DEPENDENCIES' \
-    && mix deps.get \
-    && mix deps.compile \
-    && echo 'TESTING SMACHE APP' \
-    && mix test \
-    && cd .. \
     && echo 'ALL TESTS PASS'

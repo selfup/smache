@@ -5,23 +5,22 @@ defmodule SmacheWeb.ProxyController do
     {"192.168.1.7:1234/api/", :first_pool},
     {"192.168.1.7:1235/api/", :second_pool},
     {"192.168.1.7:1236/api/", :third_pool},
-    {"192.168.1.7:1237/api/", :fourth_pool},
+    {"192.168.1.7:1237/api/", :fourth_pool}
   ]
 
   def get(conn, %{"key" => key} = _params) do
     case key_is_nil?(conn, key) do
       :proceed_with_request ->
-        [url_info | _t] = @smache_ips |> Enum.shuffle
+        [url_info | _t] = @smache_ips |> Enum.shuffle()
 
         headers = []
         params = [key: key]
 
         {url, pool} = url_info
 
-        {:ok,
-          %HTTPoison.Response{status_code: 200, body: body}
-        } = HTTPoison.get(url, headers, params: params, hackney: [pool: pool])
-        
+        {:ok, %HTTPoison.Response{status_code: 200, body: body}} =
+          HTTPoison.get(url, headers, params: params, hackney: [pool: pool])
+
         res = Jason.decode!(body)
 
         json(conn, res)
