@@ -1,47 +1,46 @@
-This is ApacheBench, Version 2.3 <$Revision: 1796539 $>
+This is ApacheBench, Version 2.3 <$Revision: 1807734 $>
 Copyright 1996 Adam Twiss, Zeus Technology Ltd, http://www.zeustech.net/
 Licensed to The Apache Software Foundation, http://www.apache.org/
 
 Benchmarking 0.0.0.0 (be patient)
 
 
-Server Software:        
+Server Software:        Cowboy
 Server Hostname:        0.0.0.0
 Server Port:            1234
 
 Document Path:          /api
-Document Length:        0 bytes
+Document Length:        25 bytes
 
 Concurrency Level:      250
-Time taken for tests:   1.884 seconds
+Time taken for tests:   1.686 seconds
 Complete requests:      20000
-Failed requests:        19997
-   (Connect: 0, Receive: 0, Length: 19705, Exceptions: 292)
-Keep-Alive requests:    19662
-Total transferred:      5517328 bytes
+Failed requests:        0
+Keep-Alive requests:    19912
+Total transferred:      5597888 bytes
 Total body sent:        5260000
-HTML transferred:       492625 bytes
-Requests per second:    10615.11 [#/sec] (mean)
-Time per request:       23.551 [ms] (mean)
-Time per request:       0.094 [ms] (mean, across all concurrent requests)
-Transfer rate:          2859.72 [Kbytes/sec] received
-                        2726.34 kb/s sent
-                        5586.06 kb/s total
+HTML transferred:       500000 bytes
+Requests per second:    11859.91 [#/sec] (mean)
+Time per request:       21.079 [ms] (mean)
+Time per request:       0.084 [ms] (mean, across all concurrent requests)
+Transfer rate:          3241.72 [Kbytes/sec] received
+                        3046.05 kb/s sent
+                        6287.77 kb/s total
 
 Connection Times (ms)
               min  mean[+/-sd] median   max
-Connect:        0    2  37.6      0    1021
-Processing:     0   21  15.2     19     196
-Waiting:        0   21  15.4     19     196
-Total:          0   23  41.3     19    1069
+Connect:        0    4  63.7      0    1004
+Processing:     1   17  11.2     15     135
+Waiting:        1   17  11.2     15     135
+Total:          1   21  66.5     15    1067
 
 Percentage of the requests served within a certain time (ms)
-  50%     19
-  66%     23
-  75%     26
-  80%     28
-  90%     35
-  95%     42
-  98%     58
-  99%     92
- 100%   1069 (longest request)
+  50%     15
+  66%     18
+  75%     20
+  80%     22
+  90%     28
+  95%     36
+  98%     50
+  99%     91
+ 100%   1067 (longest request)

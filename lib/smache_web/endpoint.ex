@@ -8,12 +8,10 @@ defmodule SmacheWeb.Endpoint do
   plug(Plug.RequestId)
   plug(Plug.Logger)
 
-  plug(
-    Plug.Parsers,
+  plug Plug.Parsers,
     parsers: [:urlencoded, :multipart, :json],
     pass: ["*/*"],
-    json_decoder: Poison
-  )
+    json_decoder: Jason
 
   plug(Plug.MethodOverride)
   plug(Plug.Head)
