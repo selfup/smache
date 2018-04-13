@@ -32,8 +32,6 @@ If you plan to store integers (as keys) as well as regular strings (as keys), pl
 
 1. Docker
 1. Elixir
-1. Go
-1. Makefile runner
 1. Bash (masOS, Linux, WSL (Win10))
 
 **On first boot**:
@@ -43,8 +41,8 @@ If you plan to store integers (as keys) as well as regular strings (as keys), pl
 1. Generate Secret
 1. Ensure deps are installed and compiled
 1. Run tests
-1. Build all 3 images
-1. Run all 6 containers
+1. Build the image
+1. Run all 5 containers
 
 Essentially the _bootstrapping_ scripts :rocket:
 
