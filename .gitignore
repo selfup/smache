@@ -13,6 +13,8 @@
 *.log
 *.zip
 *.tar.gz
+*.tar
+*.cookie
 *.log
 *.DS_Store
 *release

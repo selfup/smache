@@ -5,29 +5,20 @@ services:
     links:
       - prod1
       - prod2
+      - prod3
+      - prod4
     build:
       context: .
-      dockerfile: Dock.mitigator.Dockerfile
-    command: /opt/bin/mitigator
+      dockerfile: Dock.smache.Dockerfile
+    command: ./bin/smache foreground
     ports:
       - "8081:8081"
     environment:
+      - MIX_ENV=prod
       - PORT=8081
+      - PROXY=true
     volumes:
       - .:/opt/app
-  registry:
-    depends_on:
-      - mitigator
-    build:
-      context: .
-      dockerfile: Dock.registry.Dockerfile
-    command: ./bin/registry foreground
-    ports:
-      - "4001:4001"
-    volumes:
-      - .:/opt/app
-    environment:
-      - PORT=4001
   prod1:
     build:
       context: .
@@ -35,6 +26,7 @@ services:
     command: ./bin/smache foreground
     ports:
       - "1234:4000"
+
     volumes:
       - .:/opt/app
     environment:
@@ -47,6 +39,32 @@ services:
     command: ./bin/smache foreground
     ports:
       - "1235:4000"
+
+    volumes:
+      - .:/opt/app
+    environment:
+      - MIX_ENV=prod
+      - PORT=4000
+  prod3:
+    build:
+      context: .
+      dockerfile: Dock.smache.Dockerfile
+    command: ./bin/smache foreground
+    ports:
+      - "1236:4000"
+
+    volumes:
+      - .:/opt/app
+    environment:
+      - MIX_ENV=prod
+      - PORT=4000
+  prod4:
+    build:
+      context: .
+      dockerfile: Dock.smache.Dockerfile
+    command: ./bin/smache foreground
+    ports:
+      - "1237:4000"
     volumes:
       - .:/opt/app
     environment:

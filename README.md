@@ -8,11 +8,11 @@ Provides a RESTful API that can handle concurrent requests (Phoenix) but seriali
 
 All serialized writes can be split up by amount of shards.
 
-Default shard size is 17. Any other wanted size can be set via `SHARD_LIMIT` (Any number above 0).
+Default shard size is 4. Any other wanted size can be set via `SHARD_LIMIT` (Any number above 0).
 
 RAM IO and all cache is handled using [ETS](https://elixir-lang.org/getting-started/mix-otp/ets.html).
 
-Example supervision tree of a default shard size (17):
+Example supervision tree of a default shard size (4):
 
 ![smache](https://user-images.githubusercontent.com/9837366/38340903-7fc9865a-383b-11e8-9adc-b0641291a5c7.PNG)
 
@@ -43,8 +43,8 @@ If you plan to store integers (as keys) as well as regular strings (as keys), pl
 1. Generate Secret
 1. Ensure deps are installed and compiled
 1. Run tests
-1. Build all 3 containers
-1. Run all containers
+1. Build all 3 images
+1. Run all 6 containers
 
 Essentially the _bootstrapping_ scripts :rocket:
 
@@ -91,7 +91,7 @@ Make sure you have your ssh key as an authorized key for your target node!
 
 On a single shard (so imagine just one ets table)
 
-~13k req/s in an Alpine Docker Container running on Ubuntu 17.10 in production mode on a 2 Core Intel i7 from 2013
+~13k req/s in an Alpine Docker Container running on Ubuntu 4.10 in production mode on a 2 Core Intel i7 from 2013
 
 **CPU Info**
 

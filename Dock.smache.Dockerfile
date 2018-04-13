@@ -10,8 +10,7 @@ RUN apk --update add make bash && rm -rf /var/cache/apk/*
 
 WORKDIR ${HOME}
 
-COPY smache .
-COPY .env .
+COPY . .
 RUN source .env \
   && mix do deps.get, compile, release --verbose --env=prod \
   && mkdir -p /opt/$APP/log \
@@ -25,6 +24,6 @@ RUN source .env \
 
 WORKDIR /opt/$APP
 
-HEALTHCHECK CMD curl -fs http://localhost:$PORT || exit 1
+HEALTHCHECK CMD curl -fs http://localhost:$PORT/healthcheck || exit 1
 
 CMD ["./bin/smache", "foreground"]
