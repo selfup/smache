@@ -1,72 +1,13 @@
 version: '3.1'
 
 services:
-  mitigator:
-    links:
-      - prod1
-      - prod2
-      - prod3
-      - prod4
+  prod:
     build:
       context: .
       dockerfile: Dock.smache.Dockerfile
-    command: ./bin/smache foreground
-    ports:
-      - "8081:8081"
-    environment:
-      - MIX_ENV=prod
-      - PORT=8081
-      - PROXY=true
-    volumes:
-      - .:/opt/app
-  prod1:
-    build:
-      context: .
-      dockerfile: Dock.smache.Dockerfile
-    command: ./bin/smache foreground
+    command: bash -c "ls -lah && elixir rel/vm_args.exs && _build/prod/rel/smache/bin/smache foreground"
     ports:
       - "1234:4000"
-
     volumes:
-      - .:/opt/app
-    environment:
-      - MIX_ENV=prod
-      - PORT=4000
-  prod2:
-    build:
-      context: .
-      dockerfile: Dock.smache.Dockerfile
-    command: ./bin/smache foreground
-    ports:
-      - "1235:4000"
-
-    volumes:
-      - .:/opt/app
-    environment:
-      - MIX_ENV=prod
-      - PORT=4000
-  prod3:
-    build:
-      context: .
-      dockerfile: Dock.smache.Dockerfile
-    command: ./bin/smache foreground
-    ports:
-      - "1236:4000"
-
-    volumes:
-      - .:/opt/app
-    environment:
-      - MIX_ENV=prod
-      - PORT=4000
-  prod4:
-    build:
-      context: .
-      dockerfile: Dock.smache.Dockerfile
-    command: ./bin/smache foreground
-    ports:
-      - "1237:4000"
-    volumes:
-      - .:/opt/app
-    environment:
-      - MIX_ENV=prod
-      - PORT=4000
+    - /tmp:/tmp
+  

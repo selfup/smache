@@ -5,11 +5,11 @@ services:
     build:
       context: .
       dockerfile: Dock.smache.Dockerfile
-    command: ./bin/smache foreground
+    command: bash -c "ls -lah && elixir rel/vm_args.exs && _build/prod/rel/smache/bin/smache foreground"
     ports:
       - "4000:4000"
     volumes:
-      - .:/opt/app
+      - /tmp:/tmp
     environment:
       - MIX_ENV=prod
       - PORT=4000
