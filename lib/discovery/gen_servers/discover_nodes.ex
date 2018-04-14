@@ -19,8 +19,12 @@ defmodule Smache.DiscoverNodes do
 
   defp schedule_work() do
     sign_as_active_node()
-    status = check_active_nodes() |> inspect()
-    IO.inspect(Atom.to_string(Node.self()) <> status)
+
+    status =
+      check_active_nodes()
+      |> Enum.filter(fn {name, up} -> up end)
+
+    IO.inspect(status)
 
     # every 10 seconds
     Process.send_after(self(), :work, 10 * 1000)
