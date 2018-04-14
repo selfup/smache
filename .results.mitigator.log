@@ -2,42 +2,42 @@ This is ApacheBench, Version 2.3 <$Revision: 1706008 $>
 Copyright 1996 Adam Twiss, Zeus Technology Ltd, http://www.zeustech.net/
 Licensed to The Apache Software Foundation, http://www.apache.org/
 
-Benchmarking 192.168.1.7 (be patient)
+Benchmarking 0.0 (be patient)
 
 
 Server Software:        
-Server Hostname:        192.168.1.7
+Server Hostname:        0.0
 Server Port:            8081
 
 Document Path:          /?key=1
 Document Length:        22 bytes
 
 Concurrency Level:      400
-Time taken for tests:   5.625 seconds
+Time taken for tests:   5.365 seconds
 Complete requests:      40000
 Failed requests:        0
-Keep-Alive requests:    39693
-Total transferred:      11072632 bytes
+Keep-Alive requests:    39764
+Total transferred:      11074336 bytes
 HTML transferred:       880000 bytes
-Requests per second:    7111.01 [#/sec] (mean)
-Time per request:       56.251 [ms] (mean)
-Time per request:       0.141 [ms] (mean, across all concurrent requests)
-Transfer rate:          1922.30 [Kbytes/sec] received
+Requests per second:    7455.75 [#/sec] (mean)
+Time per request:       53.650 [ms] (mean)
+Time per request:       0.134 [ms] (mean, across all concurrent requests)
+Transfer rate:          2015.81 [Kbytes/sec] received
 
 Connection Times (ms)
               min  mean[+/-sd] median   max
-Connect:        0    2  75.1      0    3001
-Processing:     2   54  24.2     51     464
-Waiting:        2   54  24.2     51     464
-Total:          2   56  80.9     51    3167
+Connect:        0    0   1.4      0      26
+Processing:     5   53  19.8     51     176
+Waiting:        5   53  19.8     51     176
+Total:          5   53  20.0     51     184
 
 Percentage of the requests served within a certain time (ms)
   50%     51
   66%     59
   75%     65
-  80%     70
-  90%     83
-  95%     96
-  98%    120
-  99%    142
- 100%   3167 (longest request)
+  80%     68
+  90%     79
+  95%     89
+  98%    103
+  99%    113
+ 100%    184 (longest request)
