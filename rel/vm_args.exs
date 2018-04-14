@@ -13,9 +13,6 @@ ips =
 
 ip = ips |> Enum.at(0)
 
-System.put_env("NAME_SNAME_IP", "#{name}@#{ip}")
-System.put_env("REPLACE_OS_VARS", "true")
-
 cookie =
   File.read!(".env")
   |> String.split("\n")
@@ -23,7 +20,10 @@ cookie =
   |> String.split("=")
   |> Enum.at(1)
 
+System.put_env("NAME_SNAME_IP", "#{name}@#{ip}")
+System.put_env("REPLACE_OS_VARS", "true")
 System.put_env("COOKIE", cookie)
 
 IO.inspect System.get_env("NAME_SNAME_IP")
+IO.inspect System.get_env("REPLACE_OS_VARS")
 IO.inspect System.get_env("COOKIE")
