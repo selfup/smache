@@ -2,10 +2,10 @@ defmodule SmacheWeb.ProxyController do
   use SmacheWeb, :controller
 
   @smache_ips [
-    {"192.168.1.7:1234/api/", :first_pool},
-    {"192.168.1.7:1235/api/", :second_pool},
-    {"192.168.1.7:1236/api/", :third_pool},
-    {"192.168.1.7:1237/api/", :fourth_pool}
+    {"0.0:1234/api/", :first_pool},
+    {"0.0:1235/api/", :second_pool},
+    {"0.0:1236/api/", :third_pool},
+    {"0.0:1237/api/", :fourth_pool}
   ]
 
   def get(conn, %{"key" => key} = _params) do
