@@ -5,7 +5,6 @@ EXPOSE 4000
 ENV PORT=4000 \
   VERSION=0.0.1 \
   APP=smache \
-  REPLACE_OS_VARS=true \
   MIX_ENV=prod
 
 RUN apk --update add make bash && rm -rf /var/cache/apk/*

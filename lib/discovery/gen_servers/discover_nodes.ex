@@ -24,16 +24,16 @@ defmodule Smache.DiscoverNodes do
       check_active_nodes()
       |> Enum.filter(fn {name, up} -> up end)
 
-    IO.inspect(status)
-
-    # every 10 seconds
-    Process.send_after(self(), :work, 10 * 1000)
+    Process.send_after(self(), :work, 1000)
   end
 
   defp sign_as_active_node do
     File.mkdir_p(@sync_dir)
+
     {:ok, file} = File.open(path(), [:write])
+
     IO.binwrite(file, to_string(Time.utc_now()))
+
     File.close(file)
   end
 

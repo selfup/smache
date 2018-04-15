@@ -20,4 +20,12 @@ cookie =
   |> String.split("=")
   |> Enum.at(1)
 
-IO.puts "export SNAME_IP=#{name}@#{ip} export COOKIE=#{cookie}"
+env_vars = [
+  "REPLACE_OS_VARS=true",
+  "SNAME_IP=#{name}@#{ip}",
+  "COOKIE=#{cookie}",
+]
+
+env_vars
+|> Enum.map(&"export #{&1} ")
+|> IO.puts
