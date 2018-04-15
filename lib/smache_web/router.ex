@@ -13,12 +13,6 @@ defmodule SmacheWeb.Router do
     get("/", ApiController, :show)
   end
 
-  # scope "/", SmacheWeb do
-  #   pipe_through(:api)
-
-  #   get("/", ProxyController, :get)
-  # end
-
   scope "/healthcheck", SmacheWeb do
     pipe_through(:api)
 
