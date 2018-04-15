@@ -1,1 +1,2 @@
 -name ${SNAME_IP}
+-setcookie ${COOKIE}

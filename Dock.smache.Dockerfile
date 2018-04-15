@@ -22,4 +22,4 @@ RUN source .env \
 HEALTHCHECK --interval=15s --timeout=5s \
   CMD curl -f "http://0.0:$PORT/healthcheck" || exit 1
 
-CMD bash -c "elixir rel/vm_args.exs && _build/prod/rel/smache/bin/smache foreground"
+CMD ["./rel/boot.sh"]

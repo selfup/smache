@@ -1,13 +1,44 @@
 version: '3.1'
 
 services:
-  prod:
+  smache_one:
     build:
       context: .
       dockerfile: Dock.smache.Dockerfile
-    command: bash -c "ls -lah && elixir rel/vm_args.exs && _build/prod/rel/smache/bin/smache foreground"
+    command: ["./rel/boot.sh"]
     ports:
       - "1234:4000"
     volumes:
     - /tmp:/tmp
+
+  smache_two:
+    build:
+      context: .
+      dockerfile: Dock.smache.Dockerfile
+    command: ["./rel/boot.sh"]
+    ports:
+      - "1235:4000"
+    volumes:
+    - /tmp:/tmp
+
+  smache_three:
+    build:
+      context: .
+      dockerfile: Dock.smache.Dockerfile
+    command: ["./rel/boot.sh"]
+    ports:
+      - "1236:4000"
+    volumes:
+    - /tmp:/tmp
+
+  smache_four:
+    build:
+      context: .
+      dockerfile: Dock.smache.Dockerfile
+    command: ["./rel/boot.sh"]
+    ports:
+      - "1237:4000"
+    volumes:
+    - /tmp:/tmp
+
   

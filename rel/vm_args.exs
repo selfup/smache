@@ -20,10 +20,4 @@ cookie =
   |> String.split("=")
   |> Enum.at(1)
 
-System.put_env("SNAME_IP", "#{name}@#{ip}")
-System.put_env("REPLACE_OS_VARS", "true")
-System.put_env("COOKIE", cookie)
-
-IO.inspect System.get_env("SNAME_IP")
-IO.inspect System.get_env("REPLACE_OS_VARS")
-IO.inspect System.get_env("COOKIE")
+IO.puts "export SNAME_IP=#{name}@#{ip} export COOKIE=#{cookie}"
