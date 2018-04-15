@@ -1,5 +1,3 @@
-{:ok, ifs} = :inet.getif()
-
 <<
   i1 :: unsigned-integer-32,
   i2 :: unsigned-integer-32,
@@ -13,6 +11,8 @@ name =
   |> Base.encode16
   |> String.slice(0..10)
   |> String.downcase
+
+{:ok, ifs} = :inet.getif()
 
 ips =
   Enum.map(ifs, fn {ip, _b, _m} ->
