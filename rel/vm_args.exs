@@ -1,5 +1,13 @@
 {:ok, ifs} = :inet.getif()
 
+<<
+  i1 :: unsigned-integer-32,
+  i2 :: unsigned-integer-32,
+  i3 :: unsigned-integer-32,
+>> = :crypto.strong_rand_bytes(12)
+    
+:rand.seed(:exsplus, {i1, i2, i3})
+
 name =
   :crypto.hash(:sha256, to_string(:rand.uniform()))
   |> Base.encode16
