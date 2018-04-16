@@ -26,7 +26,12 @@ defmodule Smache.Ets.Table do
   def init(args) do
     [{:name, name}] = args
 
-    :ets.new(name, [:named_table, :set, :public, read_concurrency: true])
+    :ets.new(name, [
+      :named_table,
+      :set,
+      :public,
+      read_concurrency: true
+    ])
 
     {:ok, %{name: name}}
   end

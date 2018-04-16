@@ -23,9 +23,7 @@ defmodule Smache.Cache.Shard.Model do
       false ->
         case is_binary(key) do
           true ->
-            hex = Base.encode16(key)
-
-            {num_key, _} = Integer.parse(hex, 4)
+            {num_key, _} = Integer.parse(key, 10)
 
             num_key
 

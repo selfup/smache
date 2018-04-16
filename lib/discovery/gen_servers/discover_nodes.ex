@@ -8,7 +8,15 @@ defmodule Smache.DiscoverNodes do
   end
 
   def init(state) do
+    :ets.new(:nodes, [
+      :named_table,
+      :set,
+      :public,
+      read_concurrency: true
+    ])
+
     schedule_work()
+
     {:ok, state}
   end
 
@@ -18,16 +26,18 @@ defmodule Smache.DiscoverNodes do
   end
 
   defp schedule_work() do
-    sign_as_active_node()
+    register_self()
 
-    status =
-      check_active_nodes()
+    active_nodes =
+      check_nodes()
       |> Enum.filter(fn {name, up} -> up end)
+
+    true = :ets.insert(:nodes, {:active_nodes, active_nodes})
 
     Process.send_after(self(), :work, 1000)
   end
 
-  defp sign_as_active_node do
+  defp register_self do
     File.mkdir_p(@sync_dir)
 
     {:ok, file} = File.open(path(), [:write])
@@ -41,15 +51,15 @@ defmodule Smache.DiscoverNodes do
     @sync_dir <> Atom.to_string(Node.self())
   end
 
-  defp check_active_nodes do
-    active_nodes()
+  defp check_nodes do
+    tracked_nodes()
     |> Enum.map(&String.to_atom(&1))
     |> Enum.map(&{&1, Node.ping(&1) == :pong})
   end
 
-  defp active_nodes do
-    {:ok, active_members} = File.ls(@sync_dir)
+  defp tracked_nodes do
+    {:ok, nodes} = File.ls(@sync_dir)
 
-    active_members
+    nodes
   end
 end

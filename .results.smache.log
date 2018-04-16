@@ -1,46 +1,46 @@
-This is ApacheBench, Version 2.3 <$Revision: 1706008 $>
+This is ApacheBench, Version 2.3 <$Revision: 1796539 $>
 Copyright 1996 Adam Twiss, Zeus Technology Ltd, http://www.zeustech.net/
 Licensed to The Apache Software Foundation, http://www.apache.org/
 
 Benchmarking 0.0 (be patient)
 
 
-Server Software:        
+Server Software:        Cowboy
 Server Hostname:        0.0
 Server Port:            1234
 
 Document Path:          /api
 Document Length:        25 bytes
 
-Concurrency Level:      250
-Time taken for tests:   0.611 seconds
-Complete requests:      20000
+Concurrency Level:      20
+Time taken for tests:   1.941 seconds
+Complete requests:      2000
 Failed requests:        0
-Keep-Alive requests:    20000
-Total transferred:      5600000 bytes
-Total body sent:        5180000
-HTML transferred:       500000 bytes
-Requests per second:    32754.72 [#/sec] (mean)
-Time per request:       7.632 [ms] (mean)
-Time per request:       0.031 [ms] (mean, across all concurrent requests)
-Transfer rate:          8956.37 [Kbytes/sec] received
-                        8284.64 kb/s sent
-                        17241.01 kb/s total
+Keep-Alive requests:    1989
+Total transferred:      559736 bytes
+Total body sent:        484000
+HTML transferred:       50000 bytes
+Requests per second:    1030.29 [#/sec] (mean)
+Time per request:       19.412 [ms] (mean)
+Time per request:       0.971 [ms] (mean, across all concurrent requests)
+Transfer rate:          281.59 [Kbytes/sec] received
+                        243.49 kb/s sent
+                        525.07 kb/s total
 
 Connection Times (ms)
               min  mean[+/-sd] median   max
-Connect:        0    0   1.5      0      20
-Processing:     1    7   3.3      7      35
-Waiting:        1    7   3.3      7      35
-Total:          1    7   4.0      7      39
+Connect:        0    0   0.6      0       7
+Processing:     3   19  10.2     17      72
+Waiting:        3   19  10.2     17      72
+Total:          4   19  10.2     17      72
 
 Percentage of the requests served within a certain time (ms)
-  50%      7
-  66%      8
-  75%      9
-  80%     10
-  90%     12
-  95%     14
-  98%     19
-  99%     24
- 100%     39 (longest request)
+  50%     17
+  66%     20
+  75%     23
+  80%     26
+  90%     33
+  95%     38
+  98%     50
+  99%     58
+ 100%     72 (longest request)
