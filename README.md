@@ -20,9 +20,32 @@ The random PID is for the Node Discovery Loop :pray:
 
 _Suprisingly performant_ :smile:
 
+## Built for Load Balancing
+
+Load Balance your cluster of cache nodes (static or dynamic) and performance increases linearly! :tada:
+
+1. Static clusters (say you stick with 20 forever)
+    a. Will never wipe data (unless rebooted, or the node crashes)
+    b. Will be easier to maintain
+    c. No big worry about data loss, it will be very rare (if at all)
+
+2. Dynamic clusters (auto scaling)
+    a. Will lose data per shard on expansion as well as shrinkage
+    b. Data rebuilds as fast as it did the first time
+    c. Best price to performance ratio
+    d. Requires being ok with losing cache at the cost of reducing price
+
+## TODOS
+
+1. Expirement with Websocket support
+2. Figure out cache invalidation strategies
+3. Wipe old data from nodes that have a new respective shard (dynamic expansion)
+
 ## Caveats
 
 To auto shard at scale, all keys are turned into an integer if not already an integer :thinking:
+
+Currently only supports strings that can be parsed into integers. Working on words :pray:
 
 All nil/null keys are rejected with a 403 :boom:
 
