@@ -22,8 +22,8 @@ function run () {
   if [ "$1" == "" ]
   then
     ab \
-    -n 2000 \
-    -c 20 \
+    -n 20000 \
+    -c 400 \
     -k -v 1 \
     -H "Accept-Encoding: gzip, deflate" \
     -T "application/json" \
@@ -34,8 +34,8 @@ function run () {
       $(grep -w second $SMACHE_LOG_FILE)
     " \
     && ab \
-      -n 2000 \
-      -c 20 \
+      -n 20000 \
+      -c 400 \
       -k -v 1 \
       -H "Accept-Encoding: gzip, deflate" \
       -T "application/json" \
