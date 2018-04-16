@@ -41,6 +41,16 @@ defmodule SmacheWeb.ApiControllerTest do
            }
   end
 
+  test "POST /api - can handle unsigned" do
+    post_query("aaaa")
+
+    assert json_response(get_query("aaaa"), 200) == %{
+             "data" => %{"color" => "blue"},
+             "key" => 1633771873,
+             "node" => "nonode@nohost"
+           }
+  end
+
   test "GET /api - returns 403 on nil/null key" do
     assert json_response(nil_query(), 403) == %{"message" => "key cannot be null"}
   end
