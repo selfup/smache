@@ -30,7 +30,7 @@ defmodule SmacheWeb.ApiControllerTest do
              "key" => 1,
              "node" => "nonode@nohost"
            }
-    
+
     post_query(2)
     post_query(2)
 

@@ -39,7 +39,7 @@ defmodule SmacheWeb.ApiController do
 
   defp fetch(key, data, ets_table) do
     case :ets.lookup(:nodes, :active_nodes) do
-      _ ->
+      [] ->
         Smache.Ets.Table.fetch(key, data, ets_table)
 
       [{_, active_nodes_info}] ->
@@ -70,13 +70,15 @@ defmodule SmacheWeb.ApiController do
   end
 
   def data_from_self_or_other_node(key) do
-    case :ets.lookup(:nodes, :active_nodes) do
-      _ ->
+    [{_, active_nodes_info}] = :ets.lookup(:nodes, :active_nodes)
+
+    case active_nodes_info do
+      [] ->
         data(key)
 
-      [{_, active_nodes_info}] ->
+      nodes ->
         active_nodes =
-          active_nodes_info
+          nodes
           |> Enum.map(fn {node, _status} -> node end)
 
         ukey = Shard.is_num_or_str?(key)
