@@ -25,11 +25,13 @@ _Suprisingly performant_ :smile:
 Load Balance your cluster of cache nodes (static or dynamic) and performance increases linearly! :tada:
 
 1. Static clusters (say you stick with 20 forever)
+
         a. Will never wipe data (unless rebooted, or the node crashes)
         b. Will be easier to maintain
         c. No big worry about data loss, it will be very rare (if at all)
 
 2. Dynamic clusters (auto scaling)
+
         a. Will lose data per shard on expansion as well as shrinkage
         b. Data rebuilds as fast as it did the first time
         c. Best price to performance ratio
