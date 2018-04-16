@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 SMACHE_LOG_FILE=.results.smache.log
-PUB_SUB_LOG_FILE=.results.ps.log
+SMACHE_TWO_LOG_FILE=.results.smache.two.log
 MITIGATOR_LOG_FILE=.results.mitigator.log
 
 function run () {
@@ -23,25 +23,47 @@ function run () {
   then
     ab \
     -n 20000 \
-    -c 250 \
+    -c 400 \
     -k -v 1 \
     -H "Accept-Encoding: gzip, deflate" \
     -T "application/json" \
-    -p ./scripts/bench.data.json http://0.0:1234/api > $SMACHE_LOG_FILE \
+    -p ./scripts/bench.data.one.json http://0.0:1234/api > $SMACHE_LOG_FILE \
     && echo "" \
     && echo "--> results:
       $(grep seconds $SMACHE_LOG_FILE)
       $(grep -w second $SMACHE_LOG_FILE)
     " \
     && ab \
-      -n 40000 \
-      -c 500 \
+      -n 20000 \
+      -c 400 \
       -k -v 1 \
-      "http://0.0:8081/healthcheck" > $MITIGATOR_LOG_FILE \
+      -H "Accept-Encoding: gzip, deflate" \
+      -T "application/json" \
+      -p ./scripts/bench.data.two.json http://0.0:1234/api > $SMACHE_TWO_LOG_FILE \
       && echo "" \
       && echo "--> results:
-        $(grep seconds $MITIGATOR_LOG_FILE)
-        $(grep -w second $MITIGATOR_LOG_FILE)
+        $(grep seconds $SMACHE_TWO_LOG_FILE)
+        $(grep -w second $SMACHE_TWO_LOG_FILE)
+      " \
+    && ab \
+      -n 2000 \
+      -c 20 \
+      -k -v 1 \
+      "http://0.0:1234/api/?key=1" > $SMACHE_TWO_LOG_FILE \
+      && echo "" \
+      && echo "--> results:
+        $(grep seconds $SMACHE_TWO_LOG_FILE)
+        $(grep -w second $SMACHE_TWO_LOG_FILE)
+      " \
+    && ab \
+      -n 2000 \
+      -c 20 \
+      -k -v 1 \
+      "http://0.0:1234/api/?key=2" > $SMACHE_TWO_LOG_FILE \
+      && echo "" \
+      && echo "--> results:
+        $(grep seconds $SMACHE_TWO_LOG_FILE)
+        $(grep -w second $SMACHE_TWO_LOG_FILE)
       "
   fi
 

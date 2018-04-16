@@ -1,72 +1,44 @@
 version: '3.1'
 
 services:
-  mitigator:
-    links:
-      - prod1
-      - prod2
-      - prod3
-      - prod4
+  smache_one:
     build:
       context: .
       dockerfile: Dock.smache.Dockerfile
-    command: ./bin/smache foreground
-    ports:
-      - "8081:8081"
-    environment:
-      - MIX_ENV=prod
-      - PORT=8081
-      - PROXY=true
-    volumes:
-      - .:/opt/app
-  prod1:
-    build:
-      context: .
-      dockerfile: Dock.smache.Dockerfile
-    command: ./bin/smache foreground
+    command: ["./rel/boot.sh"]
     ports:
       - "1234:4000"
-
     volumes:
-      - .:/opt/app
-    environment:
-      - MIX_ENV=prod
-      - PORT=4000
-  prod2:
+    - /tmp:/tmp
+
+  smache_two:
     build:
       context: .
       dockerfile: Dock.smache.Dockerfile
-    command: ./bin/smache foreground
+    command: ["./rel/boot.sh"]
     ports:
       - "1235:4000"
-
     volumes:
-      - .:/opt/app
-    environment:
-      - MIX_ENV=prod
-      - PORT=4000
-  prod3:
+    - /tmp:/tmp
+
+  smache_three:
     build:
       context: .
       dockerfile: Dock.smache.Dockerfile
-    command: ./bin/smache foreground
+    command: ["./rel/boot.sh"]
     ports:
       - "1236:4000"
-
     volumes:
-      - .:/opt/app
-    environment:
-      - MIX_ENV=prod
-      - PORT=4000
-  prod4:
+    - /tmp:/tmp
+
+  smache_four:
     build:
       context: .
       dockerfile: Dock.smache.Dockerfile
-    command: ./bin/smache foreground
+    command: ["./rel/boot.sh"]
     ports:
       - "1237:4000"
     volumes:
-      - .:/opt/app
-    environment:
-      - MIX_ENV=prod
-      - PORT=4000
+    - /tmp:/tmp
+
+  

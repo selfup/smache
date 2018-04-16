@@ -10,10 +10,13 @@ defmodule SmacheWeb.ApiController do
       :proceed_with_request ->
         valid_key = Shard.is_num_or_str?(key)
 
-        valid_data = valid_key |> data()
+        {node, valid_data} =
+          valid_key
+          |> data_from_self_or_other_node()
 
         json(conn, %{
           key: valid_key,
+          node: node,
           data: valid_data
         })
 
@@ -35,18 +38,73 @@ defmodule SmacheWeb.ApiController do
   end
 
   defp fetch(key, data, ets_table) do
-    Smache.Ets.Table.fetch(key, data, ets_table)
+    case :ets.lookup(:nodes, :active_nodes) do
+      [] ->
+        Smache.Ets.Table.fetch(key, data, ets_table)
+
+      [{_, active_nodes_info}] ->
+        active_nodes =
+          active_nodes_info
+          |> Enum.map(fn {node, _status} -> node end)
+
+        ukey = Shard.is_num_or_str?(key)
+
+        case active_nodes do
+          [] ->
+            Smache.Ets.Table.fetch(key, data, ets_table)
+
+          nodes ->
+            shard = rem(ukey, length(nodes))
+
+            delegator = Enum.at(active_nodes, shard)
+
+            case delegator == Node.self() do
+              true ->
+                Smache.Ets.Table.fetch(key, data, ets_table)
+
+              false ->
+                :rpc.call(delegator, Smache.Ets.Table, :fetch, [key, data, ets_table])
+            end
+        end
+    end
   end
 
-  defp data(key) do
+  def data_from_self_or_other_node(key) do
+    [{_, active_nodes_info}] = :ets.lookup(:nodes, :active_nodes)
+
+    case active_nodes_info do
+      [] ->
+        data(key)
+
+      nodes ->
+        active_nodes =
+          nodes
+          |> Enum.map(fn {node, _status} -> node end)
+
+        ukey = Shard.is_num_or_str?(key)
+        shard = rem(ukey, length(active_nodes))
+
+        delegator = Enum.at(active_nodes, shard)
+
+        case delegator == Node.self() do
+          true ->
+            data(key)
+
+          false ->
+            :rpc.call(delegator, SmacheWeb.ApiController, :data, [key])
+        end
+    end
+  end
+
+  def data(key) do
     {_ukey, table} = ets_table(key)
 
     case :ets.lookup(table, key) do
       [] ->
-        nil
+        {Node.self(), nil}
 
       [{_key, data}] ->
-        data
+        {Node.self(), data}
     end
   end
 
