@@ -14,9 +14,9 @@ RAM IO and all cache is handled using [ETS](https://elixir-lang.org/getting-star
 
 Example supervision tree of a default shard size (4):
 
-![smache](https://user-images.githubusercontent.com/9837366/38711264-4f2c4ef6-3e8a-11e8-9a99-8c38e337acf3.PNG)
+![smache](https://user-images.githubusercontent.com/9837366/38791748-07b6a3c8-410f-11e8-9b31-f1a0daa752df.png)
 
-The 4 random PIDs are for Hackney (HTTPoison) proxy pools :pray:
+The random PID is for the Node Discovery Loop :pray:
 
 _Suprisingly performant_ :smile:
 
