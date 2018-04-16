@@ -48,6 +48,16 @@ If you plan to store integers (as keys) as well as regular strings (as keys), pl
 
 Essentially the _bootstrapping_ scripts :rocket:
 
+If you want to just have two Nodes talk to eachother:
+
+```bash
+# in one shell
+./scripts/dev.sh 4000 foo
+
+# in another shell
+./scripts/dev.sh 4001 bar
+```
+
 <!--
 ## Deploying to Heroku (for testing purposes)
 
