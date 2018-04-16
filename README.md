@@ -55,19 +55,19 @@ Examples:
 
 1. `1` -> `1`
 2. `"1"` -> `1`
-3. `"aa"` -> `24929` 
-4. `"aaa"` -> `6381921`
+3. `"aa"` -> `24_929` 
+4. `"aaa"` -> `6_381_921`
 5. `"abcd"` -> `1_633_837_924`
 
 _Simply put:_ to avoid collisions check the range of a string to see how far up you can use a normal integer key.
 
 For example here:
 
-1. 4 chars starts at 1.6+ Billion...
+1. 4 chars starts at 1.6+ billion...
 1. 3 chars starts at 6.3+ million
 1. 2 chars starts at 24+ thousand
 
-So unless you are storing that much data, make sure to store strings of a certain length if they are not going to represent a direct map to an integer :pray:
+So unless you are storing that much data, make sure to store strings of a certain length to ensure they do not colide with already stored integers :pray:
 
 ## Development
 
