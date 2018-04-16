@@ -47,11 +47,27 @@ Load Balance your cluster of cache nodes (static or dynamic) and performance inc
 
 To auto shard at scale, all keys are turned into an integer if not already an integer :thinking:
 
-Currently only supports strings that can be parsed into integers. Working on words :pray:
-
 All nil/null keys are rejected with a 403 :boom:
 
-If you plan to store integers (as keys) as well as regular strings (as keys), please consider a different strategy :thinking:
+If you plan to store integers (or strings that directly map to integers as keys) as well as regular strings (as keys), please consider a different strategy :thinking:
+
+However:
+
+1. `1` -> `1`
+2. `"1"` -> `1`
+3. `"aa"` -> `24929` 
+4. `"aaa"` -> `6381921`
+5. `"abcd"` -> `1_633_837_924`
+
+_Simply put_ to avoid collisions check the range of a string to see how far up you can use a normal integer key.
+
+For example here:
+
+1. a string of 4 chars starts at 1.6+ Billion...
+1. 3 chars starts at 6.3+ million
+1. 2 chars starts at 24+ thousand
+
+So unless you are storing that much data, make sure to store strings of a certain length if they are not going to represent a direct map to an integer :pray:
 
 ## Development
 

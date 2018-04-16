@@ -23,14 +23,18 @@ defmodule Smache.Cache.Shard.Model do
       false ->
         case is_binary(key) do
           true ->
-            {num_key, _} = Integer.parse(key, 10)
+            case Integer.parse(key) do
+              {num_key, _} ->
+                num_key
+              
+              :error ->
+                {num, _str} = Base.hex_encode32(key) |> Integer.parse(32)
 
-            num_key
+                num
+            end
 
           false ->
-            {num_key, _} = Integer.parse(key)
-
-            num_key
+            key
         end
     end
   end

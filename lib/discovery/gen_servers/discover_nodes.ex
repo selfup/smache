@@ -30,7 +30,7 @@ defmodule Smache.DiscoverNodes do
 
     active_nodes =
       check_nodes()
-      |> Enum.filter(fn {name, up} -> up end)
+      |> Enum.filter(fn {_name, up} -> up end)
 
     true = :ets.insert(:nodes, {:active_nodes, active_nodes})
 
