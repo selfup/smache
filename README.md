@@ -1,6 +1,6 @@
 # Smache
 
-Elixir Cache as a Service
+Elixir Cache as a Service :tada: _warning this is alpha stage software_
 
 Serialized - fault tolerant - self sharding - Key Value Cache :rocket:
 
