@@ -6,7 +6,7 @@ Serialized - fault tolerant - self sharding - Key Value Cache :rocket:
 
 Provides a RESTful API that can handle concurrent requests (Phoenix) but serializes all writes to memory.
 
-All serialized writes can be split up by amount of shards.
+All serialized writes can be split up by amount of shards (to deal with concurrency backpressure).
 
 Default shard size is 4. Any other wanted size can be set via `SHARD_LIMIT` (Any number above 0).
 
