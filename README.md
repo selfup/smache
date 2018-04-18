@@ -4,13 +4,11 @@ Elixir Cache as a Service :tada: _warning this is alpha stage software_
 
 Serialized - fault tolerant - self sharding - Key Value Cache :rocket:
 
-Provides a RESTful API that can handle concurrent requests (Phoenix) but serializes all writes to memory.
-
-All serialized writes can be split up by amount of shards (to deal with concurrency backpressure).
-
-Default shard size is 4. Any other wanted size can be set via `SHARD_LIMIT` (Any number above 0).
-
-RAM IO and all cache is handled using [ETS](https://elixir-lang.org/getting-started/mix-otp/ets.html).
+1. Provides a RESTful API that can handle concurrent requests (Phoenix) but serializes all writes to memory
+1. All serialized writes can be split up by amount of shards (to deal with concurrency backpressure)
+1. Default shard size is 4.
+1. Any other wanted size can be set via `SHARD_LIMIT` (Any number above 0)
+1. RAM IO and all cache is handled using [ETS](https://elixir-lang.org/getting-started/mix-otp/ets.html).
 
 Example supervision tree of a default shard size (4):
 
