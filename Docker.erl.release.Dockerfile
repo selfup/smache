@@ -8,8 +8,6 @@ RUN apt-get update && apt-get install -y locales && rm -rf /var/lib/apt/lists/* 
 
 ENV LANG en_US.utf8
 
-RUN rm /bin/sh && ln -s /bin/bash /bin/sh
-
 RUN apt-get update && apt-get install wget -y
 
 RUN wget https://packages.erlang-solutions.com/erlang-solutions_1.0_all.deb \
@@ -32,6 +30,12 @@ ENV PORT=4000 \
 RUN /bin/bash -c "source .env \
   && mix do deps.get, compile, release --verbose --env=prod \
   && cp _build/prod/rel/$APP/releases/$VERSION/$APP.tar.gz $APP.tar.gz \
+  && echo \".\" \
+  && echo \"..\" \
+  && echo \"...\" \
   && echo \"COPY FROM DOCKER NOW\" \
-  && echo \"RUN ./scripts/docker.copy.release.sh in another shell\" \
-  && echo \"VERSION: $VERSION - APP: $APP\""
+  && echo \"RUN:: ./scripts/docker.copy.release.sh ::in another shell\" \
+  && echo \"VERSION: $VERSION - APP: $APP\" \
+  && echo \"...\" \
+  && echo \"..\" \
+  && echo \".\""
