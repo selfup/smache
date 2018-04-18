@@ -1,4 +1,17 @@
 defmodule Secret do
+  @moduledoc """
+  Secret was written in Non Compiled Elixir for the following reasons:
+
+  1. High entropy secret generation in bash only works on Linux
+  2. Almost works all the way on macOS - but doesn't
+  3. Git Bash for Windows (not WSL) doesn't support much
+  4. You need Elixir for this project - therefore this will work
+
+  To run: `elixir ./scripts/secret_gen.exs`
+
+  This file is run by other scripts - no real need to run this manually
+  """
+
   def create_sha do
     <<
       i1 :: unsigned-integer-32,

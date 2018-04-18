@@ -55,7 +55,7 @@ Examples:
 
 1. `1` -> `1`
 2. `"1"` -> `1`
-3. `"aa"` -> `24_929` 
+3. `"aa"` -> `24_929`
 4. `"aaa"` -> `6_381_921`
 5. `"abcd"` -> `1_633_837_924`
 
@@ -89,7 +89,7 @@ So unless you are storing that much data, make sure to store strings of a certai
 
 Essentially the _bootstrapping_ scripts :rocket:
 
-If you want to just have two Nodes talk to eachother:
+### Two local nodes talk to eachother
 
 ```bash
 # in one shell
@@ -99,21 +99,33 @@ If you want to just have two Nodes talk to eachother:
 ./scripts/dev.sh 4001 bar
 ```
 
-<!--
-## Deploying to Heroku (for testing purposes)
+Now run the curl scripts (in a third shell):
+
+```bash
+./scripts/curl.post.sh 4000
+
+./scripts/curl.get.sh 4001
+```
+
+## Deploying to Heroku (for testing a single node)
 
 Make sure the container builds (heroku will rebuild it anyways but just be sure it works)!
 
-`./scripts/test.sh`
+`./scripts/smache.sh`
 
-### If not logged in to Heroku
+If you have made changes to the source code prior to running that script please pass a `--build` flag to ensure the container compiles your new source code.
+
+Ex: `./scripts/smache.sh --build`
+
+### If not logged in to Heroku Container Registry
 
 ```bash
 heroku login
 heroku container:login
 ```
 
-Now: `APP_NAME=<app_name> ./scripts/heroku.sh`
+Now: `./scripts/heroku.sh my_cool_app_name`
+<!--
 
 ## Deploying to Digital Ocean/Vultr/EC2
 
@@ -132,11 +144,6 @@ Make sure you have your ssh key as an authorized key for your target node!
         a. As a Daemon: `PORT=<port> ./bin/smache start`
         b. In the foreground: `PORT=<port> ./bin/smache foreground`
         c. In interactive mode: `PORT=<port> ./bin/smache console`
-
-## Backing up data
-
-1. Tarball: `./scripts/archive.tar.sh`
-2. Zip: `./scripts/achrive.zip.sh`
 
 ## Current Benchmarks
 
@@ -170,6 +177,6 @@ You will need two tabs/panes/shell for this:
 
 ## LICENSE
 
-**MIT**
+Licensed under the [MIT License](https://choosealicense.com/licenses/mit/)
 
-See: `LICENSE` file in root of project
+[See LICENSE file in root of project](https://github.com/selfup/smache/blob/master/LICENSE)
