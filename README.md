@@ -85,7 +85,7 @@ So unless you are storing that much data, make sure to store strings of a certai
 1. Ensure deps are installed and compiled
 1. Run tests
 1. Build the image
-1. Run all 5 containers
+1. Run all 4 containers
 
 Essentially the _bootstrapping_ scripts :rocket:
 
