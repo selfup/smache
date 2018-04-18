@@ -89,7 +89,7 @@ So unless you are storing that much data, make sure to store strings of a certai
 
 Essentially the _bootstrapping_ scripts :rocket:
 
-### Two local nodes talk to eachother
+### Have two local nodes talk to eachother in dev
 
 ```bash
 # in one shell
