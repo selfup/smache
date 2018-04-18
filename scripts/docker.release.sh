@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 
-docker-compose -f docker-compose.smache-release.yml up --build
+docker-compose -f docker-compose.erl.release.yml up --build

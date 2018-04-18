@@ -4,7 +4,7 @@ services:
   prod:
     build:
       context: .
-      dockerfile: Dock.smache.Dockerfile
+      dockerfile: Dockerfile
     command: ["./rel/boot.sh"]
     ports:
       - "4000:4000"

@@ -1,5 +1,11 @@
 #!/usr/bin/env bash
 
+# PLEASE READ THIS
+# ****************
+# STOPS AND THEN DELETES/WIPES/REMOVES ALL DOCKER CONTAINERS/IMAGES ON YOUR ENTIRE MACHINE
+# ****************
+# PLEASE READ THIS
+
 PS_AQ=$(docker ps -aq)
 IMAGES_Q=$(docker images -q)
 

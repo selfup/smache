@@ -4,7 +4,7 @@ services:
   smache_one:
     build:
       context: .
-      dockerfile: Dock.smache.Dockerfile
+      dockerfile: Dockerfile
     command: ["./rel/boot.sh"]
     ports:
       - "1234:4000"
@@ -14,7 +14,7 @@ services:
   smache_two:
     build:
       context: .
-      dockerfile: Dock.smache.Dockerfile
+      dockerfile: Dockerfile
     command: ["./rel/boot.sh"]
     ports:
       - "1235:4000"
@@ -24,7 +24,7 @@ services:
   smache_three:
     build:
       context: .
-      dockerfile: Dock.smache.Dockerfile
+      dockerfile: Dockerfile
     command: ["./rel/boot.sh"]
     ports:
       - "1236:4000"
@@ -34,7 +34,7 @@ services:
   smache_four:
     build:
       context: .
-      dockerfile: Dock.smache.Dockerfile
+      dockerfile: Dockerfile
     command: ["./rel/boot.sh"]
     ports:
       - "1237:4000"

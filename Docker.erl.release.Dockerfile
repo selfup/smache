@@ -19,9 +19,9 @@ RUN apt-get update
 
 RUN apt-get install esl-erlang -y && apt-get install elixir -y
 
-RUN mix local.hex --force && mix local.rebar --force
+COPY . .
 
-WORKDIR /
+RUN mix local.hex --force && mix local.rebar --force
 
 EXPOSE 4000
 ENV PORT=4000 \
@@ -29,12 +29,9 @@ ENV PORT=4000 \
   APP=smache \
   MIX_ENV=prod
 
-COPY ./smache ./
-
-RUN apt-get install pwgen -y
-
-RUN SECRET_KEY_BASE=$(pwgen 43 1) mix do deps.get, compile, release --verbose --env=prod \
+RUN /bin/bash -c "source .env \
+  && mix do deps.get, compile, release --verbose --env=prod \
   && cp _build/prod/rel/$APP/releases/$VERSION/$APP.tar.gz $APP.tar.gz \
-  && ls -lah \
-  && echo "COPY FROM DOCKER NOW" \
-  && echo "VERSION: $VERSION - APP: $APP"
+  && echo \"COPY FROM DOCKER NOW\" \
+  && echo \"RUN ./scripts/docker.copy.release.sh in another shell\" \
+  && echo \"VERSION: $VERSION - APP: $APP\""
