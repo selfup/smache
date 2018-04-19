@@ -10,7 +10,7 @@ WORKDIR ${HOME}
 
 COPY . .
 
-RUN source .env \
+RUN source .env && mkdir -p /mnt \
   && mix do deps.get, compile, release --verbose --env=prod
 
 HEALTHCHECK --interval=10s --timeout=2s \

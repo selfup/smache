@@ -9,7 +9,7 @@ services:
     ports:
       - "1234:4000"
     volumes:
-    - /tmp:/tmp
+    - smache_mnt:/mnt
 
   smache_two:
     build:
@@ -19,7 +19,7 @@ services:
     ports:
       - "1235:4000"
     volumes:
-    - /tmp:/tmp
+    - smache_mnt:/mnt
 
   smache_three:
     build:
@@ -29,7 +29,7 @@ services:
     ports:
       - "1236:4000"
     volumes:
-    - /tmp:/tmp
+    - smache_mnt:/mnt
 
   smache_four:
     build:
@@ -39,6 +39,6 @@ services:
     ports:
       - "1237:4000"
     volumes:
-    - /tmp:/tmp
+    - smache_mnt:/mnt
 
   
