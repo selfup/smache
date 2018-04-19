@@ -13,7 +13,7 @@ COPY . .
 RUN source .env \
   && mix do deps.get, compile, release --verbose --env=prod
 
-HEALTHCHECK --interval=1s --timeout=2s \
+HEALTHCHECK --interval=10s --timeout=2s \
   CMD curl -f 0.0:4000/healthcheck || exit 1
 
 CMD ["./rel/boot.sh"]
