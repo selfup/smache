@@ -29,28 +29,32 @@ defmodule Yo do
     {:reply, post(name), state}
   end
 
-  def post(name) do
+  def post(name) when is_atom(name) do
     case lookup_synced() do
       [] ->
-        update?([], name)
-        
+        {:ok, update?([], name)}
+
       [{_, names}] ->
-        update?(names, name)
+        {:ok, update?(names, name)}
     end
+  end
+
+  def post(name) do
+    {:error, :not_an_atom}
   end
 
   defp update?(names, name) do
     case Enum.any?(names, &(&1 == name)) do
       true ->
         grab_active_node_names()
-      
+
       false ->
         synced = names ++ [name]
 
         true = :ets.insert(:node_names, {:synced, synced})
 
         grab_active_node_names()
-      end
+    end
   end
 
   defp update_all_node_names(names) do
@@ -67,17 +71,17 @@ defmodule Yo do
     :ets.lookup(:node_names, :synced)
   end
 
-  defp schedule_work() do   
-    Yo.post(:"foo@macdev")
-    
+  defp schedule_work() do
+    Yo.post(:foo@macdev)
+
     grab_active_node_names()
     |> Enum.map(&Task.async(fn -> Node.ping(&1) end))
     |> Enum.map(&(Task.await(&1) == :ping))
     |> Enum.zip(grab_active_node_names())
-    |> Enum.filter(fn {up, _name} -> up == :true end)
+    |> Enum.filter(fn {up, _name} -> up == true end)
     |> Enum.map(fn {_up, name} -> name end)
     |> update_all_node_names
-    
+
     Process.send_after(self(), :work, 100)
   end
 end
