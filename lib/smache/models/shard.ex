@@ -1,4 +1,4 @@
-defmodule Smache.Cache.Shard.Model do
+defmodule Smache.Shard do
   def tables(type) do
     case Integer.parse(System.get_env("SHARD_LIMIT") || "") do
       :error ->

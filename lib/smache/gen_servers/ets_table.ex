@@ -1,5 +1,5 @@
 defmodule Smache.Ets.Table do
-  alias Smache.Cache.Model, as: Model
+  alias Smache.Cache, as: Cache
 
   use GenServer
 
@@ -20,7 +20,7 @@ defmodule Smache.Ets.Table do
   end
 
   def handle_call({:fetch, {id, data, ets_table}}, _from, state) do
-    {:reply, Model.fetch(id, data, ets_table), state}
+    {:reply, Cache.fetch(id, data, ets_table), state}
   end
 
   def init(args) do

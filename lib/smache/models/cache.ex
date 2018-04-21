@@ -1,4 +1,4 @@
-defmodule Smache.Cache.Model do
+defmodule Smache.Cache do
   def fetch(id, data, ets_table) do
     existing_data?(id, data, ets_table)
   end

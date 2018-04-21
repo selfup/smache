@@ -1,6 +1,6 @@
 defmodule SmacheWeb.ApiController do
-  alias Smache.Cache.Shard.Model, as: Shard
-  alias Smache.Mitigator, as: Mitigator
+  alias Smache.Shard, as: Shard
+  alias Smache.Mitigator, as: Uplink
 
   use SmacheWeb, :controller
 
@@ -11,7 +11,7 @@ defmodule SmacheWeb.ApiController do
 
         {node, valid_data} =
           valid_key
-          |> Mitigator.grab_data()
+          |> Uplink.grab_data()
 
         json(conn, %{
           key: valid_key,
@@ -27,9 +27,9 @@ defmodule SmacheWeb.ApiController do
   def create_or_update(conn, %{"key" => key, "data" => data} = _params) do
     case key_is_nil?(conn, key) do
       :proceed_with_request ->
-        {ukey, table} = Mitigator.ets_table(key)
+        {ukey, table} = Uplink.ets_table(key)
 
-        json(conn, Mitigator.fetch(ukey, data, table))
+        json(conn, Uplink.fetch(ukey, data, table))
 
       forbidden_key_type_response ->
         forbidden_key_type_response

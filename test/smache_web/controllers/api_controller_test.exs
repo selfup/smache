@@ -1,5 +1,5 @@
 defmodule SmacheWeb.ApiControllerTest do
-  alias Smache.Cache.Shard.Model, as: Shard
+  alias Smache.Shard, as: Shard
   use SmacheWeb.ConnCase
 
   setup do

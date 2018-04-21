@@ -7,7 +7,7 @@ defmodule Yo.Supervisor do
 
   def init(:ok) do
     children = [
-      Yo
+      Uplink.Server
     ]
 
     Supervisor.init(children, strategy: :one_for_one)

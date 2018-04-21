@@ -1,4 +1,6 @@
-defmodule Yo.Mitigator do
+defmodule Uplink.Sync do
+  alias Downlink.Server, as: Downlink
+
   def post(name) when is_atom(name) do
     case lookup_synced() do
       [] ->
@@ -26,29 +28,25 @@ defmodule Yo.Mitigator do
   defp update?(names, name) do
     case Enum.any?(names, &(&1 == name)) do
       true ->
-        grab_active_node_names()
+        names
 
       false ->
         synced = names ++ [name]
         true = :ets.insert(:node_names, {:synced, synced})
-        grab_active_node_names()
+        synced
     end
   end
 
-  defp update_all_nodes(names) do
-    true = :ets.insert(:node_names, {:synced, names})
+  defp update_all_nodes(nodes) do
+    true = :ets.insert(:node_names, {:synced, nodes})
 
-    active_node_names = grab_active_node_names()
+    nodes
+    |> Enum.map(&Task.async(rpc_sync(&1, nodes)))
+    |> Enum.map(&Task.await(&1))
+  end
 
-    true =
-      Enum.map(
-        active_node_names,
-        &Task.async(fn ->
-          :rpc.call(&1, Smache.DiscoverNodes, :get_updated_nodes, [active_node_names])
-        end)
-      )
-      |> Enum.map(&Task.await(&1))
-      |> Enum.all?(&(&1 == true))
+  defp rpc_sync(node, nodes) do
+    fn -> :rpc.call(node, Downlink, :sync, [nodes]) end
   end
 
   defp grab_active_node_names() do

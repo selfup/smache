@@ -1,4 +1,4 @@
-defmodule Smache.DiscoverNodes do
+defmodule Downlink.Server do
   use GenServer
 
   def start_link do
@@ -13,27 +13,18 @@ defmodule Smache.DiscoverNodes do
       read_concurrency: true
     ])
 
-    schedule_work()
+    register()
 
     {:ok, state}
   end
 
-  def handle_info(:work, state) do
-    schedule_work()
-    {:noreply, state}
-  end
-
-  defp schedule_work() do
-    register_self()
-  end
-
-  def get_updated_nodes(active_nodes) do
+  def sync(active_nodes) do
     true = :ets.insert(:nodes, {:active_nodes, active_nodes})
   end
 
-  defp register_self do
+  defp register do
     mitigator = System.get_env("MITIGATOR") || nil
 
-    :rpc.call(:"#{mitigator}", Yo.Mitigator, :post, [Node.self()])
+    :rpc.call(:"#{mitigator}", Uplink.Sync, :post, [Node.self()])
   end
 end

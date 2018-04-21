@@ -1,7 +1,7 @@
-defmodule Yo do
+defmodule Uplink.Server do
   use GenServer
 
-  alias Yo.Mitigator, as: Mitigator
+  alias Uplink.Sync, as: Uplink
 
   def start_link(_opts) do
     GenServer.start_link(__MODULE__, %{})
@@ -28,7 +28,7 @@ defmodule Yo do
   end
 
   defp schedule_work() do
-    Mitigator.sync()
+    Uplink.sync()
 
     if System.get_env("YO") == "true" do
       Process.send_after(self(), :work, 300)

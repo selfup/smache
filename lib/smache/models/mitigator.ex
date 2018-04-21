@@ -1,5 +1,5 @@
 defmodule Smache.Mitigator do
-  alias Smache.Cache.Shard.Model, as: Shard
+  alias Smache.Shard, as: Shard
 
   @ets_tables Shard.tables(:ets)
 
