@@ -43,13 +43,9 @@ Load Balance your cluster of cache nodes (static or dynamic) and performance inc
 
 ## Caveats
 
-Currently the simplest solution is to make a shared volume for nodes to register themselves.
+Currently the simplest solution is to make a main registry service for nodes to register themselves.
 
-In order to do so, a directory is made here: `smache_mnt`
-
-SSHFS will need to be used in production unless you use some magic infra that provides a shared mount by infering the docker-compose file :boom:
-
-In the future, a simple `:rpc` service called `yo` will be used as the registry :pray:
+All worker nodes are dependant on this node being up first/forever :rocket:
 
 To auto shard at scale, all keys are turned into an integer if not already an integer :thinking:
 
