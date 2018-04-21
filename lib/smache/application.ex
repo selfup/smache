@@ -11,7 +11,8 @@ defmodule Smache.Application do
       _yo_var_not_set ->
         children = [
           supervisor(SmacheWeb.Endpoint, []),
-          supervisor(Smache.Supervisor, [])
+          supervisor(Smache.Supervisor, []),
+          {Task.Supervisor, name: Smache.Task.Supervisor}
         ]
 
         opts = [

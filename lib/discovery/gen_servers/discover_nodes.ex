@@ -1,7 +1,7 @@
 defmodule Smache.DiscoverNodes do
   use GenServer
 
-  @sync_dir "smache_mnt/sync_dir/"
+  @sync_dir "/tmp/sync_dir/"
 
   def start_link do
     GenServer.start_link(__MODULE__, %{})
