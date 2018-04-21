@@ -1,44 +1,65 @@
 version: '3.1'
 
 services:
-  smache_one:
+  mitigator:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: ["./rel/boot.sh"]
+    ports:
+      - "4000:4000"
+    environment:
+      - YO=true
+      - VIRTUAL_MITIGATOR=true
+      - MITIGATOR=mitigator@172.27.0.2
+
+  one:
+    depends_on:
+      - mitigator
     build:
       context: .
       dockerfile: Dockerfile
     command: ["./rel/boot.sh"]
     ports:
       - "1234:4000"
-    volumes:
-    - /tmp:/tmp
+    environment:
+      - MITIGATOR=mitigator@172.27.0.2
 
-  smache_two:
+  two:
+    depends_on:
+      - mitigator
     build:
       context: .
       dockerfile: Dockerfile
     command: ["./rel/boot.sh"]
     ports:
       - "1235:4000"
-    volumes:
-    - /tmp:/tmp
+    environment:
+      - MITIGATOR=mitigator@172.27.0.2
 
-  smache_three:
+
+  three:
+    depends_on:
+      - mitigator
     build:
       context: .
       dockerfile: Dockerfile
     command: ["./rel/boot.sh"]
     ports:
       - "1236:4000"
-    volumes:
-    - /tmp:/tmp
+    environment:
+      - MITIGATOR=mitigator@172.27.0.2
 
-  smache_four:
+  four:
+    depends_on:
+      - mitigator
     build:
       context: .
       dockerfile: Dockerfile
     command: ["./rel/boot.sh"]
     ports:
       - "1237:4000"
-    volumes:
-    - /tmp:/tmp
+    environment:
+      - MITIGATOR=mitigator@172.27.0.2
 
   

@@ -1,8 +1,6 @@
 defmodule Smache.DiscoverNodes do
   use GenServer
 
-  @sync_dir "/tmp/sync_dir/"
-
   def start_link do
     GenServer.start_link(__MODULE__, %{})
   end
@@ -27,39 +25,23 @@ defmodule Smache.DiscoverNodes do
 
   defp schedule_work() do
     register_self()
+  end
 
-    active_nodes =
-      check_nodes()
-      |> Enum.filter(fn {_name, up} -> up end)
-
+  def get_updated_nodes(active_nodes) do
     true = :ets.insert(:nodes, {:active_nodes, active_nodes})
-
-    Process.send_after(self(), :work, 1000)
   end
 
   defp register_self do
-    File.mkdir_p(@sync_dir)
+    mitigator = System.get_env("MITIGATOR")
 
-    {:ok, file} = File.open(path(), [:write])
+    case mitigator == to_string(Node.self()) do
+      true ->
+        node = :"#{mitigator}"
 
-    IO.binwrite(file, to_string(Time.utc_now()))
+        {:ok, _} = :rpc.call(node, Yo.Mitigator, :post, [Node.self()])
 
-    File.close(file)
-  end
-
-  defp path do
-    @sync_dir <> Atom.to_string(Node.self())
-  end
-
-  defp check_nodes do
-    tracked_nodes()
-    |> Enum.map(&String.to_atom(&1))
-    |> Enum.map(&{&1, Node.ping(&1) == :pong})
-  end
-
-  defp tracked_nodes do
-    {:ok, nodes} = File.ls(@sync_dir)
-
-    nodes
+      false ->
+        {:ok, nil}
+    end
   end
 end

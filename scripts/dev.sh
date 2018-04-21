@@ -4,5 +4,6 @@
 # pass in the sname for dev as 2!
 # ex: ./scripts/dev/sh 4000 foo
 
-rm -rf /tmp/sync_dir/*
-PORT=$1 iex --sname $2 --cookie wowwowow -S mix phx.server
+mkdir -p smache_mnt/sync_dir \
+  && rm -rf /mnt/sync_dir/* \
+  && PORT=$1 MITIGATOR=$3 iex --sname $2 --cookie wow -S mix phx.server

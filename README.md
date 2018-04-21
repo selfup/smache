@@ -43,6 +43,10 @@ Load Balance your cluster of cache nodes (static or dynamic) and performance inc
 
 ## Caveats
 
+Currently the simplest solution is to make a main registry service for nodes to register themselves.
+
+All worker nodes are dependant on this node being up first/forever :rocket:
+
 To auto shard at scale, all keys are turned into an integer if not already an integer :thinking:
 
 All nil/null keys are rejected with a 403 :boom:

@@ -6,10 +6,16 @@ defmodule Smache.Application do
 
     children = [
       supervisor(SmacheWeb.Endpoint, []),
-      supervisor(Smache.Supervisor, [])
+      supervisor(Smache.Supervisor, []),
+      {Yo.Supervisor, name: Yo.Supervisor},
+      {Task.Supervisor, name: Smache.Task.Supervisor}
     ]
 
-    opts = [strategy: :one_for_one, name: Smache.Main.Supervisor]
+    opts = [
+      strategy: :one_for_one,
+      name: Smache.Main.Supervisor
+    ]
+
     Supervisor.start_link(children, opts)
   end
 
