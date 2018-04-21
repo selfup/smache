@@ -32,16 +32,8 @@ defmodule Smache.DiscoverNodes do
   end
 
   defp register_self do
-    mitigator = System.get_env("MITIGATOR")
+    mitigator = System.get_env("MITIGATOR") || nil
 
-    case mitigator == to_string(Node.self()) do
-      true ->
-        node = :"#{mitigator}"
-
-        {:ok, _} = :rpc.call(node, Yo.Mitigator, :post, [Node.self()])
-
-      false ->
-        {:ok, nil}
-    end
+    :rpc.call(:"#{mitigator}", Yo.Mitigator, :post, [Node.self()])
   end
 end
