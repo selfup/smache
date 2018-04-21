@@ -37,7 +37,7 @@ defmodule Smache.DiscoverNodes do
     case mitigator == to_string(Node.self()) do
       true ->
         {:ok, _} = :rpc.call(:"#{mitigator}", Yo.Mitigator, :post, [Node.self()])
-        
+
       false ->
         {:ok, nil}
     end
