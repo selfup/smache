@@ -7,8 +7,7 @@ defmodule Smache.Application do
     children = [
       supervisor(SmacheWeb.Endpoint, []),
       supervisor(Smache.Supervisor, []),
-      {Yo.Supervisor, name: Yo.Supervisor},
-      {Task.Supervisor, name: Smache.Task.Supervisor}
+      {Uplink.Supervisor, name: Uplink.Supervisor},
     ]
 
     opts = [
