@@ -1,4 +1,4 @@
-defmodule Yo.Supervisor do
+defmodule Uplink.Supervisor do
   use Supervisor
 
   def start_link(opts) do

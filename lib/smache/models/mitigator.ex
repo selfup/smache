@@ -87,22 +87,10 @@ defmodule Smache.Mitigator do
   end
 
   defp node_fetch(delegator, args) do
-    Task.Supervisor.async(
-      {Smache.Task.Supervisor, delegator},
-      Smache.Ets.Table,
-      :fetch,
-      args
-    )
-    |> Task.await()
+    :rpc.call(delegator, Smache.Ets.Table, :fetch, args)
   end
 
   defp node_data(delegator, args) do
-    Task.Supervisor.async(
-      {Smache.Task.Supervisor, delegator},
-      Smache.Mitigator,
-      :data,
-      args
-    )
-    |> Task.await()
+    :rpc.call(delegator, Smache.Mitigator, :data, args)
   end
 end
