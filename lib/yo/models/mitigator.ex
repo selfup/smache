@@ -1,4 +1,4 @@
-defmodule Yo.Delegator do
+defmodule Yo.Mitigator do
   def post(name) when is_atom(name) do
     case lookup_synced() do
       [] ->
@@ -16,14 +16,11 @@ defmodule Yo.Delegator do
   def sync() do
     grab_active_node_names()
     |> Enum.map(&Task.async(fn -> Node.ping(&1) end))
-    |> Enum.map(&(Task.await(&1) == :ping))
+    |> Enum.map(&(Task.await(&1) == :pong))
     |> Enum.zip(grab_active_node_names())
     |> Enum.filter(fn {up, _name} -> up == true end)
     |> Enum.map(fn {_up, name} -> name end)
-    |> update_all_node_names
-
-    grab_active_node_names
-    |> IO.inspect
+    |> update_all_nodes
   end
 
   defp update?(names, name) do
@@ -38,8 +35,20 @@ defmodule Yo.Delegator do
     end
   end
 
-  defp update_all_node_names(names) do
+  defp update_all_nodes(names) do
     true = :ets.insert(:node_names, {:synced, names})
+
+    active_node_names = grab_active_node_names()
+
+    true =
+      Enum.map(
+        active_node_names,
+        &Task.async(fn ->
+          :rpc.call(&1, Smache.DiscoverNodes, :get_updated_nodes, [active_node_names])
+        end)
+      )
+      |> Enum.map(&Task.await(&1))
+      |> Enum.all?(&(&1 == true))
   end
 
   defp grab_active_node_names() do

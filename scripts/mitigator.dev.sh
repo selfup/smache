@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 
-YO=true iex -S mix
+YO=true iex --sname $1 --cookie wow -S mix

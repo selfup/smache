@@ -7,40 +7,59 @@ services:
       dockerfile: Dockerfile
     command: ["./rel/boot.sh"]
     ports:
-      - "1233:4000"
-    enviornment:
+      - "4000:4000"
+    environment:
       - YO=true
+      - VIRTUAL_MITIGATOR=true
+      - MITIGATOR=mitigator@172.27.0.2
 
   one:
+    depends_on:
+      - mitigator
     build:
       context: .
       dockerfile: Dockerfile
     command: ["./rel/boot.sh"]
     ports:
       - "1234:4000"
+    environment:
+      - MITIGATOR=mitigator@172.27.0.2
 
   two:
+    depends_on:
+      - mitigator
     build:
       context: .
       dockerfile: Dockerfile
     command: ["./rel/boot.sh"]
     ports:
       - "1235:4000"
+    environment:
+      - MITIGATOR=mitigator@172.27.0.2
+
 
   three:
+    depends_on:
+      - mitigator
     build:
       context: .
       dockerfile: Dockerfile
     command: ["./rel/boot.sh"]
     ports:
       - "1236:4000"
+    environment:
+      - MITIGATOR=mitigator@172.27.0.2
 
   four:
+    depends_on:
+      - mitigator
     build:
       context: .
       dockerfile: Dockerfile
     command: ["./rel/boot.sh"]
     ports:
       - "1237:4000"
+    environment:
+      - MITIGATOR=mitigator@172.27.0.2
 
   

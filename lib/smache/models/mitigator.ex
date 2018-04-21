@@ -14,14 +14,18 @@ defmodule Smache.Mitigator do
   end
 
   def grab_data(key) do
-    [{_, tracked_nodes}] = :ets.lookup(:nodes, :active_nodes)
-
-    case tracked_nodes do
+    case :ets.lookup(:nodes, :active_nodes) do
       [] ->
         data(key)
 
-      nodes ->
-        shallow_dig(nodes, key)
+      [{_, tracked_nodes}] ->
+        case tracked_nodes do
+          [] ->
+            data(key)
+
+          nodes ->
+            shallow_dig(nodes, key)
+        end
     end
   end
 
@@ -45,8 +49,7 @@ defmodule Smache.Mitigator do
   end
 
   defp shallow_dig(tracked_nodes, key) do
-    active_nodes = active_nodes(tracked_nodes)
-    {_shard, delegator} = mitigate(active_nodes, key)
+    {_shard, delegator} = mitigate(tracked_nodes, key)
 
     case delegator == Node.self() do
       true ->
@@ -58,7 +61,7 @@ defmodule Smache.Mitigator do
   end
 
   defp dig(tracked_nodes, key, data, ets_table) do
-    case active_nodes(tracked_nodes) do
+    case tracked_nodes do
       [] ->
         Smache.Ets.Table.fetch(key, data, ets_table)
 
@@ -81,10 +84,6 @@ defmodule Smache.Mitigator do
     delegator = Enum.at(active_nodes, shard)
 
     {shard, delegator}
-  end
-
-  defp active_nodes(nodes) do
-    nodes |> Enum.map(fn {node, _status} -> node end)
   end
 
   defp node_fetch(delegator, args) do

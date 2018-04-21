@@ -28,9 +28,17 @@ cookie =
   |> String.split("=")
   |> Enum.at(1)
 
+mitigator = System.get_env("MITIGATOR")
+
+sname_ip =
+  case System.get_env("VIRTUAL_MITIGATOR") == "true"  do
+    true -> mitigator
+    false -> "#{name}@#{ip}"
+  end
+
 env_vars = [
   "REPLACE_OS_VARS=true",
-  "SNAME_IP=#{name}@#{ip}",
+  "SNAME_IP=#{sname_ip}",
   "COOKIE=#{cookie}",
   "SHARD_LIMIT=20",
 ]

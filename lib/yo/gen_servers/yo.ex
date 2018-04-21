@@ -1,7 +1,7 @@
 defmodule Yo do
   use GenServer
 
-  alias Yo.Delegator, as: Delegator
+  alias Yo.Mitigator, as: Mitigator
 
   def start_link(_opts) do
     GenServer.start_link(__MODULE__, %{})
@@ -27,12 +27,11 @@ defmodule Yo do
     {:noreply, state}
   end
 
-  def handle_call({:yo, {name}}, _from, state) do
-    {:reply, Delegator.post(name), state}
-  end
-
   defp schedule_work() do
-    Delegator.sync()
-    Process.send_after(self(), :work, 1000)
+    Mitigator.sync()
+
+    if System.get_env("YO") == "true" do
+      Process.send_after(self(), :work, 300)
+    end
   end
 end
