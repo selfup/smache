@@ -31,7 +31,7 @@ defmodule Uplink.Server do
     Uplink.sync()
 
     if System.get_env("YO") == "true" do
-      Process.send_after(self(), :work, 300)
+      Process.send_after(self(), :work, 16)
     end
   end
 end

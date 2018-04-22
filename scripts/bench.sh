@@ -7,62 +7,76 @@
 
 SMACHE_LOG_FILE=.results.smache.log
 SMACHE_TWO_LOG_FILE=.results.smache.two.log
+SMACHE_THREE_LOG_FILE=.results.smache.two.log
+SMACHE_FOUR_LOG_FILE=.results.smache.two.log
 
-function run () {
-  if [ "$1" == "" ]
-  then
-    ab \
-    -n 2000 \
-    -c 100 \
-    -k -v 1 \
-    -H "Accept-Encoding: gzip, deflate" \
-    -T "application/json" \
-    -p ./scripts/bench.data.one.json http://0.0:1234/api > $SMACHE_LOG_FILE \
-    && echo "" \
-    && echo "--> results:
-      $(grep seconds $SMACHE_LOG_FILE)
-      $(grep -w second $SMACHE_LOG_FILE)
-    " \
-    && ab \
-      -n 2000 \
-      -c 100 \
-      -k -v 1 \
-      -H "Accept-Encoding: gzip, deflate" \
-      -T "application/json" \
-      -p ./scripts/bench.data.two.json http://0.0:1234/api > $SMACHE_TWO_LOG_FILE \
-      && echo "" \
-      && echo "--> results:
-        $(grep seconds $SMACHE_TWO_LOG_FILE)
-        $(grep -w second $SMACHE_TWO_LOG_FILE)
-      " \
-    && ab \
-      -n 2000 \
-      -c 20 \
-      -k -v 1 \
-      "http://0.0:1234/api/?key=1" > $SMACHE_TWO_LOG_FILE \
-      && echo "" \
-      && echo "--> results:
-        $(grep seconds $SMACHE_TWO_LOG_FILE)
-        $(grep -w second $SMACHE_TWO_LOG_FILE)
-      " \
-    && ab \
-      -n 2000 \
-      -c 20 \
-      -k -v 1 \
-      "http://0.0:1237/api/?key=2" > $SMACHE_TWO_LOG_FILE \
-      && echo "" \
-      && echo "--> results:
-        $(grep seconds $SMACHE_TWO_LOG_FILE)
-        $(grep -w second $SMACHE_TWO_LOG_FILE)
-      "
-  fi
+if [ "$HOST" == "" ]
+then
+  echo "
+    NO HOST PROVIDED
+    DEFAULTING TO 0.0.0.0
+    (LOCAL MACHINE)
+  "
+  HOST=0.0
+fi
 
-  if [ "$2" == "c" ]
-  then
-    git checkout -- $SMACHE_LOG_FILE
-    git checkout -- $PUB_SUB_LOG_FILE
-    git checkout -- $MITIGATOR_LOG_FILE
-  fi
-}
+ab \
+-n 40000 \
+-c 1000 \
+-k -v 1 \
+-H "Accept-Encoding: gzip, deflate" \
+-T "application/json" \
+-p ./scripts/bench.data.one.json http://$HOST:1234/api > $SMACHE_LOG_FILE \
+&& echo "" \
+&& echo "--> results:
 
-run $1 $2
+  $(grep seconds $SMACHE_LOG_FILE)
+  $(grep -w second $SMACHE_LOG_FILE)
+  $(grep -w '50%' $SMACHE_LOG_FILE) ms
+  $(grep -w '95%' $SMACHE_LOG_FILE) ms
+  $(grep -w longest $SMACHE_LOG_FILE)
+" \
+&& ab \
+  -n 40000 \
+  -c 1000 \
+  -k -v 1 \
+  -H "Accept-Encoding: gzip, deflate" \
+  -T "application/json" \
+  -p ./scripts/bench.data.two.json http://$HOST:1234/api > $SMACHE_TWO_LOG_FILE \
+  && echo "" \
+  && echo "--> results:
+
+  $(grep seconds $SMACHE_TWO_LOG_FILE)
+  $(grep -w second $SMACHE_TWO_LOG_FILE)
+  $(grep -w '50%' $SMACHE_TWO_LOG_FILE) ms
+  $(grep -w '95%' $SMACHE_TWO_LOG_FILE) ms
+  $(grep -w longest $SMACHE_TWO_LOG_FILE)
+  " \
+&& ab \
+  -n 40000 \
+  -c 1000 \
+  -k -v 1 \
+  "http://$HOST:1234/api/?key=1" > $SMACHE_THREE_LOG_FILE \
+  && echo "" \
+  && echo "--> results:
+
+  $(grep seconds $SMACHE_THREE_LOG_FILE)
+  $(grep -w second $SMACHE_THREE_LOG_FILE)
+  $(grep -w '50%' $SMACHE_THREE_LOG_FILE) ms
+  $(grep -w '95%' $SMACHE_THREE_LOG_FILE) ms
+  $(grep -w longest $SMACHE_THREE_LOG_FILE)
+  " \
+&& ab \
+  -n 40000 \
+  -c 1000 \
+  -k -v 1 \
+  "http://$HOST:1237/api/?key=2" > $SMACHE_FOUR_LOG_FILE \
+  && echo "" \
+  && echo "--> results:
+
+  $(grep seconds $SMACHE_FOUR_LOG_FILE)
+  $(grep -w second $SMACHE_FOUR_LOG_FILE)
+  $(grep -w '50%' $SMACHE_FOUR_LOG_FILE) ms
+  $(grep -w '95%' $SMACHE_FOUR_LOG_FILE) ms
+  $(grep -w longest $SMACHE_FOUR_LOG_FILE)
+  "
