@@ -4,6 +4,8 @@ defmodule Smache.Application do
   def start(_type, _args) do
     import Supervisor.Spec
 
+    IO.inspect Node.self()
+
     children = [
       supervisor(SmacheWeb.Endpoint, []),
       supervisor(Smache.Supervisor, []),

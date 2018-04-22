@@ -11,7 +11,7 @@ services:
     environment:
       - YO=true
       - VIRTUAL_MITIGATOR=true
-      - MITIGATOR=mitigator@172.27.0.2
+      - MITIGATOR=${MITIGATOR}
 
   one:
     depends_on:
@@ -23,7 +23,7 @@ services:
     ports:
       - "1234:4000"
     environment:
-      - MITIGATOR=mitigator@172.27.0.2
+      - MITIGATOR=${MITIGATOR}
 
   two:
     depends_on:
@@ -35,7 +35,7 @@ services:
     ports:
       - "1235:4000"
     environment:
-      - MITIGATOR=mitigator@172.27.0.2
+      - MITIGATOR=${MITIGATOR}
 
 
   three:
@@ -48,7 +48,7 @@ services:
     ports:
       - "1236:4000"
     environment:
-      - MITIGATOR=mitigator@172.27.0.2
+      - MITIGATOR=${MITIGATOR}
 
   four:
     depends_on:
@@ -60,6 +60,6 @@ services:
     ports:
       - "1237:4000"
     environment:
-      - MITIGATOR=mitigator@172.27.0.2
+      - MITIGATOR=${MITIGATOR}
 
   
