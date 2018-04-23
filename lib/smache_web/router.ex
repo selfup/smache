@@ -5,6 +5,12 @@ defmodule SmacheWeb.Router do
     plug(:accepts, ["json"])
   end
 
+  scope "/", SmacheWeb do
+    pipe_through(:api)
+
+    get("/", HealthCheckController, :get)
+  end
+
   scope "/api", SmacheWeb do
     pipe_through(:api)
 
