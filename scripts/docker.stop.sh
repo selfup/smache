@@ -8,7 +8,7 @@
 
 PS_AQ=$(docker ps -aq)
 
-if [ !$PS_AQ ]
+if [ !"$PS_AQ" ]
 then
   echo 'NOTHING TO STOP'
 else
