@@ -1,30 +1,30 @@
 defmodule Downlink.Server do
   use GenServer
 
-  def start_link do
+  alias Uplink.Operator, as: Operator
+
+  @mitigator System.get_env("MITIGATOR") || nil
+
+  def start_link(_opts) do
     GenServer.start_link(__MODULE__, %{})
   end
 
   def init(state) do
-    :ets.new(:nodes, [
+    :ets.new(:downlink, [
       :named_table,
       :set,
       :public,
       read_concurrency: true
     ])
 
+    Downlink.Operator.sync([])
+
     register()
 
     {:ok, state}
   end
 
-  def sync(active_nodes) do
-    true = :ets.insert(:nodes, {:active_nodes, active_nodes})
-  end
-
   defp register do
-    mitigator = System.get_env("MITIGATOR") || nil
-
-    :rpc.call(:"#{mitigator}", Uplink.Sync, :post, [Node.self()])
+    :rpc.call(:"#{@mitigator}", Operator, :post, [Node.self()])
   end
 end

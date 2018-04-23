@@ -4,12 +4,11 @@ defmodule Smache.Application do
   def start(_type, _args) do
     import Supervisor.Spec
 
-    IO.inspect Node.self()
+    IO.inspect(Node.self())
 
     children = [
       supervisor(SmacheWeb.Endpoint, []),
-      supervisor(Smache.Supervisor, []),
-      {Uplink.Supervisor, name: Uplink.Supervisor},
+      supervisor(Smache.Supervisor, [])
     ]
 
     opts = [

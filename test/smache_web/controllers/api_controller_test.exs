@@ -3,7 +3,7 @@ defmodule SmacheWeb.ApiControllerTest do
   use SmacheWeb.ConnCase
 
   setup do
-    # :ets.insert(:nodes, {:active_nodes, [{:"smache@127.0.0.1", true}]})
+    # :ets.insert(:downlink, {:active_nodes, [{:"smache@127.0.0.1", true}]})
 
     Shard.tables(:ets)
     |> Enum.each(fn t -> :ets.delete_all_objects(t) end)

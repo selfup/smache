@@ -9,7 +9,7 @@ services:
     ports:
       - "4000:4000"
     environment:
-      - YO=true
+      - UPLINK=true
       - VIRTUAL_MITIGATOR=true
       - MITIGATOR=${MITIGATOR}
 

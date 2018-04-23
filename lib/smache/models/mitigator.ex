@@ -4,7 +4,7 @@ defmodule Smache.Mitigator do
   @ets_tables Shard.tables(:ets)
 
   def fetch(key, data, ets_table) do
-    case :ets.lookup(:nodes, :active_nodes) do
+    case :ets.lookup(:downlink, :active_nodes) do
       [] ->
         Smache.Ets.Table.fetch(key, data, ets_table)
 
@@ -14,7 +14,7 @@ defmodule Smache.Mitigator do
   end
 
   def grab_data(key) do
-    case :ets.lookup(:nodes, :active_nodes) do
+    case :ets.lookup(:downlink, :active_nodes) do
       [] ->
         data(key)
 

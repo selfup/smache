@@ -1,21 +1,21 @@
 defmodule Uplink.Server do
   use GenServer
 
-  alias Uplink.Sync, as: Uplink
+  alias Uplink.Operator, as: Operator
 
   def start_link(_opts) do
     GenServer.start_link(__MODULE__, %{})
   end
 
   def init(state) do
-    :ets.new(:node_names, [
+    :ets.new(:uplink, [
       :named_table,
       :set,
       :public,
       read_concurrency: true
     ])
 
-    :ets.insert(:node_names, {:synced, []})
+    :ets.insert(:uplink, {:synced, []})
 
     schedule_work()
 
@@ -28,9 +28,8 @@ defmodule Uplink.Server do
   end
 
   defp schedule_work() do
-    Uplink.sync()
-
-    if System.get_env("YO") == "true" do
+    if System.get_env("UPLINK") == "true" do
+      Operator.sync()
       Process.send_after(self(), :work, 16)
     end
   end

@@ -45,6 +45,8 @@ Load Balance your cluster of cache nodes (static or dynamic) and performance inc
 
 Currently the simplest solution is to make a main registry service for nodes to register themselves.
 
+This registry is called **uplink**.
+
 All worker nodes are dependant on this node being up first/forever :rocket:
 
 To auto shard at scale, all keys are turned into an integer if not already an integer :thinking:

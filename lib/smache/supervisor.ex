@@ -2,6 +2,7 @@ defmodule Smache.Supervisor do
   alias Smache.Ets.Table, as: EtsTable
   alias Smache.Shard, as: Shard
   alias Downlink.Server, as: Downlink
+  alias Uplink.Server, as: Uplink
 
   use Supervisor
 
@@ -18,7 +19,11 @@ defmodule Smache.Supervisor do
         worker(EtsTable, [[name: name]], id: name)
       end)
 
-    all_children = [worker(Downlink, [])] ++ children
+    all_children =
+      [
+        worker(Uplink, [UplinkServer]),
+        worker(Downlink, [DownlinkServer])
+      ] ++ children
 
     supervise(all_children, strategy: :one_for_one)
   end
