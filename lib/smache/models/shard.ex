@@ -15,12 +15,16 @@ defmodule Smache.Shard do
     end)
   end
 
-  def is_num_or_str?(key) do
-    case is_number(key) do
-      true ->
-        key
+  def is_num_or_str?(key) when is_number(key) do
+    key
+  end
 
-      false ->
+  def is_num_or_str?(key) do
+    case Integer.parse(key) do
+      {num, _} ->
+        num
+
+      :error ->
         :binary.decode_unsigned(key)
     end
   end
