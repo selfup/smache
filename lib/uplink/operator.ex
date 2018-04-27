@@ -53,6 +53,7 @@ defmodule Uplink.Operator do
 
   defp active_nodes() do
     [{_, names}] = lookup_synced()
+    IO.inspect names
     names
   end
 

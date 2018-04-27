@@ -25,6 +25,6 @@ defmodule Downlink.Server do
   end
 
   defp register do
-    :rpc.call(:"#{@mitigator}", Operator, :post, [Node.self()])
+    IO.inspect :rpc.call(:"#{@mitigator}", Operator, :post, [Node.self()])
   end
 end
