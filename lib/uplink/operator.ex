@@ -48,12 +48,11 @@ defmodule Uplink.Operator do
   end
 
   defp downlink_sync(node, nodes) do
-    fn -> :rpc.call(node, Downlink, :sync, [nodes]) end
+    fn -> IO.inpsect :rpc.call(node, Downlink, :sync, [nodes]) end
   end
 
   defp active_nodes() do
     [{_, names}] = lookup_synced()
-    IO.inspect names
     names
   end
 
