@@ -1,10 +1,6 @@
 defmodule Downlink.Server do
   use GenServer
 
-  alias Uplink.Operator, as: Operator
-
-  @mitigator System.get_env("MITIGATOR") || nil
-
   def start_link(_opts) do
     GenServer.start_link(__MODULE__, %{})
   end
@@ -21,10 +17,15 @@ defmodule Downlink.Server do
 
     register()
 
+    IO.puts "REGISTER CALLED"
+
     {:ok, state}
   end
 
   defp register do
-    IO.inspect :rpc.call(:"#{@mitigator}", Operator, :post, [Node.self()])
+    mit = System.get_env("MITIGATOR") || nil
+    IO.inspect(
+      :rpc.call(:"#{mit}", Uplink.Operator, :post, [Node.self()])
+    )
   end
 end
