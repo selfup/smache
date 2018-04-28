@@ -1,5 +1,5 @@
 defmodule Uplink.Operator do
-  alias Downlink.Server, as: Downlink
+  alias Downlink.Operator, as: Downlink
 
   def post(name) when is_atom(name) do
     case lookup_synced() do
@@ -48,7 +48,9 @@ defmodule Uplink.Operator do
   end
 
   defp downlink_sync(node, nodes) do
-    fn -> IO.inpsect :rpc.call(node, Downlink, :sync, [nodes]) end
+    IO.inspect node
+    IO.inspect nodes
+    fn -> :rpc.call(node, Downlink, :sync, [nodes]) end
   end
 
   defp active_nodes() do
