@@ -8,16 +8,7 @@ defmodule Uplink.Server do
   end
 
   def init(state) do
-    :ets.new(:uplink, [
-      :named_table,
-      :set,
-      :public,
-      read_concurrency: true
-    ])
-
-    :ets.insert(:uplink, {:synced, []})
-
-    if System.get_env("UPLINK") == "true" do
+    if System.get_env("UPLINK") do
       schedule_work()
     end
 

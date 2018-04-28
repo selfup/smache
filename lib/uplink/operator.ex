@@ -1,6 +1,6 @@
 defmodule Uplink.Operator do
   def sync() do
-    nodes = Node.list
+    nodes = Node.list()
 
     nodes
     |> Enum.map(&Task.async(downlink_sync(&1, nodes)))

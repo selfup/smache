@@ -21,9 +21,7 @@ defmodule Downlink.Server do
   end
 
   defp register do
-    uplink? = System.get_env("UPLINK")
-
-    if uplink? do
+    if !System.get_env("UPLINK") do
       mit = System.get_env("MITIGATOR")
       Node.ping(:"#{mit}")
     end
