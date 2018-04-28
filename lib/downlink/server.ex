@@ -17,15 +17,13 @@ defmodule Downlink.Server do
 
     register()
 
-    IO.puts "REGISTER CALLED"
-
     {:ok, state}
   end
 
   defp register do
-    mit = System.get_env("MITIGATOR") || nil
-    IO.inspect(
-      :rpc.call(:"#{mit}", Uplink.Operator, :post, [Node.self()])
-    )
+    if !System.get_env("UPLINK") do
+      mit = System.get_env("MITIGATOR")
+      Node.ping(:"#{mit}")
+    end
   end
 end
