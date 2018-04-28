@@ -17,7 +17,9 @@ defmodule Uplink.Server do
 
     :ets.insert(:uplink, {:synced, []})
 
-    schedule_work()
+    if System.get_env("UPLINK") == "true" do
+      schedule_work()
+    end
 
     {:ok, state}
   end
@@ -28,9 +30,7 @@ defmodule Uplink.Server do
   end
 
   defp schedule_work() do
-    if System.get_env("UPLINK") == "true" do
-      Operator.sync()
-      Process.send_after(self(), :work, 16)
-    end
+    Operator.sync()
+    Process.send_after(self(), :work, 100)
   end
 end
