@@ -79,7 +79,8 @@ So unless you are storing that much data, make sure to store strings of a certai
 
 1. Docker
 1. Elixir
-1. Bash (masOS, Linux, WSL (Win10))
+1. Bash
+1. macOS or Linux (Windows can work but is cumbersome)
 
 **On first boot**:
 
@@ -110,74 +111,6 @@ Now run the curl scripts (in a third shell):
 
 ./scripts/curl.get.sh 4001
 ```
-
-## Deploying to Heroku (for testing a single node)
-
-Make sure the container builds (heroku will rebuild it anyways but just be sure it works)!
-
-`./scripts/smache.sh`
-
-If you have made changes to the source code prior to running that script please pass a `--build` flag to ensure the container compiles your new source code.
-
-Ex: `./scripts/smache.sh --build`
-
-### If not logged in to Heroku Container Registry
-
-```bash
-heroku login
-heroku container:login
-```
-
-Now: `./scripts/heroku.sh my_cool_app_name`
-<!--
-
-## Deploying to Digital Ocean/Vultr/EC2
-
-Make sure you have Docker and docker-compose!
-Make sure you have your ssh key as an authorized key for your target node!
-
-### Build the release with Docker
-
-1. In one shell: `./scripts/docker.release.sh`
-1. In another shell (once release is built): `./scripts/docker.copy.release.sh`
-1. Grab tarball and scp: `scp -r ./smache.tar.gz user@<target_ip>:/home/user`
-1. SSH into your server: `ssh user@<target_ip>`
-1. Unpack the tarball: `tar -xzf smache.tar.gz`
-1. Run the server:
-
-        a. As a Daemon: `PORT=<port> ./bin/smache start`
-        b. In the foreground: `PORT=<port> ./bin/smache foreground`
-        c. In interactive mode: `PORT=<port> ./bin/smache console`
-
-## Current Benchmarks
-
-On a single shard (so imagine just one ets table)
-
-~13k req/s in an Alpine Docker Container running on Ubuntu 4.10 in production mode on a 2 Core Intel i7 from 2013
-
-**CPU Info**
-
-```bash
-Model name:          Intel(R) Core(TM) i7-4558U CPU @ 2.80GHz
-CPU(s):              4
-On-line CPU(s) list: 0-3
-Thread(s) per core:  2
-Core(s) per socket:  2
-Socket(s):           1
-```
-
-### To run benchmarks
-
-You will need two tabs/panes/shell for this:
-
-1. Build the container and run it: `./scripts/test.sh`
-2. Wait for: `Attaching to smache_prod_1`
-3. Run the bench suite in a different shell/pane/tab: `./scripts/bench.sh`
-
-        a. To keep changes in git HEAD pass the `-c` flag
-        b. Ex: `./scripts/bench.sh -c`
-        c. Otherwise the `.results.log` file will be checked out
--->
 
 ## LICENSE
 

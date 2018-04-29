@@ -4,6 +4,7 @@ defmodule Smache.Application do
   def start(_type, _args) do
     import Supervisor.Spec
 
+    IO.puts "SELF -- LONG NAME"
     IO.inspect(Node.self())
 
     children = [

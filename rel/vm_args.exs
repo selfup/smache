@@ -32,7 +32,11 @@ mitigator = System.get_env("MITIGATOR")
 
 sname_ip =
   case System.get_env("VIRTUAL_MITIGATOR") == "true"  do
-    true -> mitigator
+    true ->
+      case System.get_env("VPS") == "true" do
+        true -> "#{name}@#{ip}"
+        false -> mitigator
+      end
     false -> "#{name}@#{ip}"
   end
 

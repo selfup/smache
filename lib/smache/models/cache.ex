@@ -23,11 +23,6 @@ defmodule Smache.Cache do
     end
   end
 
-  # when another node needs to sync its data
-  def sync_data(payload, ets_table) do
-    true = :ets.insert(ets_table, payload)
-  end
-
   defp set(id, data, ets_table) do
     true = :ets.insert(ets_table, {id, data})
     data
