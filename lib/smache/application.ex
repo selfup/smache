@@ -5,7 +5,7 @@ defmodule Smache.Application do
     import Supervisor.Spec
 
     IO.puts("SELF -- LONG NAME")
-    IO.inspect(Node.self())
+    IO.puts Node.self() |> to_string()
 
     children = [
       supervisor(SmacheWeb.Endpoint, []),
