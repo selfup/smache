@@ -1,21 +1,7 @@
 version: '3.1'
 
 services:
-  mitigator:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    command: ["./rel/boot.sh"]
-    ports:
-      - "4000:4000"
-    environment:
-      - UPLINK=true
-      - VIRTUAL_MITIGATOR=true
-      - MITIGATOR=${MITIGATOR}
-
   one:
-    depends_on:
-      - mitigator
     build:
       context: .
       dockerfile: Dockerfile
@@ -23,11 +9,11 @@ services:
     ports:
       - "1234:4000"
     environment:
-      - MITIGATOR=${MITIGATOR}
+      - UPLINK_NODE=${UPLINK_NODE}
 
   two:
     depends_on:
-      - mitigator
+      - one
     build:
       context: .
       dockerfile: Dockerfile
@@ -35,12 +21,11 @@ services:
     ports:
       - "1235:4000"
     environment:
-      - MITIGATOR=${MITIGATOR}
-
+      - UPLINK_NODE=${UPLINK_NODE}
 
   three:
     depends_on:
-      - mitigator
+      - one
     build:
       context: .
       dockerfile: Dockerfile
@@ -48,11 +33,11 @@ services:
     ports:
       - "1236:4000"
     environment:
-      - MITIGATOR=${MITIGATOR}
+      - UPLINK_NODE=${UPLINK_NODE}
 
   four:
     depends_on:
-      - mitigator
+      - one
     build:
       context: .
       dockerfile: Dockerfile
@@ -60,6 +45,6 @@ services:
     ports:
       - "1237:4000"
     environment:
-      - MITIGATOR=${MITIGATOR}
+      - UPLINK_NODE=${UPLINK_NODE}
 
   

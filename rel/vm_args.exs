@@ -28,16 +28,13 @@ cookie =
   |> String.split("=")
   |> Enum.at(1)
 
-mitigator = System.get_env("MITIGATOR")
-
 sname_ip =
-  case System.get_env("VIRTUAL_MITIGATOR") == "true"  do
+  case System.get_env("UPLINK") == "true"  do
     true ->
-      case System.get_env("VPS") == "true" do
-        true -> "#{name}@#{ip}"
-        false -> mitigator
-      end
-    false -> "#{name}@#{ip}"
+      "uplink@#{ip}"
+    
+    false ->
+      "#{name}@#{ip}"
   end
 
 env_vars = [

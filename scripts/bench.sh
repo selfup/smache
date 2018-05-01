@@ -25,8 +25,8 @@ then
   echo 'PLEASE PROVIDE $1 and $2 FOR PORTS'
 else
   ab \
-  -n 10000 \
-  -c 400 \
+  -n 1000 \
+  -c 40 \
   -k -v 1 \
   -H "Accept-Encoding: gzip, deflate" \
   -T "application/json" \
@@ -41,8 +41,8 @@ else
     $(grep -w longest $SMACHE_LOG_FILE)
   " \
   && ab \
-    -n 10000 \
-    -c 400 \
+    -n 1000 \
+    -c 40 \
     -k -v 1 \
     -H "Accept-Encoding: gzip, deflate" \
     -T "application/json" \
@@ -57,8 +57,8 @@ else
     $(grep -w longest $SMACHE_TWO_LOG_FILE)
     " \
   && ab \
-    -n 10000 \
-    -c 400 \
+    -n 1000 \
+    -c 40 \
     -k -v 1 \
     "http://$HOST:$1/api/?key=1" > $SMACHE_THREE_LOG_FILE \
     && echo "" \
@@ -71,8 +71,8 @@ else
     $(grep -w longest $SMACHE_THREE_LOG_FILE)
     " \
   && ab \
-    -n 10000 \
-    -c 400 \
+    -n 1000 \
+    -c 40 \
     -k -v 1 \
     "http://$HOST:$2/api/?key=2" > $SMACHE_FOUR_LOG_FILE \
     && echo "" \

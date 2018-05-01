@@ -6,4 +6,4 @@
 
 mkdir -p smache_mnt/sync_dir \
   && rm -rf /mnt/sync_dir/* \
-  && PORT=$1 MITIGATOR=$3 iex --sname $2 --cookie wow -S mix phx.server
+  && PORT=$1 UPLINK_NODE=$3 iex --sname $2 --cookie wow -S mix phx.server

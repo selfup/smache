@@ -1,5 +1,9 @@
 defmodule Downlink.Operator do
-  def sync(active_nodes) do
-    true = :ets.insert(:downlink, {:active_nodes, active_nodes})
+  def sync(nodes) do
+    connect_to_workers(nodes)
+  end
+
+  defp connect_to_workers(nodes) do
+    Enum.each(nodes, &Node.ping(&1))
   end
 end
