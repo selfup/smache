@@ -37,7 +37,7 @@ defmodule Smache.Mitigator do
   defp dig(nodes, key) do
     {shard, delegator} = mitigate(nodes, key)
 
-    case shard == 0 do
+    case shard == Node.self() do
       true ->
         data(key)
 
@@ -49,7 +49,7 @@ defmodule Smache.Mitigator do
   defp dig(nodes, key, data, ets_table) do
     {shard, delegator} = mitigate(nodes, key)
 
-    case shard == 0 do
+    case shard == Node.self() do
       true ->
         Smache.Ets.Table.fetch(key, data, ets_table)
 
