@@ -98,18 +98,22 @@ Essentially the _bootstrapping_ scripts :rocket:
 
 ```bash
 # in one shell
-./scripts/dev.sh 4000 foo
+
+# grab everything before .local
+hostname #=> something.local
+
+./scripts/dev.sh 4000 foo foo@something
 
 # in another shell
-./scripts/dev.sh 4001 bar
+./scripts/dev.sh 4001 bar foo@something
 ```
 
 Now run the curl scripts (in a third shell):
 
 ```bash
-./scripts/curl.post.sh 4000
+./scripts/curl.post.sh 4000 4000
 
-./scripts/curl.get.sh 4001
+./scripts/curl.get.sh 4001 4001
 ```
 
 ## LICENSE
