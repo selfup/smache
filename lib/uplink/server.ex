@@ -2,7 +2,7 @@ defmodule Uplink.Server do
   use GenServer
 
   def start_link(_opts) do
-    GenServer.start_link(__MODULE__, %{}, [name: Uplink])
+    GenServer.start_link(__MODULE__, %{}, name: Uplink)
   end
 
   def init(_state) do

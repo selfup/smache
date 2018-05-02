@@ -1,19 +1,18 @@
 defmodule Smache.Mitigator do
   alias Smache.Shard, as: Shard
 
-  @self Node.self()
   @ets_tables Shard.tables(:ets)
 
   def fetch(key, data, ets_table) do
     dig(workers(), key, data, ets_table)
   end
-  
+
   def grab_data(key) do
     dig(workers(), key)
   end
 
   defp workers() do
-    [@self] ++ Node.list
+    ([Node.self()] ++ Node.list()) |> Enum.sort()
   end
 
   def data(key) do
@@ -21,10 +20,10 @@ defmodule Smache.Mitigator do
 
     case :ets.lookup(table, key) do
       [] ->
-        {@self, nil}
+        {Node.self(), nil}
 
       [{_key, data}] ->
-        {@self, data}
+        {Node.self(), data}
     end
   end
 
@@ -35,10 +34,10 @@ defmodule Smache.Mitigator do
     {ukey, Enum.at(@ets_tables, shard)}
   end
 
-  defp dig(tracked_nodes, key) do
-    {_shard, delegator} = mitigate(tracked_nodes, key)
+  defp dig(nodes, key) do
+    {shard, delegator} = mitigate(nodes, key)
 
-    case delegator == @self do
+    case shard == 0 do
       true ->
         data(key)
 
@@ -48,9 +47,9 @@ defmodule Smache.Mitigator do
   end
 
   defp dig(nodes, key, data, ets_table) do
-    {_shard, delegator} = mitigate(nodes, key)
+    {shard, delegator} = mitigate(nodes, key)
 
-    case delegator == @self do
+    case shard == 0 do
       true ->
         Smache.Ets.Table.fetch(key, data, ets_table)
 
@@ -59,10 +58,10 @@ defmodule Smache.Mitigator do
     end
   end
 
-  defp mitigate(active_nodes, key) do
+  defp mitigate(nodes, key) do
     ukey = Shard.is_num_or_str?(key)
-    shard = rem(ukey, length(active_nodes))
-    delegator = Enum.at(active_nodes, shard)
+    shard = rem(ukey, length(nodes))
+    delegator = Enum.at(nodes, shard)
 
     {shard, delegator}
   end
