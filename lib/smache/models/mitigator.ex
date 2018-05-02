@@ -4,29 +4,15 @@ defmodule Smache.Mitigator do
   @ets_tables Shard.tables(:ets)
 
   def fetch(key, data, ets_table) do
-    case :ets.lookup(:downlink, :active_nodes) do
-      [] ->
-        Smache.Ets.Table.fetch(key, data, ets_table)
-
-      [{_, tracked_nodes}] ->
-        dig(tracked_nodes, key, data, ets_table)
-    end
+    dig(workers(), key, data, ets_table)
   end
 
   def grab_data(key) do
-    case :ets.lookup(:downlink, :active_nodes) do
-      [] ->
-        data(key)
+    dig(workers(), key)
+  end
 
-      [{_, tracked_nodes}] ->
-        case tracked_nodes do
-          [] ->
-            data(key)
-
-          nodes ->
-            shallow_dig(nodes, key)
-        end
-    end
+  defp workers() do
+    ([Node.self()] ++ Node.list()) |> Enum.sort()
   end
 
   def data(key) do
@@ -48,10 +34,10 @@ defmodule Smache.Mitigator do
     {ukey, Enum.at(@ets_tables, shard)}
   end
 
-  defp shallow_dig(tracked_nodes, key) do
-    {_shard, delegator} = mitigate(tracked_nodes, key)
+  defp dig(nodes, key) do
+    {shard, delegator} = mitigate(nodes, key)
 
-    case delegator == Node.self() do
+    case shard == 0 do
       true ->
         data(key)
 
@@ -60,28 +46,22 @@ defmodule Smache.Mitigator do
     end
   end
 
-  defp dig(tracked_nodes, key, data, ets_table) do
-    case tracked_nodes do
-      [] ->
+  defp dig(nodes, key, data, ets_table) do
+    {shard, delegator} = mitigate(nodes, key)
+
+    case shard == 0 do
+      true ->
         Smache.Ets.Table.fetch(key, data, ets_table)
 
-      nodes ->
-        {_shard, delegator} = mitigate(nodes, key)
-
-        case delegator == Node.self() do
-          true ->
-            Smache.Ets.Table.fetch(key, data, ets_table)
-
-          false ->
-            node_fetch(delegator, [key, data, ets_table])
-        end
+      false ->
+        node_fetch(delegator, [key, data, ets_table])
     end
   end
 
-  defp mitigate(active_nodes, key) do
+  defp mitigate(nodes, key) do
     ukey = Shard.is_num_or_str?(key)
-    shard = rem(ukey, length(active_nodes))
-    delegator = Enum.at(active_nodes, shard)
+    shard = rem(ukey, length(nodes))
+    delegator = Enum.at(nodes, shard)
 
     {shard, delegator}
   end
