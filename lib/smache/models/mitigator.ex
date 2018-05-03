@@ -1,8 +1,6 @@
 defmodule Smache.Mitigator do
   alias Smache.Shard, as: Shard
 
-  @ets_tables Shard.tables(:ets)
-
   def fetch(key, data, ets_table) do
     dig(workers(), key, data, ets_table)
   end
@@ -29,9 +27,8 @@ defmodule Smache.Mitigator do
 
   def ets_table(key) do
     ukey = Shard.is_num_or_str?(key)
-    shard = rem(ukey, length(@ets_tables))
 
-    {ukey, Enum.at(@ets_tables, shard)}
+    {ukey, :cache_table}
   end
 
   defp dig(nodes, key) do
