@@ -1,25 +1,22 @@
 defmodule Downlink.Server do
   use GenServer
+  require Logger
 
   def start_link(_opts) do
-    GenServer.start_link(__MODULE__, %{})
+    GenServer.start_link(__MODULE__, %{}, name: Downlink)
   end
 
-  def init(state) do
+  def init(_state) do
     register()
 
-    {:ok, state}
+    {:ok, %{}}
   end
 
   defp register do
-    uplink_node? = System.get_env("UPLINK_NODE")
+    node = :"#{System.get_env("UPLINK_NODE") || Node.self()}"
 
-    uplink_node =
-      case uplink_node? do
-        nil -> "nonode@nohost"
-        long_name -> long_name
-      end
-
-    GenServer.call({Uplink, :"#{uplink_node}"}, {:sync, {}})
+    GenServer.call({Uplink, node}, {:sync, {}})
+    
+    Logger.warn "self: #{Node.self()} - uplink: #{node}"
   end
 end

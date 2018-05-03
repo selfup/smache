@@ -10,4 +10,4 @@ then
   TWO=20
 fi
 
-./scripts/secret.sh && UPLINK_NODE=uplink@172.$TWO.0.2 docker-compose up $1
+./scripts/secret.sh && UPLINK_NODE=smache@172.$TWO.0.2 docker-compose up $1
