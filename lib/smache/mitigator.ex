@@ -24,9 +24,9 @@ defmodule Smache.Mitigator do
   end
 
   defp dig(nodes, key) do
-    {shard, delegator} = mitigate(nodes, key)
+    {index, delegator} = mitigate(nodes, key)
 
-    case shard == Node.self() do
+    case delegator == Node.self() do
       true ->
         data(key)
 
@@ -36,9 +36,9 @@ defmodule Smache.Mitigator do
   end
 
   defp dig(nodes, key, data) do
-    {shard, delegator} = mitigate(nodes, key)
+    {index, delegator} = mitigate(nodes, key)
 
-    case shard == Node.self() do
+    case delegator == Node.self() do
       true ->
         Smache.Ets.Table.fetch(key, data)
 
@@ -49,10 +49,10 @@ defmodule Smache.Mitigator do
 
   defp mitigate(nodes, key) do
     ukey = Normalizer.normalize(key)
-    shard = rem(ukey, length(nodes))
-    delegator = Enum.at(nodes, shard)
+    index = rem(ukey, length(nodes))
+    delegator = Enum.at(nodes, index)
 
-    {shard, delegator}
+    {index, delegator}
   end
 
   defp node_fetch(delegator, args) do
