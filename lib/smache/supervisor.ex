@@ -10,12 +10,11 @@ defmodule Smache.Supervisor do
   end
 
   def init(:ok) do
-    all_children =
-      [
-        worker(EtsTable, []),
-        worker(Uplink, [UplinkServer]),
-        worker(Downlink, [DownlinkServer])
-      ]
+    all_children = [
+      worker(EtsTable, []),
+      worker(Uplink, [UplinkServer]),
+      worker(Downlink, [DownlinkServer])
+    ]
 
     supervise(all_children, strategy: :one_for_one)
   end

@@ -15,7 +15,7 @@ defmodule Downlink.Server do
   defp register do
     node = :"#{System.get_env("UPLINK_NODE") || Node.self()}"
 
-    Logger.warn "self: #{Node.self()} - uplink: #{node}"
+    Logger.warn("self: #{Node.self()} - uplink: #{node}")
 
     GenServer.call({Uplink, node}, {:sync, {}})
   end
