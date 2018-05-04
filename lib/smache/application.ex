@@ -4,9 +4,6 @@ defmodule Smache.Application do
   def start(_type, _args) do
     import Supervisor.Spec
 
-    IO.puts("SELF -- LONG NAME")
-    IO.puts(Node.self() |> to_string())
-
     children = [
       supervisor(SmacheWeb.Endpoint, []),
       supervisor(Smache.Supervisor, [])

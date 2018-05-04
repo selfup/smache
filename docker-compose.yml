@@ -9,7 +9,6 @@ services:
     ports:
       - "1234:4000"
     environment:
-      - UPLINK=true
       - UPLINK_NODE=${UPLINK_NODE}
 
   two:

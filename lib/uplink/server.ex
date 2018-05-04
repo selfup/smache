@@ -10,6 +10,6 @@ defmodule Uplink.Server do
   end
 
   def handle_call({:sync, _}, _, _) do
-    {:reply, Node.list(), %{}}
+    {:reply, :ok, %{}}
   end
 end

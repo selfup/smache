@@ -1,17 +1,3 @@
-<<
-  i1 :: unsigned-integer-32,
-  i2 :: unsigned-integer-32,
-  i3 :: unsigned-integer-32,
->> = :crypto.strong_rand_bytes(12)
-    
-:rand.seed(:exsplus, {i1, i2, i3})
-
-name =
-  :crypto.hash(:sha256, to_string(:rand.uniform()))
-  |> Base.encode16
-  |> String.slice(0..10)
-  |> String.downcase
-
 {:ok, ifs} = :inet.getif()
 
 ips =
@@ -28,14 +14,7 @@ cookie =
   |> String.split("=")
   |> Enum.at(1)
 
-sname_ip =
-  case System.get_env("UPLINK") == "true"  do
-    true ->
-      "uplink@#{ip}"
-    
-    false ->
-      "#{name}@#{ip}"
-  end
+sname_ip = "smache@#{ip}"
 
 env_vars = [
   "REPLACE_OS_VARS=true",
