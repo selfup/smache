@@ -7,16 +7,14 @@ defmodule SmacheWeb.ApiController do
   def show(conn, %{"key" => key} = _params) do
     case key_is_nil?(conn, key) do
       :proceed_with_request ->
-        valid_key = Normalizer.normalize(key)
-
-        {node, valid_data} =
-          valid_key
+        {node, data} =
+          Normalizer.normalize(key)
           |> Mitigator.grab_data()
 
         json(conn, %{
           key: key,
           node: node,
-          data: valid_data
+          data: data
         })
 
       forbidden_key_type_response ->
