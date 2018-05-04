@@ -14,7 +14,7 @@ defmodule SmacheWeb.ApiController do
           |> Mitigator.grab_data()
 
         json(conn, %{
-          key: valid_key,
+          key: key,
           node: node,
           data: valid_data
         })

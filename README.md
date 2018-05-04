@@ -46,11 +46,11 @@ If you plan to use integers and strings (as keys), please read the following:
 
 Examples:
 
-1. `1` -> `1` (integer turn into integer)
+1. `1` -> `1` (integer remains an integer)
 2. `"1"` -> `1` (string that can be casted into integer)
-3. `"aa"` -> `24_929` (string that needs to be transformed into an integer)
-4. `"aaa"` -> `6_381_921` (string that needs to be transformed into an integer)
-5. `"abcd"` -> `1_633_837_924` (string that needs to be transformed into an integer)
+3. `"aa"` -> `24_929` (string that needs to be encoded into an integer)
+4. `"aaa"` -> `6_381_921` (string that needs to be encoded into an integer)
+5. `"abcd"` -> `1_633_837_924` (string that needs to be encoded into an integer)
 
 _Simply put:_ to avoid collisions (int/char) check the range of a string to see how far up you can use a normal integer key.
 

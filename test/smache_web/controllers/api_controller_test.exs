@@ -42,7 +42,7 @@ defmodule SmacheWeb.ApiControllerTest do
 
     assert json_response(get_query("aaaa"), 200) == %{
              "data" => %{"color" => "blue"},
-             "key" => 1_633_771_873,
+             "key" => "aaaa",
              "node" => "nonode@nohost"
            }
   end
