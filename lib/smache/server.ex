@@ -3,36 +3,26 @@ defmodule Smache.Ets.Table do
 
   use GenServer
 
-  def start_link(opts \\ []) do
-    [name: name] = opts
-
-    GenServer.start_link(
-      __MODULE__,
-      [
-        {:name, name}
-      ],
-      opts
-    )
+  def start_link() do
+    GenServer.start_link(__MODULE__, %{}, name: SmacheCache)
   end
 
-  def fetch(id, data, ets_table) do
-    GenServer.call(ets_table, {:fetch, {id, data, ets_table}})
-  end
-
-  def handle_call({:fetch, {id, data, ets_table}}, _from, state) do
-    {:reply, Cache.fetch(id, data, ets_table), state}
-  end
-
-  def init(args) do
-    [{:name, name}] = args
-
-    :ets.new(name, [
+  def init(_args) do
+    :ets.new(:smache_cache, [
       :named_table,
       :set,
       :public,
       read_concurrency: true
     ])
 
-    {:ok, %{name: name}}
+    {:ok, %{}}
+  end
+
+  def fetch(id, data) do
+    GenServer.call(SmacheCache, {:fetch, {id, data}})
+  end
+
+  def handle_call({:fetch, {id, data}}, _from, state) do
+    {:reply, Cache.fetch(id, data), state}
   end
 end

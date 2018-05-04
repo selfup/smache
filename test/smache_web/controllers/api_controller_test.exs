@@ -1,10 +1,8 @@
 defmodule SmacheWeb.ApiControllerTest do
-  alias Smache.Shard, as: Shard
   use SmacheWeb.ConnCase
 
   setup do
-    Shard.tables(:ets)
-    |> Enum.each(fn t -> :ets.delete_all_objects(t) end)
+    :ets.delete_all_objects(:smache_cache) && :ok
   end
 
   def post_query(key) do

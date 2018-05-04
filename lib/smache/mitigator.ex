@@ -1,8 +1,8 @@
 defmodule Smache.Mitigator do
-  alias Smache.Shard, as: Shard
+  alias Smache.Normalizer, as: Normalizer
 
-  def fetch(key, data, ets_table) do
-    dig(workers(), key, data, ets_table)
+  def fetch(key, data) do
+    dig(workers(), key, data)
   end
 
   def grab_data(key) do
@@ -14,21 +14,13 @@ defmodule Smache.Mitigator do
   end
 
   def data(key) do
-    {_ukey, table} = ets_table(key)
-
-    case :ets.lookup(table, key) do
+    case :ets.lookup(:smache_cache, key) do
       [] ->
         {Node.self(), nil}
 
       [{_key, data}] ->
         {Node.self(), data}
     end
-  end
-
-  def ets_table(key) do
-    ukey = Shard.is_num_or_str?(key)
-
-    {ukey, :cache_table}
   end
 
   defp dig(nodes, key) do
@@ -43,20 +35,20 @@ defmodule Smache.Mitigator do
     end
   end
 
-  defp dig(nodes, key, data, ets_table) do
+  defp dig(nodes, key, data) do
     {shard, delegator} = mitigate(nodes, key)
 
     case shard == Node.self() do
       true ->
-        Smache.Ets.Table.fetch(key, data, ets_table)
+        Smache.Ets.Table.fetch(key, data)
 
       false ->
-        node_fetch(delegator, [key, data, ets_table])
+        node_fetch(delegator, [key, data])
     end
   end
 
   defp mitigate(nodes, key) do
-    ukey = Shard.is_num_or_str?(key)
+    ukey = Normalizer.normalize(key)
     shard = rem(ukey, length(nodes))
     delegator = Enum.at(nodes, shard)
 
