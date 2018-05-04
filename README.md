@@ -5,7 +5,7 @@ Elixir Cache as a Service :tada: _warning this is alpha stage software_
 Serialized - fault tolerant - self sharding - Key Value Cache :rocket:
 
 1. Provides a RESTful API that can handle concurrent requests (Phoenix) but serializes all writes to memory
-1. As load increases when nodes are behind a load balancer every node you add can become part of the network
+1. When nodes are behind a load balancer every node you add can become conected to each other
 1. Distribute your cache by adding machines (shards) and they automaitcally figure out where to grab data
 1. RAM IO and all cache is handled using [ETS](https://elixir-lang.org/getting-started/mix-otp/ets.html)
 
@@ -36,35 +36,31 @@ Load Balance your cluster of cache nodes (static or dynamic) and performance inc
 
 ## Caveats
 
-Currently the simplest solution is to make a main registry service for nodes to register themselves.
-
-This registry is called **uplink**.
-
-All worker nodes are dependant on this node being up first/forever :rocket:
+All nodes are dependant on a node longname to be provided on bootup to connect to the network :rocket:
 
 To auto shard at scale, all keys are turned into an integer if not already an integer :thinking:
 
 All nil/null keys are rejected with a 403 :boom:
 
-If you plan to store integers (or strings that directly map to integers as keys) as well as regular strings (as keys), please understand the following strategies! :thinking:
+If you plan to use integers and strings (as keys), please read the following:
 
 Examples:
 
-1. `1` -> `1`
-2. `"1"` -> `1`
-3. `"aa"` -> `24_929`
-4. `"aaa"` -> `6_381_921`
-5. `"abcd"` -> `1_633_837_924`
+1. `1` -> `1` (integer turn into integer)
+2. `"1"` -> `1` (string that can be casted into integer)
+3. `"aa"` -> `24_929` (string that needs to be transformed into an integer)
+4. `"aaa"` -> `6_381_921` (string that needs to be transformed into an integer)
+5. `"abcd"` -> `1_633_837_924` (string that needs to be transformed into an integer)
 
-_Simply put:_ to avoid collisions check the range of a string to see how far up you can use a normal integer key.
+_Simply put:_ to avoid collisions (int/char) check the range of a string to see how far up you can use a normal integer key.
 
 For example here:
 
-1. 4 chars starts at 1.6+ billion...
+1. 4 chars starts at 1.6+ billion
 1. 3 chars starts at 6.3+ million
 1. 2 chars starts at 24+ thousand
 
-So unless you are storing that much data, make sure to store strings of a certain length to ensure they do not colide with already stored integers :pray:
+Unless you are storing that much data, make sure to store strings of a certain length to ensure they do not colide with already stored integers (or vice versa) :pray:
 
 ## Development
 
