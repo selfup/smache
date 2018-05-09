@@ -1,4 +1,4 @@
-FROM bitwalker/alpine-elixir:1.6.3
+FROM bitwalker/alpine-elixir:1.6.5
 
 EXPOSE 4000
 
