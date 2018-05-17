@@ -31,7 +31,7 @@ defmodule Smache.Mitigator do
         data(key)
 
       false ->
-        node_data(delegator, [key])
+        node_data({delegator, key}, [key])
     end
   end
 
@@ -43,7 +43,7 @@ defmodule Smache.Mitigator do
         Smache.Ets.Table.fetch(key, data)
 
       false ->
-        node_fetch(delegator, [key, data])
+        node_fetch({delegator, key}, [key, data])
     end
   end
 
@@ -56,10 +56,10 @@ defmodule Smache.Mitigator do
   end
 
   defp node_fetch(delegator, args) do
-    :rpc.call(delegator, Smache.Ets.Table, :fetch, args)
+    :gen_rpc.call(delegator, Smache.Ets.Table, :fetch, args)
   end
 
   defp node_data(delegator, args) do
-    :rpc.call(delegator, Smache.Mitigator, :data, args)
+    :gen_rpc.call(delegator, Smache.Mitigator, :data, args)
   end
 end
