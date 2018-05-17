@@ -15,7 +15,7 @@ defmodule Smache.Mixfile do
 
   def application do
     [
-      mod: {Smache.Application, [:gen_rpc]},
+      mod: {Smache.Application, []},
       extra_applications: [:logger, :runtime_tools],
     ]
   end
@@ -32,8 +32,7 @@ defmodule Smache.Mixfile do
       {:gettext, "~> 0.11"},
       {:cowboy, "~> 1.0"},
       {:distillery, "~> 1.5", runtime: false, only: :prod},
-      {:jason, "~> 1.0"},
-      {:gen_rpc, "~> 2.0"}
+      {:jason, "~> 1.0"}
     ]
   end
 end

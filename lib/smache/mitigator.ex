@@ -24,26 +24,26 @@ defmodule Smache.Mitigator do
   end
 
   defp dig(nodes, key) do
-    {index, delegator} = mitigate(nodes, key)
+    delegator = mitigate(nodes, key)
 
     case delegator == Node.self() do
       true ->
         data(key)
 
       false ->
-        node_data({delegator, key}, [key])
+        node_data(delegator, [key])
     end
   end
 
   defp dig(nodes, key, data) do
-    {index, delegator} = mitigate(nodes, key)
+    delegator = mitigate(nodes, key)
 
     case delegator == Node.self() do
       true ->
         Smache.Ets.Table.fetch(key, data)
 
       false ->
-        node_fetch({delegator, key}, [key, data])
+        node_fetch(delegator, [key, data])
     end
   end
 
@@ -52,14 +52,14 @@ defmodule Smache.Mitigator do
     index = rem(ukey, length(nodes))
     delegator = Enum.at(nodes, index)
 
-    {index, delegator}
+    delegator
   end
 
   defp node_fetch(delegator, args) do
-    :gen_rpc.call(delegator, Smache.Ets.Table, :fetch, args)
+    :rpc.call(delegator, Smache.Ets.Table, :fetch, args)
   end
 
   defp node_data(delegator, args) do
-    :gen_rpc.call(delegator, Smache.Mitigator, :data, args)
+    :rpc.call(delegator, Smache.Mitigator, :data, args)
   end
 end
