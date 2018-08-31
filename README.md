@@ -105,6 +105,20 @@ Now run the curl scripts (in a third shell):
 ./scripts/curl.get.sh 4001 4001
 ```
 
+### How to have 4 nodes talk via docker
+
+```bash
+./scripts/services.sh
+
+# if the second ip addr has a different 2nd ip number...
+# Example: self: smache@172.27.0.2 - uplink: smache@172.20.0.2
+# TWO=27 ./scripts/services.sh
+
+./scripts/curl.post.sh 1234 1237
+
+./scripts/curl.get.sh 1235 1236
+```
+
 ## LICENSE
 
 Licensed under the [MIT License](https://choosealicense.com/licenses/mit/)
