@@ -29,7 +29,7 @@ build:
     - docker info
 
   script:
-    - export SMACHE_BUILD=smache:v$CI_PIPELINE_ID
+    - export SMACHE_BUILD=smache:v$CI_PIPELINE_IID
     - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN registry.gitlab.com
     - docker build -t registry.gitlab.com/selfup/$SMACHE_BUILD .
     - docker push registry.gitlab.com/selfup/$SMACHE_BUILD
