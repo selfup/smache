@@ -13,7 +13,7 @@ dind:
   dependencies:
     - secrets
 
-  stage: docker_build
+  stage: build
 
   image: docker:stable
 
