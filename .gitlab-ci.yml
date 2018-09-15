@@ -10,6 +10,9 @@ elixir_secrets:
     - ./scripts/secret.sh
 
 docker_build:
+  dependencies:
+    - elixir_secrets
+
   stage: docker_build
 
   image: docker:stable
