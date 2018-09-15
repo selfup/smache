@@ -8,6 +8,7 @@ elixir:
   image: elixir:latest
   script:
     - ./scripts/secret.sh
+    - cat .env
 
 dind:
   dependencies:
