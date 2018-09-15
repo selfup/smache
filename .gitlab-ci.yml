@@ -5,24 +5,22 @@ stages:
 elixir_secrets:
   stage: elixir_secrets
 
-  build:elixir_secrets:
-    image: elixir:latest
-    script:
-      - ./scripts/secret.sh
+  image: elixir:latest
+  script:
+    - ./scripts/secret.sh
 
 docker_build:
   stage: docker_build
 
-  build:docker_build:
-    image: docker:stable
+  image: docker:stable
 
-    services:
-      - docker:dind
+  services:
+    - docker:dind
 
-    before_script:
-      - docker info
+  before_script:
+    - docker info
 
-    script:
-      - export SMACHE_BUILD=smache_v$CI_PIPELINEID
-      - cat .env
-      - echo $SMACHE_BUILD
+  script:
+    - export SMACHE_BUILD=smache_v$CI_PIPELINEID
+    - cat .env
+    - echo $SMACHE_BUILD
