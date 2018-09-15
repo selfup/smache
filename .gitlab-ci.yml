@@ -29,5 +29,6 @@ build:
     - docker info
 
   script:
-    - export SMACHE_BUILD=smache_v$CI_PIPELINEID
+    - export SMACHE_BUILD=smache:v$CI_PIPELINEID
     - docker build -t $SMACHE_BUILD .
+    - docker save $SMACHE_BUILD > $SMACHE_BUILD.tar.gz

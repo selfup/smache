@@ -118,9 +118,3 @@ Now run the curl scripts (in a third shell):
 
 ./scripts/curl.get.sh 1235 1236
 ```
-
-## LICENSE
-
-Licensed under the [MIT License](https://choosealicense.com/licenses/mit/)
-
-[See LICENSE file in root of project](https://github.com/selfup/smache/blob/master/LICENSE)
