@@ -1,17 +1,17 @@
 stages:
-  - elixir_secrets
-  - docker_build
+  - secrets
+  - build
 
-elixir_secrets:
-  stage: elixir_secrets
+secrets:
+  stage: secrets
 
   image: elixir:latest
   script:
     - ./scripts/secret.sh
 
-docker_build:
+build:
   dependencies:
-    - elixir_secrets
+    - secrets
 
   stage: docker_build
 
