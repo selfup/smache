@@ -30,5 +30,5 @@ build:
 
   script:
     - export SMACHE_BUILD=smache:v$CI_PIPELINEID
-    - docker build -t $SMACHE_BUILD .
-    - docker save $SMACHE_BUILD > $SMACHE_BUILD.tar.gz
+    - docker build -t registry.gitlab.com/selfup/$SMACHE_BUILD .
+    - docker push registry.gitlab.com/selfup/$SMACHE_BUILD
