@@ -1,5 +1,10 @@
 image: docker:stable
 
+build:elixir_stuff:
+  image: bitwalker/alpine-elixir:1.6.5
+  script:
+    - ./scripts/secret.sh
+
 services:
   - docker:dind
 
@@ -8,5 +13,6 @@ before_script:
 
 build_image:
   script:
-    - echo $CI_PIPELINE_IID
-    - echo "done!""
+    - export SMACHE_BUILD=smache_v$CI_PIPELINEID
+    - cat .env
+    - echo $SMACHE_BUILD
