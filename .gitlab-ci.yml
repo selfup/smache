@@ -2,14 +2,14 @@ stages:
   - secrets
   - build
 
-secrets:
+elixir:
   stage: secrets
 
   image: elixir:latest
   script:
     - ./scripts/secret.sh
 
-build:
+dind:
   dependencies:
     - secrets
 
