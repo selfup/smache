@@ -12,8 +12,7 @@ build:docker_build:
   before_script:
     - docker info
 
-  build_image:
-    script:
-      - export SMACHE_BUILD=smache_v$CI_PIPELINEID
-      - cat .env
-      - echo $SMACHE_BUILD
+  script:
+    - export SMACHE_BUILD=smache_v$CI_PIPELINEID
+    - cat .env
+    - echo $SMACHE_BUILD
