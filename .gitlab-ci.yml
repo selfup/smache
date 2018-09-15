@@ -6,9 +6,14 @@ elixir:
   stage: secrets
 
   image: elixir:latest
+
   script:
     - ./scripts/secret.sh
     - cat .env
+
+  artifacts:
+    paths:
+    - .env
 
 dind:
   dependencies:
