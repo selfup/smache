@@ -1,7 +1,7 @@
 image: docker:stable
 
 build:elixir_stuff:
-  image: bitwalker/alpine-elixir:1.6.5
+  image: elixir:latest
   script:
     - ./scripts/secret.sh
 
