@@ -30,5 +30,6 @@ build:
 
   script:
     - export SMACHE_BUILD=smache:v$CI_PIPELINEID
+    - docker login registry.gitlab.com -u $CI_DEPLOY_USER -p $CI_DEPLOY_PASSWORD
     - docker build -t registry.gitlab.com/selfup/$SMACHE_BUILD .
     - docker push registry.gitlab.com/selfup/$SMACHE_BUILD
