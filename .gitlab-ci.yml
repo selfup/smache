@@ -5,17 +5,16 @@ stages:
 elixir:
   stage: secrets
 
-  image: elixir:latest
+  image: bitwalker/alpine-elixir:1.6.5
 
   script:
     - ./scripts/secret.sh
-    - cat .env
 
   artifacts:
     paths:
     - .env
 
-dind:
+build:
   dependencies:
     - elixir
 
@@ -31,5 +30,4 @@ dind:
 
   script:
     - export SMACHE_BUILD=smache_v$CI_PIPELINEID
-    - cat .env
-    - echo $SMACHE_BUILD
+    - docker build -t $SMACHE_BUILD .
