@@ -1,0 +1,7 @@
+before_script:
+  - docker info
+
+build_image:
+  script:
+    - echo $CI_PIPELINE_IID
+    - echo "done!""
