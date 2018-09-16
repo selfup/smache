@@ -8,6 +8,7 @@ elixir:
   image: bitwalker/alpine-elixir:1.6.5
 
   script:
+    = ./scripts/test.sh
     - ./scripts/secret.sh
 
   artifacts:
