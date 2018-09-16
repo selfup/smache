@@ -5,7 +5,7 @@ stages:
 elixir:
   stage: secrets
 
-  image: bitwalker/alpine-elixir:1.6.5
+  image: bitwalker/alpine-elixir:1.7.3
 
   script:
     = ./scripts/test.sh
