@@ -5,7 +5,6 @@ defmodule Smache.Mixfile do
     [
       app: :smache,
       version: "0.0.1",
-      elixir: "~> 1.6.4",
       elixirc_paths: elixirc_paths(Mix.env()),
       compilers: [:phoenix, :gettext] ++ Mix.compilers(),
       start_permanent: Mix.env() == :prod,
@@ -25,13 +24,13 @@ defmodule Smache.Mixfile do
 
   defp deps do
     [
-      {:phoenix, "~> 1.3.2"},
+      {:phoenix, "~> 1.3.4"},
       {:phoenix_pubsub, "~> 1.0"},
       {:phoenix_html, "~> 2.10"},
       {:phoenix_live_reload, "~> 1.0", only: :dev},
       {:gettext, "~> 0.11"},
       {:cowboy, "~> 1.0"},
-      {:distillery, "~> 1.5", runtime: false, only: :prod},
+      {:distillery, "~> 2.0", runtime: false, only: :prod},
       {:jason, "~> 1.0"}
     ]
   end
