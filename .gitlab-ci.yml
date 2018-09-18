@@ -31,7 +31,7 @@ build:
     - docker info
 
   script:
-    - export VERSION=$CI_PIPELINE_IID
+    - export VERSION=0.0.$CI_PIPELINE_IID
     - export SMACHE_BUILD=smache:v$CI_PIPELINE_IID
     - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN registry.gitlab.com
     - docker build -t registry.gitlab.com/selfup/$SMACHE_BUILD .
