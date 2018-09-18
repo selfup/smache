@@ -3,7 +3,7 @@ stages:
   - droplets
   - build
 
-secrets:
+elixir:
   stage: secrets
 
   image: bitwalker/alpine-elixir:1.7.3
