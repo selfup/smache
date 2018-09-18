@@ -22,7 +22,7 @@ create_droplets:
 
   image: golang:latest
 
-  scripts:
+  script:
     - go run golang/main.go
 
 build_container:
