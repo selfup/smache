@@ -4,7 +4,7 @@ defmodule Smache.Mixfile do
   def project do
     [
       app: :smache,
-      version: "0.0.1",
+      version: System.get_env("VERSION"),
       elixirc_paths: elixirc_paths(Mix.env()),
       compilers: [:phoenix, :gettext] ++ Mix.compilers(),
       start_permanent: Mix.env() == :prod,

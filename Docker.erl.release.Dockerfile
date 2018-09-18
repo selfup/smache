@@ -21,18 +21,6 @@ COPY . .
 
 RUN mix local.hex --force && mix local.rebar --force
 
-EXPOSE 4000
-ENV PORT=4000 VERSION=0.0.1 APP=smache MIX_ENV=prod
-
 RUN /bin/bash -c "source .env \
   && mix do deps.get, compile, release --verbose --env=prod \
-  && cp _build/prod/rel/$APP/releases/$VERSION/$APP.tar.gz $APP.tar.gz \
-  && echo \".\" \
-  && echo \"..\" \
-  && echo \"...\" \
-  && echo \"COPY FROM DOCKER NOW\" \
-  && echo \"RUN:: ./scripts/docker.copy.release.sh ::in another shell\" \
-  && echo \"VERSION: $VERSION - APP: $APP\" \
-  && echo \"...\" \
-  && echo \"..\" \
-  && echo \".\""
+  && cp -R _build/prod/rel/smache/releases smache_release"

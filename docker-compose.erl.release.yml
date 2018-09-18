@@ -5,11 +5,8 @@ services:
     build:
       context: .
       dockerfile: Docker.erl.release.Dockerfile
-    command: /bin/sleep 400
-    ports:
-      - "4000:4000"
+    command: /bin/echo 'done'
     volumes:
       - .:/opt/app
-    environment:
-      - MIX_ENV=prod
-      - PORT=4000
+    env_file:
+      - .env

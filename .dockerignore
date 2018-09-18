@@ -1,6 +1,8 @@
 # phoenix stuff
 */*_build
 _build
+smache_build
+smache_rel
 */*deps
 deps
 */*test
