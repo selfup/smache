@@ -1,8 +1,9 @@
 stages:
   - secrets
+  - droplets
   - build
 
-elixir:
+secrets:
   stage: secrets
 
   image: bitwalker/alpine-elixir:1.7.3
@@ -16,7 +17,15 @@ elixir:
     paths:
     - .env
 
-build:
+create_droplets:
+  stage: droplets
+
+  image: golang:latest
+
+  scripts:
+    - go run golang/main.go
+
+build_container:
   dependencies:
     - elixir
 
@@ -34,5 +43,5 @@ build:
     - export VERSION=0.0.$CI_PIPELINE_IID
     - export SMACHE_BUILD=smache:v$CI_PIPELINE_IID
     - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN registry.gitlab.com
-    - docker build -t registry.gitlab.com/selfup/$SMACHE_BUILD .
+    - docker build -t registry.gitlab.com/selfup/$SMACHE_BUILD -f Docker.erl.release.Dockerfile .
     - docker push registry.gitlab.com/selfup/$SMACHE_BUILD
