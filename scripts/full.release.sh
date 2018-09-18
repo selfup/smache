@@ -1,3 +1,8 @@
+if [[ $PRIVATE_IP == "" ]]
+  echo "NO PRIVATE IP NO PARTY"
+  exit 1
+fi
+
 if [[ -d smache_rel ]]
 then
   rm -rf smache_rel
