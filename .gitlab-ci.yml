@@ -67,8 +67,6 @@ deploy:
     - export SMACHE_BUILD=smache:v$CI_PIPELINE_IID
     - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN registry.gitlab.com
     - docker pull registry.gitlab.com/selfup/$SMACHE_BUILD
-    - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
-    - eval $(ssh-agent -s)
     - echo "$SMACHE_NODE_SSH_PRIV_KEY" | tr -d '\r' | ssh-add - > /dev/null
     - mkdir -p ~/.ssh
     - chmod 700 ~/.ssh
