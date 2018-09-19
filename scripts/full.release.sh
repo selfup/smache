@@ -19,15 +19,17 @@ then
   VERSION=0.0.1
 fi
 
+
 if [[ $UPLINK_IP == "" ]]
 then
   echo "No known node to deploy to"
 else
+  # && docker-compose -f docker-compose.erl.release.yml up --build
+
   echo "export MIX_ENV=prod" >> .env \
     && echo "export APP=smache" >> .env \
     && echo "export VERSION=$VERSION" >> .env \
     && source .env \
-    && docker-compose -f docker-compose.erl.release.yml up --build \
     && ./scripts/docker.copy.release.sh \
     && cp -R .env smache_rel \
     && cp -R rel smache_rel \
