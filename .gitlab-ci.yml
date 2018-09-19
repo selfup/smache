@@ -2,6 +2,7 @@ stages:
   - secrets
   - droplets
   - build
+  - deploy
 
 elixir:
   stage: secrets
