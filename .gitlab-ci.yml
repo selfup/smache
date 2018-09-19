@@ -11,6 +11,7 @@ elixir:
 
   script:
     - export VERSION=0.0.$CI_PIPELINE_IID
+    - export UPLINK_NODE=""
     - ./scripts/test.sh
     - ./scripts/secret.sh
 
