@@ -21,6 +21,8 @@ COPY . .
 
 RUN mix local.hex --force && mix local.rebar --force
 
+ENV MIX_ENV=prod
+
 RUN /bin/bash -c "source .env \
   && mix do deps.get, compile, release --verbose --env=prod \
   && cp -R _build/prod/rel/smache/releases smache_release"
