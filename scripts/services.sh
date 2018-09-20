@@ -1,13 +1,11 @@
 #!/usr/bin/env bash
 
+# orchestrate 1 nginx reverse proxy and a cluster of 4 smache nodes
+# 1 uplink to guarantee downlinks can attach
+# 3 downlinks to prove distributed mesh network can be created
+
 # --build can be passed as $1 to rebuild containers
 # ex: ./scripts/services.sh --build
 
-if [ "$TWO" == "" ]
-then
-  echo 'DEFAULTING SECOND DOCKER HOST IP NUMBER TO: 20'
-  echo 'PLEASE CHECK OUTPUT ON FIRST RUN TO SEE ACTUAL IPS OF NODES'
-  TWO=20
-fi
-
-./scripts/secret.sh && UPLINK_NODE=smache@172.$TWO.0.2 docker-compose up $1
+./scripts/secret.sh \
+  && docker-compose up --scale downlink=3 $1

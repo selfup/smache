@@ -73,7 +73,7 @@ Unless you are storing that much data, make sure to store strings of a certain l
 
 **On first boot**:
 
-`./scripts/test.sh && ./scripts/services.sh`
+`./scripts/services.sh`
 
 1. Generate Secret
 1. Ensure deps are installed and compiled
@@ -108,13 +108,12 @@ Now run the curl scripts (in a third shell):
 ### How to have 4 nodes talk via docker
 
 ```bash
+# boots a Load Balancer (nginx) and 4 smache nodes
 ./scripts/services.sh
 
-# if the second ip addr has a different 2nd ip number...
-# Example: self: smache@172.27.0.2 - uplink: smache@172.20.0.2
-# TWO=27 ./scripts/services.sh
+# posts 7 different keys and data
+./scripts/curl.post.sh 8080
 
-./scripts/curl.post.sh 1234 1237
-
-./scripts/curl.get.sh 1235 1236
+# gets all posted data
+./scripts/curl.get.sh 8080
 ```

@@ -1,30 +1,30 @@
 version: '3.1'
 
 services:
-  nginx-proxy:
+  lb:
     image: "jwilder/nginx-proxy"
     ports:
       - "8080:80"
     volumes:
       - /var/run/docker.sock:/tmp/docker.sock:ro
-  smachenode:
+  uplink:
     depends_on:
-      - nginx-proxy
+      - lb
     environment:
       - VIRTUAL_HOST=localhost
-      - UPLINK_NODE=smachenode
+      - UPLINK_NODE=uplink
     build:
       context: .
       dockerfile: Dockerfile
     command: ["./rel/boot.sh"]
-  smacheworkers:
+  downlink:
     depends_on:
-      - smachenode
+      - uplink
     links:
-      - smachenode
+      - uplink
     environment:
       - VIRTUAL_HOST=localhost
-      - UPLINK_NODE=smachenode
+      - UPLINK_NODE=uplink
     build:
       context: .
       dockerfile: Dockerfile
