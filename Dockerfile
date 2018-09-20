@@ -4,7 +4,7 @@ EXPOSE 4000
 
 ENV PORT=4000 VERSION=0.0.1 APP=smache MIX_ENV=prod
 
-RUN apk --update add make bash curl && rm -rf /var/cache/apk/*
+RUN apk --update add make bind-tools bash curl && rm -rf /var/cache/apk/*
 
 WORKDIR ${HOME}
 
