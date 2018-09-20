@@ -1,50 +1,31 @@
 version: '3.1'
 
 services:
-  one:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    command: ["./rel/boot.sh"]
+  nginx-proxy:
+    image: "jwilder/nginx-proxy"
     ports:
-      - "1234:4000"
-    environment:
-      - UPLINK_NODE=${UPLINK_NODE}
-
-  two:
+      - "8080:80"
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+  smachenode:
     depends_on:
-      - one
+      - nginx-proxy
+    environment:
+      - VIRTUAL_HOST=localhost
+      - UPLINK_NODE=smachenode
     build:
       context: .
       dockerfile: Dockerfile
     command: ["./rel/boot.sh"]
-    ports:
-      - "1235:4000"
-    environment:
-      - UPLINK_NODE=${UPLINK_NODE}
-
-  three:
+  smacheworkers:
     depends_on:
-      - one
+      - smachenode
+    links:
+      - smachenode
+    environment:
+      - VIRTUAL_HOST=localhost
+      - UPLINK_NODE=smachenode
     build:
       context: .
       dockerfile: Dockerfile
     command: ["./rel/boot.sh"]
-    ports:
-      - "1236:4000"
-    environment:
-      - UPLINK_NODE=${UPLINK_NODE}
-
-  four:
-    depends_on:
-      - one
-    build:
-      context: .
-      dockerfile: Dockerfile
-    command: ["./rel/boot.sh"]
-    ports:
-      - "1237:4000"
-    environment:
-      - UPLINK_NODE=${UPLINK_NODE}
-
-  

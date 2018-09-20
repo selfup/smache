@@ -49,7 +49,9 @@ defmodule Smache.Mitigator do
 
   defp mitigate(nodes, key) do
     ukey = Normalizer.normalize(key)
+
     index = rem(ukey, length(nodes))
+
     delegator = Enum.at(nodes, index)
 
     delegator
