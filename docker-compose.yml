@@ -3,8 +3,6 @@ version: '3.1'
 services:
   nginx-proxy:
     image: "jwilder/nginx-proxy"
-    logging:
-      driver: none
     ports:
       - "8080:80"
     volumes:
