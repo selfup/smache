@@ -5,9 +5,9 @@ then
   HOST=localhost
 fi
 
-if [ "$1" == "" ] || [ "$2" == "" ]
+if [ "$1" == "" ]
 then
-  echo 'PLEASE PROVIDE $1 and $2 FOR PORTS'
+  echo 'PLEASE PROVIDE $1 FOR LB PORT'
 else
 # odd spacing for output
 echo "
@@ -20,6 +20,31 @@ $(curl \
   --fail --silent --show-error \
   -H "Content-Type: application/json" \
   -X POST -d @scripts/bench.data.two.json \
-  http://$HOST:$2/api/)
+  http://$HOST:$1/api/)
+$(curl \
+  --fail --silent --show-error \
+  -H "Content-Type: application/json" \
+  -X POST -d @scripts/bench.data.three.json \
+  http://$HOST:$1/api/)
+$(curl \
+  --fail --silent --show-error \
+  -H "Content-Type: application/json" \
+  -X POST -d @scripts/bench.data.four.json \
+  http://$HOST:$1/api/)
+$(curl \
+  --fail --silent --show-error \
+  -H "Content-Type: application/json" \
+  -X POST -d @scripts/bench.data.five.json \
+  http://$HOST:$1/api/)
+$(curl \
+  --fail --silent --show-error \
+  -H "Content-Type: application/json" \
+  -X POST -d @scripts/bench.data.six.json \
+  http://$HOST:$1/api/)
+$(curl \
+  --fail --silent --show-error \
+  -H "Content-Type: application/json" \
+  -X POST -d @scripts/bench.data.seven.json \
+  http://$HOST:$1/api/)
 "
 fi

@@ -12,8 +12,22 @@ defmodule Downlink.Server do
     {:ok, %{}}
   end
 
+  def find_dns(name) do
+    :os.cmd(:"nslookup #{name} | grep Address | head -2 | tail -1 | cut -d \":\" -f 2 | tr -d \" \"")
+    |> to_string
+    |> String.replace("\n", "")
+    |> String.replace(" ", "")
+  end
+
+  def resolved_node do
+    case find_dns("smachenode") =~ "null" do
+      true -> nil
+      false -> "smache@#{resolved_node}"
+    end
+  end
+
   defp register do
-    node = :"#{System.get_env("UPLINK_NODE") || Node.self()}"
+    node = :"#{resolved_node() || Node.self()}"
 
     Logger.warn("self: #{Node.self()} - uplink: #{node}")
 
