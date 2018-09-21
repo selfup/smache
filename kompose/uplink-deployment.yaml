@@ -1,0 +1,32 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert
+    kompose.version: 1.16.0 (0c01309)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: uplink
+  name: uplink
+spec:
+  replicas: 1
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        io.kompose.service: uplink
+    spec:
+      containers:
+      - args:
+        - ./rel/boot.sh
+        env:
+        - name: UPLINK_NODE
+          value: uplink
+        image: smache_uplink
+        # be careful with this policy??
+        imagePullPolicy: Never
+        name: uplink
+        resources: {}
+      restartPolicy: Always
+status: {}

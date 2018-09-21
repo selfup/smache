@@ -16,7 +16,7 @@ else
   echo ' STOPPING ALL CONTAINERS' \
     && docker stop $PS_AQ \
     && echo 'DELETING ALL CONTAINERS' \
-    && docker rm $PS_AQ \
+    && docker rm $PS_AQ --force \
     && echo 'DELETING ALL IMAGES' \
-    && docker rmi $IMAGES_Q
+    && docker rmi $IMAGES_Q --force
 fi

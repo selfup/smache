@@ -1,0 +1,17 @@
+version: '3.1'
+
+services:
+  uplink:
+    environment:
+      - UPLINK_NODE=uplink
+    image: "smache_uplink"
+    command: ["./rel/boot.sh"]
+  downlink:
+    depends_on:
+      - uplink
+    links:
+      - uplink
+    environment:
+      - UPLINK_NODE=uplink
+    image: "smache_downlink"
+    command: ["./rel/boot.sh"]
