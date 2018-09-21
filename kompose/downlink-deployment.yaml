@@ -24,6 +24,7 @@ spec:
         - name: UPLINK_NODE
           value: uplink
         image: smache_uplink
+        # be careful with this policy??
         imagePullPolicy: Never
         name: downlink
         resources: {}
