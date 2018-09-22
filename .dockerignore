@@ -23,3 +23,9 @@ scripts
 *.cookie
 *.log
 *.md
+
+# cloud native stuff
+minikube
+kompose
+ubuntu
+golang
