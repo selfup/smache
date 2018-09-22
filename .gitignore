@@ -5,7 +5,6 @@
 *.ez
 
 # shh
-*.secret.exs
 .env
 
 # side effectts
