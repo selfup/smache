@@ -7,7 +7,7 @@ use Mix.Releases.Config,
   default_environment: Mix.env()
 
 environment :prod do
-  set include_erts: true
+  set include_erts: false
   set include_src: false
   set cookie: :"base_cookie_will_be_changed_at_runtime"
   set vm_args: "./rel/vm.args"
