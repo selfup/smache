@@ -1,2 +1,5 @@
 -name ${SNAME_IP}
 -setcookie ${COOKIE}
+
+## Increase number of concurrent ports/sockets
+-env ERL_MAX_PORTS 4096
