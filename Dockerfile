@@ -9,7 +9,7 @@ COPY . /workspace
 WORKDIR /workspace
 
 RUN source .env \
-  && mix do deps.get, compile, release --verbose --env=prod
+  && mix do deps.get, compile, release --verbose --no-tar --env=prod
 
 # REMOVE SOURCE CODE
 RUN rm -rf lib mix.exs mix.lock
