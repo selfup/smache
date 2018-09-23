@@ -2,7 +2,7 @@ FROM bitwalker/alpine-elixir:1.7.3 AS build
 
 ENV VERSION=0.0.1 APP=smache MIX_ENV=prod
 
-RUN apk --update add make bash curl && rm -rf /var/cache/apk/*
+RUN apk --update add make bash && rm -rf /var/cache/apk/*
 
 COPY . /workspace
 
@@ -21,7 +21,7 @@ EXPOSE 4000
 
 ENV PORT=4000
 
-RUN apk --update add make bind-tools bash curl && rm -rf /var/cache/apk/*
+RUN apk --update add bind-tools bash curl && rm -rf /var/cache/apk/*
 
 COPY --from=build /workspace /workspace
 
