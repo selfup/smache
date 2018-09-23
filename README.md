@@ -1,15 +1,58 @@
 # Smache
 
-Elixir Cache as a Service :tada: _warning this is alpha stage software_
+Cache that can get Smashed :tada: _warning this is alpha stage software_
 
-Serialized - fault tolerant - self sharding - Key Value Cache :rocket:
+Distributed - Scalable - Serialized - Immutable - Fault Tolerant - Self Sharding - Key Value Cache :rocket:
 
 1. Provides a RESTful API that can handle concurrent requests (Phoenix) but serializes all writes to memory
-1. When nodes are behind a load balancer every node you add can become conected to each other
+1. When nodes are behind a load balancer every node you add can become connected to each other (distributed)
 1. Distribute your cache by adding machines (shards) and they automaitcally figure out where to grab data
 1. RAM IO and all cache is handled using [ETS](https://elixir-lang.org/getting-started/mix-otp/ets.html)
 
 _Suprisingly performant_ :smile:
+
+Current benchmarks on a 4GHz 3770k with DDR3 RAM (all orchestrated with kubernetes):
+
+- 1 Machine
+- 4 Smaches
+- 1 Nginx Load Balancer
+- 1 Bench Suite
+- 1 Set of Nginx Activity Logs
+
+**105k req/s**
+
+## Purpose
+
+High frequency short term cache storage. If this does not fit your bill there are caveats!
+
+Common use cases would be something like location data for realtime applications (Uber/Lyft/etc...)
+
+## Caching solutions already exist?
+
+Oh right, memcache and redis are big players in the game.
+
+These take a different approach. They use connection pools and have a limit of how many clients can be connected.
+
+You also run into the idea of a Master/Slave replica concept. Your clusters are really just all the same data, which means RAM and more RAM.
+
+Think of this as a RESTful MongoDB without schemas and a flat single table that does not persist.
+
+## Why was this built?
+
+As an expirement. Turns out it works.
+
+Here's why developement has continued:
+
+1. Each node becomes it's own shard. Automagically
+1. Bottleneck is the load balancer
+1. Very cheap to run idle, auto scaling takes care of the rest like stateless apis
+1. The data has to rebuild but that's not a big deal in it's use case
+1. Location data is only valid for a certain amount of time
+1. Rebuilding provides more accuracy anyways
+1. This was initially built as a backpressure mitigation tool for High IO NoSQL data
+1. It turns out it's really fast
+1. It's only 300 ish lines of runtime code
+1. The rest of the functionality comes from the battletested Erlang BEAM
 
 ## Built for Load Balancing
 
@@ -17,7 +60,7 @@ Load Balance your cluster of cache nodes (static or dynamic) and performance inc
 
 1. Static clusters (say you stick with 20 forever)
 
-        a. Will never wipe data (unless rebooted, or the node crashes)
+        a. Will never lose references to existing data (unless rebooted, or the node crashes)
         b. Will be easier to maintain
         c. No big worry about data loss, it will be very rare (if at all)
 
@@ -36,7 +79,11 @@ Load Balance your cluster of cache nodes (static or dynamic) and performance inc
 
 ## Caveats
 
-All nodes are dependant on a node longname to be provided on bootup to connect to the network :rocket:
+Stale data is still a thing for now. :sob:
+
+All nodes are dependant on a node longname (`smache@internal_ip`) to be provided on bootup to connect to the network :rocket:
+
+No TLS support for internal calls. Must be in a VPC or a managed cluster. Also Digital Ocean has sweet Private Networking features.
 
 To auto shard at scale, all keys are turned into an integer if not already an integer :thinking:
 
@@ -61,6 +108,10 @@ For example here:
 1. 2 chars starts at 24+ thousand
 
 Unless you are storing that much data, make sure to store strings of a certain length to ensure they do not colide with already stored integers (or vice versa) :pray:
+
+Consider using shas or ids only.
+
+An ENV var can be read to ensure that heavy string to uint conversion doesn't need to happen.
 
 ## Development
 
@@ -117,3 +168,31 @@ Now run the curl scripts (in a third shell):
 # gets all posted data
 ./scripts/curl.get.sh 8080
 ```
+
+## Deployment
+
+Other than Docker no deps are needed to build containers.
+
+If you have your own load balancer just: `docker-compose -f kompose/docker-compose.yml build`
+
+Do needed modifications to the deployment yamls for K8S or roll your own.
+
+Ship the nodes to your prefered orchestrator. Do not scale the `uplink` node.
+
+While it is part of the distributed mesh, it is the single point of truth for new nodes.
+
+With K8s when the downlinks boot up they might restart once if the uplink node is not up yet.
+
+This is normal.
+
+## Network split
+
+This will suck because it just does.
+
+However this is a masterles system. So technically data will provided and rebuilt in the available network.
+
+Once the network is restored:
+
+1. At this point scale down to a good amount of nodes
+1. Let the cache rebuild
+1. scale up or let autoscalers do their thing
