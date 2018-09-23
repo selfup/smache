@@ -1,17 +1,31 @@
+FROM bitwalker/alpine-elixir:1.7.3 AS build
+
+ENV VERSION=0.0.1 APP=smache MIX_ENV=prod
+
+RUN apk --update add make bash curl && rm -rf /var/cache/apk/*
+
+COPY . /workspace
+
+WORKDIR /workspace
+
+RUN source .env \
+  && mix do deps.get, compile, release --verbose --env=prod
+
+# REMOVE SOURCE CODE
+RUN rm -rf lib mix.exs mix.lock
+
+# RUNTIME STAGE
 FROM bitwalker/alpine-elixir:1.7.3
 
 EXPOSE 4000
 
-ENV PORT=4000 VERSION=0.0.1 APP=smache MIX_ENV=prod
+ENV PORT=4000
 
 RUN apk --update add make bind-tools bash curl && rm -rf /var/cache/apk/*
 
-WORKDIR ${HOME}
+COPY --from=build /workspace /workspace
 
-COPY . .
-
-RUN source .env \
-  && mix do deps.get, compile, release --verbose --env=prod
+WORKDIR /workspace
 
 HEALTHCHECK --interval=10s --timeout=2s \
   CMD curl -f 0.0:4000/healthcheck || exit 1

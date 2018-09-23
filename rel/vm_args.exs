@@ -20,7 +20,6 @@ env_vars = [
   "REPLACE_OS_VARS=true",
   "SNAME_IP=#{sname_ip}",
   "COOKIE=#{cookie}",
-  "SHARD_LIMIT=20",
 ]
 
 env_vars

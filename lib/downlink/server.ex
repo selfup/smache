@@ -19,17 +19,15 @@ defmodule Downlink.Server do
       | head -2 \
       | tail -1 \
       | cut -d \":\" -f 2 \
+      | tr -d \" \" \
+      | tr -d \" \n\" \
       | tr -d \" \"
     ")
     |> to_string
-    |> String.replace("\n", "")
-    |> String.replace(" ", "")
   end
 
   def resolved_node do
-    uplink_env = System.get_env("UPLINK_NODE")
-
-    uplink_node = find_dns(uplink_env || "uplink")
+    uplink_node = find_dns("uplink")
     
     case uplink_node =~ "null" do
       true -> nil
