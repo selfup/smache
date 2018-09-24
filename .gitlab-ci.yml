@@ -1,8 +1,6 @@
 stages:
   - secrets
-  - droplets
   - build
-  - deploy
 
 elixir:
   stage: secrets
@@ -18,14 +16,6 @@ elixir:
   artifacts:
     paths:
     - .env
-
-create_droplets:
-  stage: droplets
-
-  image: golang:latest
-
-  script:
-    - go run golang/main.go
 
 build_container:
   dependencies:

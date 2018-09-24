@@ -29,11 +29,15 @@ Common use cases would be something like location data for realtime applications
 
 ## Caching solutions already exist?
 
-Oh right, memcache and redis are big players in the game.
+Memcache and redis are big players in the game.
 
 These take a different approach. They use connection pools and have a limit of how many clients can be connected.
 
+They are also very fast!
+
 You also run into the idea of a Master/Slave replica concept. Your clusters are really just all the same data, which means RAM and more RAM.
+
+However these are more long term cache solutions. Smache is not that!
 
 Think of this as a RESTful MongoDB without schemas and a flat single table that does not persist.
 
@@ -195,4 +199,4 @@ Once the network is restored:
 
 1. At this point scale down to a good amount of nodes
 1. Let the cache rebuild
-1. scale up or let autoscalers do their thing
+1. Scale up or let autoscalers do their thing
