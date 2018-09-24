@@ -47,6 +47,10 @@ Request per second remain stable, but some backpressure gets created at differen
 
 You can see anywhere from 75k to 115k req/s
 
+This can mostly be attributed to nginx activity logs on the same machine.
+
+Smache only logs warnings/errors.
+
 ## Purpose
 
 High frequency short term cache storage. If this does not fit your bill there are caveats!
