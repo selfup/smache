@@ -21,6 +21,32 @@ Current benchmarks on a 4GHz 3770k with DDR3 RAM (all orchestrated with kubernet
 
 **105k req/s**
 
+If the concurrency of requests are only double that of the actual nodes in the cluster response times are:
+
+_10k requests and 14 concurrency (7 nodes)_
+
+1. 50% 400us
+1. 95% 800us
+1. 99% 1ms
+
+If the concurrency of request are a giant multitude of the nodes in the cluster response times are:
+
+_20k requests and 200 concurrency (7 nodes)_
+
+1. 50% 1ms
+1. 95% 3ms
+1. 99% 7ms
+
+_30k requests and 400 concurrency (7 nodes)_
+
+1. 50% 3ms
+1. 95% 5ms
+1. 99% 15ms
+
+Request per second remain stable, but some backpressure gets created at different intervals.
+
+You can see anywhere from 75k to 115k req/s
+
 ## Purpose
 
 High frequency short term cache storage. If this does not fit your bill there are caveats!
