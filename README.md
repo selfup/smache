@@ -27,27 +27,33 @@ _10k requests and 14 concurrency (7 nodes)_
 
 1. 50% 400us
 1. 95% 800us
-1. 99% 1ms
+1. 100% 1ms (longest request)
 
 If the concurrency of request are a giant multitude of the nodes in the cluster response times are:
+
+_10k requests and 100 concurrency (7 nodes)_
+
+1. 50% 1ms
+1. 95% 2ms
+1. 100% 6ms (longest request)
 
 _20k requests and 200 concurrency (7 nodes)_
 
 1. 50% 1ms
 1. 95% 3ms
-1. 99% 7ms
+1. 100% 9ms (longest request)
 
 _30k requests and 400 concurrency (7 nodes)_
 
 1. 50% 3ms
 1. 95% 5ms
-1. 99% 15ms
+1. 100% 15ms (longest request)
 
 Request per second remain stable, but some backpressure gets created at different intervals.
 
-You can see anywhere from 75k to 115k req/s
+You can see anywhere from 65k to 115k req/s
 
-This can mostly be attributed to nginx activity logs on the same machine.
+**This can mostly be attributed to nginx activity logs on the same machine and heavy IO on the same machine.**
 
 Smache only logs warnings/errors.
 
