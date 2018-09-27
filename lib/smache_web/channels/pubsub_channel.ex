@@ -4,7 +4,11 @@ defmodule SmacheWeb.PubSub do
   alias Smache.Normalizer, as: Normalizer
   alias Smache.Mitigator, as: Mitigator
 
-  def join("room:pubsub", _message, socket) do
+  def join("room:all" <> _key, _message, socket) do
+    {:ok, socket}
+  end
+
+  def join("room:" <> _key, _message, socket) do
     {:ok, socket}
   end
 

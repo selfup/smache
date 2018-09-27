@@ -7,7 +7,11 @@ const socket = new Socket('ws://localhost:4000/socket', {});
 
 socket.connect();
 
-const chan = socket.channel('room:pubsub');
+// to receive events from all rooms or all data updates
+// use the :all channel
+// otherwise, sub to specific keys that you are worried about
+// like - :players, :npcs, :etc..
+const chan = socket.channel('room:all');
 chan.join();
 
 chan.on('sync', ({ key, payload: { data } }) => {
