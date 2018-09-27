@@ -15,7 +15,7 @@ defmodule SmacheWeb.PubSub do
       Normalizer.normalize(key)
       |> Mitigator.fetch(data)
 
-    broadcast!(socket, "sync", %{body: update})
+    broadcast!(socket, "sync", %{key: key, payload: update})
 
     {:noreply, socket}
   end

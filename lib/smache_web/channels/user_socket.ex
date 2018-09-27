@@ -1,8 +1,8 @@
-defmodule HelloWeb.UserSocket do
+defmodule SmacheWeb.UserSocket do
   use Phoenix.Socket
 
   ## Channels
-  channel "room:*", HelloWeb.RoomChannel
+  channel "room:*", SmacheWeb.PubSub
 
   ## Transports
   transport :websocket, Phoenix.Transports.WebSocket

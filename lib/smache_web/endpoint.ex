@@ -1,7 +1,7 @@
 defmodule SmacheWeb.Endpoint do
   use Phoenix.Endpoint, otp_app: :smache
 
-  socket "/socket", HelloWeb.UserSocket
+  socket "/socket", SmacheWeb.UserSocket
 
   if code_reloading? do
     plug(Phoenix.CodeReloader)
