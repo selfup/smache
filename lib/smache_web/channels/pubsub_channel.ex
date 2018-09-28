@@ -8,7 +8,7 @@ defmodule SmacheWeb.PubSub do
     {:ok, socket}
   end
 
-  def join("room:" <> _key, _message, socket) do
+  def join("room:players", _message, socket) do
     {:ok, socket}
   end
 
@@ -20,6 +20,18 @@ defmodule SmacheWeb.PubSub do
       |> Mitigator.fetch(data)
 
     broadcast!(socket, "sync", %{key: key, payload: update})
+
+    {:noreply, socket}
+  end
+
+  def handle_in("players", %{"body" => body}, socket) do
+    %{"key" => key} = body
+
+    {_node, data} =
+      Normalizer.normalize(key)
+      |> Mitigator.grab_data
+
+    broadcast!(socket, "players", %{key: key, payload: data})
 
     {:noreply, socket}
   end
