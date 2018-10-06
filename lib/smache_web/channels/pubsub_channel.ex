@@ -4,43 +4,34 @@ defmodule SmacheWeb.PubSub do
   alias Smache.Normalizer, as: Normalizer
   alias Smache.Mitigator, as: Mitigator
 
-  # sync to all new data updates  
-  def join("room:sync" <> _key, _message, socket) do
+  def join(_room, _message, socket) do
     {:ok, socket}
   end
 
-  # on initial join, ask for current state without updating
-  def join("room:join", _message, socket) do
-    {:ok, socket}
-  end
+  # pass an event name
+  #
+  # if you include _sub in your room it will behave like a sub hook
+  # to discover intial state push to a *_sub channel with a key
+  #
+  # if you include _pub in your room it will behave like a *_pub hook
+  # all new data pushed will be listened to on *_sub
+  def handle_in(event, %{"body" => body}, socket) do
+    cond do
+      event =~ "_pub" ->
+        pub_to_sub(event) |> update(body, socket)
 
-  # pass a scoped name or a scope subscription name
-  def join("room:*" <> _scoped, _message, socket) do
-    {:ok, socket}
-  end
+      event =~ "_sub" ->
+        get(event, body, socket)
 
-  # sync to all new data updates  
-  def handle_in("sync", %{"body" => body}, socket) do
-    update(body, "sync", socket)
-  end
-
-  # on initial join, ask for current state without updating
-  def handle_in("join", %{"body" => body}, socket) do
-    get(body, "join", socket)
-  end
-
-  # pass a scoped name or a scope subscription name
-  # if you include the word 'sync' in your room
-  # it will behave like a sync hook
-  # otherwise it will behave like a join hook
-  def handle_in(scoped, %{"body" => body}, socket) do
-    case scoped =~ "sync" do
       true ->
-        update(body, scoped, socket)
-
-      false ->
-        get(body, scoped, socket)
+        {:noreply, socket}
     end
+  end
+
+  defp pub_to_sub(room) do
+    name = room |> String.split("_") |> Enum.at(0)
+
+    name <> "_sub"
   end
 
   # read only
@@ -51,20 +42,20 @@ defmodule SmacheWeb.PubSub do
       Normalizer.normalize(key)
       |> Mitigator.grab_data()
 
-    broadcast!(socket, room, %{key: key, payload: data})
+    broadcast!(socket, room, %{key: key, data: data})
 
     {:noreply, socket}
   end
 
   # read if no change or update if there is a change
   defp update(body, room, socket) do
-    %{"key" => key, "data" => data} = body
+    %{"key" => key, "data" => update} = body
 
-    update =
+    data =
       Normalizer.normalize(key)
-      |> Mitigator.fetch(data)
+      |> Mitigator.put_or_post(update)
 
-    broadcast!(socket, room, %{key: key, payload: update})
+    broadcast!(socket, room, %{key: key, data: data})
 
     {:noreply, socket}
   end

@@ -14,9 +14,9 @@ defmodule SmacheWeb.Router do
   scope "/api", SmacheWeb do
     pipe_through(:api)
 
-    post("/", ApiController, :create_or_update)
+    post("/", ApiController, :put_or_post)
 
-    get("/", ApiController, :show)
+    get("/", ApiController, :get)
   end
 
   scope "/healthcheck", SmacheWeb do

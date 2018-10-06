@@ -1,7 +1,7 @@
 defmodule Smache.Mitigator do
   alias Smache.Normalizer, as: Normalizer
 
-  def fetch(key, data) do
+  def put_or_post(key, data) do
     dig(workers(), key, data)
   end
 
@@ -40,10 +40,10 @@ defmodule Smache.Mitigator do
 
     case delegator == Node.self() do
       true ->
-        Smache.Ets.Table.fetch(key, data)
+        Smache.Ets.Table.put_or_post(key, data)
 
       false ->
-        node_fetch(delegator, [key, data])
+        node_put_or_post(delegator, [key, data])
     end
   end
 
@@ -57,8 +57,8 @@ defmodule Smache.Mitigator do
     delegator
   end
 
-  defp node_fetch(delegator, args) do
-    :rpc.call(delegator, Smache.Ets.Table, :fetch, args)
+  defp node_put_or_post(delegator, args) do
+    :rpc.call(delegator, Smache.Ets.Table, :put_or_post, args)
   end
 
   defp node_data(delegator, args) do

@@ -7,20 +7,30 @@ const socket = new Socket('ws://localhost:4000/socket', {});
 
 socket.connect();
 
-// to receive events from all rooms or all data updates
-// use the :all channel
-// otherwise, sub to specific keys that you are worried about
-// like - :players, :npcs, :etc..
-// you can also send to a specific room in different components
-// but the recieve all in main or something complex like that!
-const chan = socket.channel('room:all');
+// to receive events from all rooms or all data updates use room:sub
+// otherwise, get updates to specific rooms that you are worried about
+// like => room:sub_players or room:sub_npcs
+const ROOM_NAME = 'myRoom';
+
+const chan = socket.channel(ROOM_NAME + 'all');
 chan.join();
 
-chan.on('sync', ({ key, payload: { data } }) => {
+// YOU MUST USE THE FOLLOWING SYNTAX FOR ROOM NAMES!
+// roomname_sub
+// roomname_pub
+
+// listen to published events
+chan.on(ROOM_NAME + '_sub', ({ key, payload: { data } }) => {
   console.log(key, data);
 });
 
-// if you just want to recieve all updates, no need to push messages
-// if you are trying to push updates to a specific room make sure to namespace!
-chan.push('sync', { body: { key: '1', data: { color: new Date().getTime() } } });
+// push updated state change to all subscribers
+chan.push(ROOM_NAME + '_pub', {
+  body: {
+    key: '1',
+    data: {
+      sha: new Date().getTime(),
+    },
+  },
+});
 ```

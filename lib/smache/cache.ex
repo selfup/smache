@@ -1,15 +1,15 @@
 defmodule Smache.Cache do
-  def fetch(id, data) do
-    existing_data?(id, data)
+  def put_or_post(id, data) do
+    find_and_create_or_update(id, data)
   end
 
-  defp existing_data?(id, data) do
+  defp find_and_create_or_update(id, data) do
     case get(id) do
       {:not_found} ->
         set(id, data)
 
       {:found, id_data} ->
-        already_in(id, data, id_data)
+        get_or_update(id, data, id_data)
     end
   end
 
@@ -32,7 +32,7 @@ defmodule Smache.Cache do
     true = :ets.delete(id)
   end
 
-  defp already_in(id, data, id_data) do
+  defp get_or_update(id, data, id_data) do
     case Map.equal?(data, id_data) do
       true ->
         %{data: data}

@@ -4,7 +4,7 @@ defmodule SmacheWeb.ApiController do
 
   use SmacheWeb, :controller
 
-  def show(conn, %{"key" => key} = _params) do
+  def get(conn, %{"key" => key} = _params) do
     case key_is_nil?(conn, key) do
       :proceed_with_request ->
         {node, data} =
@@ -22,12 +22,12 @@ defmodule SmacheWeb.ApiController do
     end
   end
 
-  def create_or_update(conn, %{"key" => key, "data" => data} = _params) do
+  def put_or_post(conn, %{"key" => key, "data" => data} = _params) do
     case key_is_nil?(conn, key) do
       :proceed_with_request ->
         ukey = Normalizer.normalize(key)
 
-        json(conn, Mitigator.fetch(ukey, data))
+        json(conn, Mitigator.put_or_post(ukey, data))
 
       forbidden_key_type_response ->
         forbidden_key_type_response
