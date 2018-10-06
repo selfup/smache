@@ -30,7 +30,7 @@ chan.join();
   */
 
 // subscribe to all published events
-chan.on(ROOM_SUB, ({ key, payload: { data } }) => {
+chan.on(ROOM_SUB, ({ key, data } }) => {
   console.log(key, data);
 });
 
