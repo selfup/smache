@@ -31,7 +31,7 @@ Current benchmarks on a 4GHz 3770k with DDR3 RAM (all orchestrated with kubernet
 - 1 Bench Suite
 - 1 Set of Nginx Activity Logs
 
-**6k req/s with 20ms response times average**
+**6k req/s with 4ms response times average**
 
 ***
 
