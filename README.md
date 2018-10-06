@@ -11,6 +11,8 @@ Distributed - Scalable - Serialized - Immutable - Fault Tolerant - Self Sharding
 
 _Suprisingly performant_ :smile:
 
+## Benchmarks
+
 Current benchmarks on a 4GHz 3770k with DDR3 RAM (all orchestrated with kubernetes):
 
 - 1 Machine
@@ -19,41 +21,19 @@ Current benchmarks on a 4GHz 3770k with DDR3 RAM (all orchestrated with kubernet
 - 1 Bench Suite
 - 1 Set of Nginx Activity Logs
 
-**105k req/s**
+**11k req/s with 20ms response times average**
 
-If the concurrency of requests are only double that of the actual nodes in the cluster response times are:
+***
 
-_10k requests and 14 concurrency (7 nodes)_
+- 1 Machine
+- 20 Smaches
+- 1 Nginx Load Balancer
+- 1 Bench Suite
+- 1 Set of Nginx Activity Logs
 
-1. 50% 400us
-1. 95% 800us
-1. 100% 1ms (longest request)
+**6k req/s with 20ms response times average**
 
-If the concurrency of request are a giant multitude of the nodes in the cluster response times are:
-
-_10k requests and 100 concurrency (7 nodes)_
-
-1. 50% 1ms
-1. 95% 2ms
-1. 100% 6ms (longest request)
-
-_20k requests and 200 concurrency (7 nodes)_
-
-1. 50% 1ms
-1. 95% 3ms
-1. 100% 9ms (longest request)
-
-_30k requests and 400 concurrency (7 nodes)_
-
-1. 50% 3ms
-1. 95% 5ms
-1. 100% 15ms (longest request)
-
-Request per second remain stable, but some backpressure gets created at different intervals.
-
-You can see anywhere from 65k to 115k req/s
-
-**This can mostly be attributed to nginx activity logs on the same machine and heavy IO on the same machine.**
+***
 
 Smache only logs warnings/errors.
 
