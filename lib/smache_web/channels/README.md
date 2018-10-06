@@ -1,5 +1,9 @@
 # Frontend code example
 
+To use **smache** websockets from a frontend you will need to:
+
+`npm i phoenix` and use the custom websocket protocol that Phoenix uses
+
 ```js
 import { Socket } from 'phoenix';
 
@@ -9,7 +13,7 @@ socket.connect();
 
 const ROOM_NAME = 'myRoom1234';
 const MAIN_SUB = `${ROOM_NAME}_sub`;
-const MAIN_PUB = `${ROOM_NAME}_pub`
+const MAIN_PUB = `${ROOM_NAME}_pub`;
 
 const chan = socket.channel(ROOM_NAME);
 chan.join();
