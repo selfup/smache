@@ -9,7 +9,7 @@ defmodule SmacheWeb.ApiController do
       :proceed_with_request ->
         {node, data} =
           Normalizer.normalize(key)
-          |> Mitigator.grab_data()
+          |> Mitigator.get_data()
 
         json(conn, %{
           key: key,

@@ -1,11 +1,16 @@
 defmodule Smache.Mitigator do
+  @moduledoc"""
+  The Smache.Mitigator module is essentially the brain of the distributed nature of smache
+  It figures out where the data lives and then grabs or updates the data
+  """
+
   alias Smache.Normalizer, as: Normalizer
 
   def put_or_post(key, data) do
     dig(workers(), key, data)
   end
 
-  def grab_data(key) do
+  def get_data(key) do
     dig(workers(), key)
   end
 
@@ -13,7 +18,7 @@ defmodule Smache.Mitigator do
     ([Node.self()] ++ Node.list()) |> Enum.sort()
   end
 
-  def data(key) do
+  def get(key) do
     case :ets.lookup(:smache_cache, key) do
       [] ->
         {Node.self(), nil}
@@ -28,10 +33,10 @@ defmodule Smache.Mitigator do
 
     case delegator == Node.self() do
       true ->
-        data(key)
+        get(key)
 
       false ->
-        node_data(delegator, [key])
+        distributed_get(delegator, [key])
     end
   end
 
@@ -43,7 +48,7 @@ defmodule Smache.Mitigator do
         Smache.Ets.Table.put_or_post(key, data)
 
       false ->
-        node_put_or_post(delegator, [key, data])
+        distributed_put_or_post(delegator, [key, data])
     end
   end
 
@@ -57,11 +62,11 @@ defmodule Smache.Mitigator do
     delegator
   end
 
-  defp node_put_or_post(delegator, args) do
+  defp distributed_put_or_post(delegator, args) do
     :rpc.call(delegator, Smache.Ets.Table, :put_or_post, args)
   end
 
-  defp node_data(delegator, args) do
-    :rpc.call(delegator, Smache.Mitigator, :data, args)
+  defp distributed_get(delegator, args) do
+    :rpc.call(delegator, Smache.Mitigator, :get, args)
   end
 end

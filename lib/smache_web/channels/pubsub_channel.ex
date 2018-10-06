@@ -33,10 +33,10 @@ defmodule SmacheWeb.PubSub do
   Example: myRoomName_pub
 
   If you include _sub in your events it will behave like a sub hook
-  to discover intial state push to a *_sub channel with a key
+  To discover intial state, push to a *_sub channel with a key
 
   If you include _pub in your events it will behave like a *_pub hook
-  all new data pushed should/will be listened to on *_sub
+  All new published data will be recieved on a *_sub hook
   """
   def handle_in(event, %{"body" => body}, socket) do
     cond do
@@ -62,7 +62,7 @@ defmodule SmacheWeb.PubSub do
 
     {_node, data} =
       Normalizer.normalize(key)
-      |> Mitigator.grab_data()
+      |> Mitigator.get_data()
 
     broadcast!(socket, room, %{key: key, data: data})
 
