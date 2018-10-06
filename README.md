@@ -11,6 +11,8 @@ Distributed - Scalable - Serialized - Immutable - Fault Tolerant - Self Sharding
 
 _Suprisingly performant_ :smile:
 
+## Benchmarks
+
 Current benchmarks on a 4GHz 3770k with DDR3 RAM (all orchestrated with kubernetes):
 
 - 1 Machine
@@ -20,6 +22,18 @@ Current benchmarks on a 4GHz 3770k with DDR3 RAM (all orchestrated with kubernet
 - 1 Set of Nginx Activity Logs
 
 **11k req/s with 20ms response times average**
+
+***
+
+- 1 Machine
+- 20 Smaches
+- 1 Nginx Load Balancer
+- 1 Bench Suite
+- 1 Set of Nginx Activity Logs
+
+**6k req/s with 20ms response times average**
+
+***
 
 Smache only logs warnings/errors.
 
