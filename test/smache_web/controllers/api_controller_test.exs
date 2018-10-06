@@ -48,6 +48,6 @@ defmodule SmacheWeb.ApiControllerTest do
   end
 
   test "GET /api - returns 403 on nil/null key" do
-    assert json_response(nil_query(), 403) == %{"message" => "key cannot be null"}
+    assert json_response(nil_query(), 405) == %{"message" => "key cannot be null"}
   end
 end

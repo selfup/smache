@@ -38,7 +38,7 @@ defmodule SmacheWeb.ApiController do
     case is_nil(key) do
       true ->
         conn
-        |> put_status(403)
+        |> put_status(405)
         |> json(%{message: "key cannot be null"})
 
       false ->

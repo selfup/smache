@@ -93,9 +93,8 @@ Load Balance your cluster of cache nodes (static or dynamic) and performance inc
 
 ## TODOS
 
-1. Expirement with Websocket support
-2. Figure out cache invalidation strategies
-3. Wipe old data from nodes that have a new respective shard (dynamic expansion)
+1. Figure out cache invalidation strategies
+1. Wipe old data from nodes that have a new respective shard (dynamic expansion)
 
 ## Caveats
 
@@ -105,9 +104,9 @@ All nodes are dependant on a node longname (`smache@internal_ip`) to be provided
 
 No TLS support for internal calls. Must be in a VPC or a managed cluster. Also Digital Ocean has sweet Private Networking features.
 
-To auto shard at scale, all keys are turned into an integer if not already an integer :thinking:
+To auto shard at scale, all keys are turned into an integer if not already an integer :warning:
 
-All nil/null keys are rejected with a 403 :boom:
+All nil/null keys are rejected with a 405 :boom:
 
 If you plan to use integers and strings (as keys), please read the following:
 
