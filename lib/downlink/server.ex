@@ -28,7 +28,7 @@ defmodule Downlink.Server do
 
   def resolved_node do
     uplink_node = find_dns("uplink")
-    
+
     case uplink_node =~ "null" || uplink_node =~ "***" do
       true -> nil
       false -> "smache@#{uplink_node}"
