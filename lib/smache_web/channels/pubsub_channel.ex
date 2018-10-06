@@ -9,12 +9,20 @@ defmodule SmacheWeb.PubSub do
   end
 
   # pass an event name
+  # cannot use snake_case for event names but must include snake_case
+  # to help identify if the event is pub or sub
+  # Example: myroomname_sub
+  # Example: myroomname_pub
+  # Example: asdf1234_sub
+  # Example: asdf1234_pub
+  # Example: myRoomName_sub
+  # Example: myRoomName_pub
   #
-  # if you include _sub in your room it will behave like a sub hook
+  # if you include _sub in your events it will behave like a sub hook
   # to discover intial state push to a *_sub channel with a key
   #
-  # if you include _pub in your room it will behave like a *_pub hook
-  # all new data pushed will be listened to on *_sub
+  # if you include _pub in your events it will behave like a *_pub hook
+  # all new data pushed should/will be listened to on *_sub
   def handle_in(event, %{"body" => body}, socket) do
     cond do
       event =~ "_pub" ->

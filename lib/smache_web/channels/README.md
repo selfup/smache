@@ -7,25 +7,43 @@ const socket = new Socket('ws://localhost:4000/socket', {});
 
 socket.connect();
 
-// to receive events from all rooms or all data updates use room:sub
-// otherwise, get updates to specific rooms that you are worried about
-// like => room:sub_players or room:sub_npcs
-const ROOM_NAME = 'myRoom';
+const ROOM_NAME = 'myRoom1234';
+const MAIN_SUB = `${ROOM_NAME}_sub`;
+const MAIN_PUB = `${ROOM_NAME}_pub`
 
-const chan = socket.channel(ROOM_NAME + 'all');
+const chan = socket.channel(ROOM_NAME);
 chan.join();
 
-// YOU MUST USE THE FOLLOWING SYNTAX FOR ROOM NAMES!
-// roomname_sub
-// roomname_pub
+/**
+  * YOU MUST USE THE FOLLOWING SYNTAX FOR ROOM NAMES!
+  *
+  * cannot use snake_case for event names but
+  * must snake_case event types
+  * to help identify if the event is pub or sub
+  *
+  * Example: myroomname_sub
+  * Example: myroomname_pub
+  * Example: asdf1234_sub
+  * Example: asdf1234_pub
+  * Example: myRoomName_sub
+  * Example: myRoomName_pub
+  */
 
-// listen to published events
-chan.on(ROOM_NAME + '_sub', ({ key, payload: { data } }) => {
+// subscribe to all published events
+chan.on(ROOM_SUB, ({ key, payload: { data } }) => {
   console.log(key, data);
 });
 
-// push updated state change to all subscribers
-chan.push(ROOM_NAME + '_pub', {
+// ask for data without changing server state
+// do this when first joining
+chan.push(ROOM_SUB, {
+  body: {
+    key: '1',
+  },
+});
+
+// publish updated state changes to all subscribers
+chan.push(ROOM_PUB, {
   body: {
     key: '1',
     data: {
