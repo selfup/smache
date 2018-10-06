@@ -15,7 +15,7 @@ defmodule Smache.Mixfile do
   def application do
     [
       mod: {Smache.Application, []},
-      extra_applications: [:logger, :runtime_tools],
+      extra_applications: [:logger, :runtime_tools]
     ]
   end
 
