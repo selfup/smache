@@ -64,11 +64,9 @@ As an expirement. Turns out it works.
 Here's why developement has continued:
 
 1. Each node becomes it's own shard. Automagically
-1. Bottleneck is the load balancer
 1. Very cheap to run idle, auto scaling takes care of the rest like stateless apis
 1. Some of the data has to rebuild but that's not a big deal in it's use case
 1. Location data is only valid for a certain amount of time
-1. Rebuilding provides more accuracy anyways
 1. This was initially built as a backpressure mitigation tool for High IO NoSQL data
 1. It turns out it's really fast
 1. It's only 300 ish lines of runtime code
