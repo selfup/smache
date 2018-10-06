@@ -26,7 +26,7 @@ then
 else
   ab \
   -n 20000 \
-  -c 400 \
+  -c 700 \
   -k -v 1 \
   -H "Accept-Encoding: gzip, deflate" \
   -T "application/json" \
@@ -42,7 +42,7 @@ else
   " \
   && ab \
     -n 20000 \
-    -c 400 \
+    -c 700 \
     -k -v 1 \
     -H "Accept-Encoding: gzip, deflate" \
     -T "application/json" \
@@ -58,7 +58,7 @@ else
     " \
   && ab \
     -n 20000 \
-    -c 400 \
+    -c 700 \
     -k -v 1 \
     "http://$HOST:$1/api/?key=1" > $SMACHE_THREE_LOG_FILE \
     && echo "" \
@@ -72,7 +72,7 @@ else
     " \
   && ab \
     -n 20000 \
-    -c 400 \
+    -c 700 \
     -k -v 1 \
     "http://$HOST:$2/api/?key=2" > $SMACHE_FOUR_LOG_FILE \
     && echo "" \
