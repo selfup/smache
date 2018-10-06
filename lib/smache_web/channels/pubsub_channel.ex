@@ -51,32 +51,32 @@ defmodule SmacheWeb.PubSub do
     end
   end
 
-  defp pub_to_sub(room) do
-    name = room |> String.split("_") |> Enum.at(0)
+  defp pub_to_sub(event) do
+    name = event |> String.split("_") |> Enum.at(0)
 
     name <> "_sub"
   end
 
-  defp get(body, room, socket) do
+  defp get(event, body, socket) do
     %{"key" => key} = body
 
     {_node, data} =
       Normalizer.normalize(key)
       |> Mitigator.get_data()
 
-    broadcast!(socket, room, %{key: key, data: data})
+    broadcast!(socket, event, %{key: key, data: data})
 
     {:noreply, socket}
   end
 
-  defp update(body, room, socket) do
+  defp update(event, body, socket) do
     %{"key" => key, "data" => update} = body
 
     data =
       Normalizer.normalize(key)
       |> Mitigator.put_or_post(update)
 
-    broadcast!(socket, room, %{key: key, data: data})
+    broadcast!(socket, event, %{key: key, data: data})
 
     {:noreply, socket}
   end
