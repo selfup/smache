@@ -128,9 +128,7 @@ For example here:
 
 Unless you are storing that much data, make sure to store strings of a certain length to ensure they do not colide with already stored integers (or vice versa) :pray:
 
-Consider using shas or ids only.
-
-An ENV var can be read to ensure that heavy string to uint conversion doesn't need to happen.
+Consider using shas or ids only. Numeric ids are prefered!
 
 ## Development
 
