@@ -11,7 +11,7 @@ const socket = new Socket('ws://localhost:4000/socket', {});
 
 socket.connect();
 
-const ROOM_NAME = 'myRoom1234';
+const ROOM_NAME = 'room:myRoom1234';
 const MAIN_SUB = `${ROOM_NAME}_sub`;
 const MAIN_PUB = `${ROOM_NAME}_pub`;
 
@@ -25,12 +25,12 @@ chan.join();
   * must snake_case event types
   * to help identify if the event is pub or sub
   *
-  * Example: myroomname_sub
-  * Example: myroomname_pub
-  * Example: asdf1234_sub
-  * Example: asdf1234_pub
-  * Example: myRoomName_sub
-  * Example: myRoomName_pub
+  * Example: room:myroomname_sub
+  * Example: room:myroomname_pub
+  * Example: room:asdf1234_sub
+  * Example: room:asdf1234_pub
+  * Example: room:myRoomName_sub
+  * Example: room:myRoomName_pub
   */
 
 // subscribe to all published events

@@ -15,7 +15,7 @@ defmodule SmacheWeb.PubSub do
 
   The rest is easy peasy!
   """
-  def join(_room, _message, socket) do
+  def join("room:" <> _any, _message, socket) do
     {:ok, socket}
   end
 
