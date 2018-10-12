@@ -64,7 +64,7 @@ defmodule SmacheWeb.PubSub do
       Normalizer.normalize(key)
       |> Mitigator.get_data()
 
-    broadcast!(socket, event, %{key: key, data: data})
+    broadcast!(socket, event, %{key: key, sub: %{data: data}})
 
     {:noreply, socket}
   end
@@ -76,7 +76,7 @@ defmodule SmacheWeb.PubSub do
       Normalizer.normalize(key)
       |> Mitigator.put_or_post(update)
 
-    broadcast!(socket, event, %{key: key, data: data})
+    broadcast!(socket, event, %{key: key, pub: data})
 
     {:noreply, socket}
   end
