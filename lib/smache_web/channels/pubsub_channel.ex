@@ -76,13 +76,7 @@ defmodule SmacheWeb.PubSub do
       Normalizer.normalize(key)
       |> Mitigator.put_or_post(update)
 
-<<<<<<< HEAD
     broadcast!(socket, event, %{key: key, pub: data})
-=======
-    payload = Map.merge(%{ key: key }, data)
-
-    broadcast!(socket, event, payload)
->>>>>>> 9b39c8dc1cc467598df01ec9969f5822a9d25c69
 
     {:noreply, socket}
   end
