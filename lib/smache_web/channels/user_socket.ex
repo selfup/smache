@@ -3,7 +3,7 @@ defmodule SmacheWeb.UserSocket do
 
   channel("room:*", SmacheWeb.PubSub)
 
-  transport(:websocket, Phoenix.Transports.WebSocket)
+  transport(:websocket, Phoenix.Transports.WebSocket, check_origin: false)
   # transport :longpoll, Phoenix.Transports.LongPoll
 
   def connect(_params, socket) do
