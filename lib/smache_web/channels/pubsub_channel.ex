@@ -1,5 +1,5 @@
 defmodule SmacheWeb.PubSub do
-  @moduledoc"""
+  @moduledoc """
   The SmacheWeb.PubSub module is the generic websocket interface
   """
 
@@ -8,7 +8,7 @@ defmodule SmacheWeb.PubSub do
   alias Smache.Normalizer, as: Normalizer
   alias Smache.Mitigator, as: Mitigator
 
-  @doc"""
+  @doc """
   Join any room you want
 
   Handle the namespacing logic clientside
@@ -19,7 +19,7 @@ defmodule SmacheWeb.PubSub do
     {:ok, socket}
   end
 
-  @doc"""
+  @doc """
   Pass an event name
 
   Cannot use snake_case for event names

@@ -1,5 +1,5 @@
 defmodule Smache.Mitigator do
-  @moduledoc"""
+  @moduledoc """
   The Smache.Mitigator module is essentially the brain of the distributed nature of smache
   It figures out where the data lives and then grabs or updates the data
   """
