@@ -41,5 +41,5 @@ build_container:
     - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN registry.gitlab.com
     - docker build -t registry.gitlab.com/selfup/$SMACHE_BUILD .
     - docker push registry.gitlab.com/selfup/$SMACHE_BUILD
-    - docker build -t registry.gitlab.com/selfup .
-    - docker push registry.gitlab.com/selfup
+    - docker build -t registry.gitlab.com/selfup/smache:latest .
+    - docker push registry.gitlab.com/selfup/smache:latest
