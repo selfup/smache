@@ -18,6 +18,10 @@ elixir:
       - .env
 
 build_container:
+  only:
+    refs:
+      - master
+
   dependencies:
     - elixir
 
