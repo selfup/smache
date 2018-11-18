@@ -15,7 +15,7 @@ elixir:
 
   artifacts:
     paths:
-    - .env
+      - .env
 
 build_container:
   dependencies:
@@ -37,3 +37,5 @@ build_container:
     - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN registry.gitlab.com
     - docker build -t registry.gitlab.com/selfup/$SMACHE_BUILD .
     - docker push registry.gitlab.com/selfup/$SMACHE_BUILD
+    - docker build -t registry.gitlab.com/selfup/latest .
+    - docker push registry.gitlab.com/selfup/latest
