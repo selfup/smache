@@ -1,4 +1,4 @@
-FROM bitwalker/alpine-elixir:1.7.3 AS build
+FROM bitwalker/alpine-elixir:1.7.4 AS build
 
 ENV VERSION=0.0.1 APP=smache MIX_ENV=prod
 
@@ -15,7 +15,7 @@ RUN source .env \
 RUN rm -rf lib mix.exs mix.lock
 
 # RUNTIME STAGE
-FROM bitwalker/alpine-elixir:1.7.3
+FROM bitwalker/alpine-elixir:1.7.4
 
 EXPOSE 4000
 
