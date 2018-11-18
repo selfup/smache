@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   annotations:
     kompose.cmd: kompose convert
-    kompose.version: 1.16.0 (0c01309)
+    kompose.version: 1.17.0 (a74acad)
   creationTimestamp: null
   labels:
     io.kompose.service: uplink
@@ -23,9 +23,7 @@ spec:
         env:
         - name: UPLINK_NODE
           value: uplink
-        image: smache_uplink
-        # be careful with this policy??
-        imagePullPolicy: Never
+        image: registry.gitlab.com/selfup/smache:latest
         name: uplink
         resources: {}
       restartPolicy: Always

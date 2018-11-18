@@ -4,8 +4,8 @@ services:
   uplink:
     environment:
       - UPLINK_NODE=uplink
-    image: "smache_uplink"
-    command: ["./rel/boot.sh"]
+    image: registry.gitlab.com/selfup/smache:latest
+    command: ['./rel/boot.sh']
   downlink:
     depends_on:
       - uplink
@@ -13,5 +13,5 @@ services:
       - uplink
     environment:
       - UPLINK_NODE=uplink
-    image: "smache_downlink"
-    command: ["./rel/boot.sh"]
+    image: registry.gitlab.com/selfup/smache:latest
+    command: ['./rel/boot.sh']
