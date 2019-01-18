@@ -5,7 +5,7 @@ stages:
 elixir:
   stage: secrets
 
-  image: bitwalker/alpine-elixir:1.7.4
+  image: bitwalker/alpine-elixir:1.8.0
 
   script:
     - export VERSION=0.0.$CI_PIPELINE_IID

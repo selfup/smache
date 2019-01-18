@@ -19,13 +19,9 @@ then
   HOST=localhost
 fi
 
-if [ "$1" == "" ]
-then
-  echo 'PLEASE PROVIDE $1 LB PORT'
-else
-  ab \
-  -n 10000 \
-  -c 150 \
+ab \
+  -n 5000 \
+  -c 200 \
   -k -v 1 \
   -H "Accept-Encoding: gzip, deflate" \
   -T "application/json" \
@@ -39,4 +35,3 @@ else
     $(grep -w '95%' $SMACHE_LOG_FILE) ms
     $(grep -w longest $SMACHE_LOG_FILE)
   "
-fi
