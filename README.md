@@ -11,31 +11,15 @@ Distributed - Scalable - Serialized - Immutable - Fault Tolerant - Self Sharding
 
 _Suprisingly performant_ :smile:
 
-## Benchmarks
+## Release Repo
 
-Current benchmarks on a 4GHz 3770k with DDR3 RAM (all orchestrated with kubernetes):
+Over at GitLab the release repo lives!
 
-- 1 Machine
-- 4 Smaches
-- 1 Nginx Load Balancer
-- 1 Bench Suite
-- 1 Set of Nginx Activity Logs
+Repo: https://gitlab.com/selfup/smache
 
-**11k req/s with 20ms response times average**
+Docker Registry for Smache: registry.gitlab.com
 
-***
-
-- 1 Machine
-- 20 Smaches
-- 1 Nginx Load Balancer
-- 1 Bench Suite
-- 1 Set of Nginx Activity Logs
-
-**6k req/s with 4ms response times average**
-
-***
-
-Smache only logs warnings/errors.
+Image tag: registry.gitlab.com/selfup/smache:latest
 
 ## Purpose
 
