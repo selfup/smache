@@ -17,9 +17,9 @@ Over at GitLab the release repo lives!
 
 Repo: https://gitlab.com/selfup/smache
 
-Docker Registry for Smache: registry.gitlab.com
+Docker Registry for Smache: `registry.gitlab.com`
 
-Image tag: registry.gitlab.com/selfup/smache:latest
+Image tag: `registry.gitlab.com/selfup/smache:latest`
 
 ## Purpose
 
