@@ -9,7 +9,6 @@ elixir:
 
   script:
     - export VERSION=0.0.$CI_PIPELINE_IID
-    - export UPLINK_NODE=nonode@nohost
     - ./scripts/test.sh
     - ./scripts/secret.sh
 
