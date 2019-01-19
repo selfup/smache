@@ -38,6 +38,7 @@ defmodule Downlink.Server do
     case uplink_node =~ "null" || uplink_node =~ "***" || uplink_node =~ "#" do
       true ->
         nil
+
       false ->
         if System.get_env("TEST"), do: nil, else: "smache@#{uplink_node}"
     end
