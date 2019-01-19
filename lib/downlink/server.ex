@@ -13,17 +13,23 @@ defmodule Downlink.Server do
   end
 
   def find_dns(name) do
-    :os.cmd(:"
-      nslookup #{name} \
-      | grep Address \
-      | head -2 \
-      | tail -1 \
-      | cut -d \":\" -f 2 \
-      | tr -d \" \" \
-      | tr -d \" \n\" \
-      | tr -d \" \"
-    ")
-    |> to_string
+    uplink_provided = System.get_env("UPLINK_NODE")
+
+    if uplink_provided != nil do
+      uplink_provided
+    else
+      :os.cmd(:"
+        nslookup #{name} \
+        | grep Address \
+        | head -2 \
+        | tail -1 \
+        | cut -d \":\" -f 2 \
+        | tr -d \" \" \
+        | tr -d \" \n\" \
+        | tr -d \" \"
+      ")
+      |> to_string
+    end
   end
 
   def resolved_node do

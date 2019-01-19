@@ -18,13 +18,10 @@ spec:
         io.kompose.service: uplink
     spec:
       containers:
-      - args:
-        - ./rel/boot.sh
-        env:
-        - name: UPLINK_NODE
-          value: uplink
-        image: registry.gitlab.com/selfup/smache:latest
-        name: uplink
-        resources: {}
+        - args:
+            - ./rel/boot.sh
+          image: registry.gitlab.com/selfup/smache:latest
+          name: uplink
+          resources: {}
       restartPolicy: Always
 status: {}

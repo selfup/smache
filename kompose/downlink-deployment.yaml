@@ -18,13 +18,10 @@ spec:
         io.kompose.service: downlink
     spec:
       containers:
-      - args:
-        - ./rel/boot.sh
-        env:
-        - name: UPLINK_NODE
-          value: uplink
-        image: registry.gitlab.com/selfup/smache:latest
-        name: downlink
-        resources: {}
+        - args:
+            - ./rel/boot.sh
+          image: registry.gitlab.com/selfup/smache:latest
+          name: downlink
+          resources: {}
       restartPolicy: Always
 status: {}

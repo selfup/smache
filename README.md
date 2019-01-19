@@ -60,13 +60,13 @@ Here's why developement has continued:
 
 Load Balance your cluster of cache nodes (static or dynamic) and performance increases linearly! :tada:
 
-1. Static clusters (say you stick with 20 forever)
+1.  Static clusters (say you stick with 20 forever)
 
         a. Will never lose references to existing data (unless rebooted, or the node crashes)
         b. Will be easier to maintain
         c. No big worry about data loss, it will be very rare (if at all)
 
-2. Dynamic clusters (auto scaling)
+2.  Dynamic clusters (auto scaling)
 
         a. Will lose data per shard on expansion as well as shrinkage
         b. Data rebuilds as fast as it did the first time
@@ -138,21 +138,18 @@ Essentially the _bootstrapping_ scripts :rocket:
 ```bash
 # in one shell
 
-# grab everything before .local
-hostname #=> something.local
+./scripts/dev.sh 4000 smache@localhost localhost
 
-./scripts/dev.sh 4000 foo foo@something
-
-# in another shell
-./scripts/dev.sh 4001 bar foo@something
+# in a second shell
+./scripts/dev.sh 4001 smache_two@localhost localhost
 ```
 
 Now run the curl scripts (in a third shell):
 
 ```bash
-./scripts/curl.post.sh 4000 4000
+./scripts/curl.post.sh 4000
 
-./scripts/curl.get.sh 4001 4001
+./scripts/curl.get.sh 4001
 ```
 
 ### How to have 4 nodes talk via docker

@@ -2,9 +2,9 @@ version: '3.1'
 
 services:
   lb:
-    image: "jwilder/nginx-proxy"
+    image: 'jwilder/nginx-proxy'
     ports:
-      - "8080:80"
+      - '8080:80'
     volumes:
       - /var/run/docker.sock:/tmp/docker.sock:ro
   uplink:
@@ -12,11 +12,10 @@ services:
       - lb
     environment:
       - VIRTUAL_HOST=localhost
-      - UPLINK_NODE=uplink
     build:
       context: .
       dockerfile: Dockerfile
-    command: ["./rel/boot.sh"]
+    command: ['./rel/boot.sh']
   downlink:
     depends_on:
       - uplink
@@ -24,8 +23,7 @@ services:
       - uplink
     environment:
       - VIRTUAL_HOST=localhost
-      - UPLINK_NODE=uplink
     build:
       context: .
       dockerfile: Dockerfile
-    command: ["./rel/boot.sh"]
+    command: ['./rel/boot.sh']
