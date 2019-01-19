@@ -36,8 +36,10 @@ defmodule Downlink.Server do
     uplink_node = find_dns("uplink")
 
     case uplink_node =~ "null" || uplink_node =~ "***" || uplink_node =~ "#" do
-      true -> nil
-      false -> "smache@#{uplink_node}"
+      true ->
+        nil
+      false ->
+        if System.get_env("TEST"), do: nil, else: "smache@#{uplink_node}"
     end
   end
 
