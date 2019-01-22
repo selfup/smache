@@ -173,11 +173,9 @@ If you have your own load balancer just: `docker-compose -f kompose/docker-compo
 
 Do needed modifications to the deployment yamls for K8S or roll your own.
 
-Ship the nodes to your prefered orchestrator. Do not scale the `uplink` node.
+Ship the nodes to your prefered orchestrator.
 
-While it is part of the distributed mesh, it is the single point of truth for new nodes.
-
-With K8s when the downlinks boot up they might restart once if the uplink node is not up yet.
+With K8s when the downlinks boot up they might restart once if the uplink service is not up yet.
 
 This is normal.
 
