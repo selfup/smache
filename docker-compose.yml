@@ -7,6 +7,7 @@ services:
       - '8080:80'
     volumes:
       - /var/run/docker.sock:/tmp/docker.sock:ro
+
   uplink:
     depends_on:
       - lb
@@ -15,7 +16,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    command: ['./rel/boot.sh']
+
   downlink:
     depends_on:
       - uplink
@@ -26,4 +27,3 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    command: ['./rel/boot.sh']
