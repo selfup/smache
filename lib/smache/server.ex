@@ -12,17 +12,10 @@ defmodule Smache.Ets.Table do
       :named_table,
       :set,
       :public,
-      read_concurrency: true
+      read_concurrency: true,
+      write_concurrency: true
     ])
 
     {:ok, %{}}
-  end
-
-  def put_or_post(id, data) do
-    GenServer.call(SmacheCache, {:put_or_post, {id, data}})
-  end
-
-  def handle_call({:put_or_post, {id, data}}, _from, state) do
-    {:reply, Cache.put_or_post(id, data), state}
   end
 end
