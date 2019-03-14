@@ -18,12 +18,4 @@ defmodule Smache.Ets.Table do
 
     {:ok, %{}}
   end
-
-  def put_or_post(id, data) do
-    GenServer.call(SmacheCache, {:put_or_post, {id, data}})
-  end
-
-  def handle_call({:put_or_post, {id, data}}, _from, state) do
-    {:reply, Cache.put_or_post(id, data), state}
-  end
 end
