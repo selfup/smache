@@ -45,7 +45,7 @@ defmodule Smache.Mitigator do
 
     case delegator == Node.self() do
       true ->
-        Smache.Ets.Table.put_or_post(key, data)
+        Smache.Cache.put_or_post(key, data)
 
       false ->
         distributed_put_or_post(delegator, [key, data])
@@ -63,10 +63,14 @@ defmodule Smache.Mitigator do
   end
 
   defp distributed_put_or_post(delegator, args) do
-    :rpc.call(delegator, Smache.Ets.Table, :put_or_post, args)
+    [key, data] = args
+
+    GenServer.call({:"operator_0", delegator}, {:put_or_post, {key, data}})
   end
 
   defp distributed_get(delegator, args) do
-    :rpc.call(delegator, Smache.Mitigator, :get, args)
+    [key] = args
+
+    GenServer.call({:"operator_0", delegator}, {:get, {key}})
   end
 end

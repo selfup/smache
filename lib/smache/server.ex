@@ -12,7 +12,8 @@ defmodule Smache.Ets.Table do
       :named_table,
       :set,
       :public,
-      read_concurrency: true
+      read_concurrency: true,
+      write_concurrency: true
     ])
 
     {:ok, %{}}
