@@ -18,10 +18,9 @@ defmodule Smache.Supervisor do
     ]
 
     operators =
-      0..3
-      |> Enum.with_index()
-      |> Enum.map(fn {_name, i} ->
-        uniq = :"operator_#{i}"
+      1..4
+      |> Enum.map(fn name ->
+        uniq = :"operator_#{name}"
         worker(Operator, [[name: uniq]], id: uniq)
       end)
 

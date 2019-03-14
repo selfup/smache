@@ -65,12 +65,12 @@ defmodule Smache.Mitigator do
   defp distributed_put_or_post(delegator, args) do
     [key, data] = args
 
-    GenServer.call({:"operator_0", delegator}, {:put_or_post, {key, data}})
+    GenServer.call({:"operator_#{:rand.uniform(4)}", delegator}, {:put_or_post, {key, data}})
   end
 
   defp distributed_get(delegator, args) do
     [key] = args
 
-    GenServer.call({:"operator_0", delegator}, {:get, {key}})
+    GenServer.call({:"operator_#{:rand.uniform(4)}", delegator}, {:get, {key}})
   end
 end
