@@ -8,8 +8,8 @@ defmodule Smache.Cache do
       {:not_found} ->
         set(id, data)
 
-      {:found, id_data} ->
-        get_or_update(id, data, id_data)
+      {:found, found_data} ->
+        get_or_update(id, data, found_data)
     end
   end
 
@@ -32,8 +32,8 @@ defmodule Smache.Cache do
     true = :ets.delete(id)
   end
 
-  defp get_or_update(id, data, id_data) do
-    case Map.equal?(data, id_data) do
+  defp get_or_update(id, data, found_data) do
+    case Map.equal?(data, found_data) do
       true ->
         %{data: data}
 

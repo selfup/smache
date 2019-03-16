@@ -1,18 +1,17 @@
-version: '3.1'
+version: "3.1"
 
 services:
   lb:
-    image: 'jwilder/nginx-proxy'
+    image: dockercloud/haproxy
     ports:
-      - '8080:80'
+      - 8080:80
+    links:
+      - uplink
+      - downlink
     volumes:
-      - /var/run/docker.sock:/tmp/docker.sock:ro
+      - /var/run/docker.sock:/var/run/docker.sock
 
   uplink:
-    depends_on:
-      - lb
-    environment:
-      - VIRTUAL_HOST=localhost
     build:
       context: .
       dockerfile: Dockerfile
@@ -20,10 +19,6 @@ services:
   downlink:
     depends_on:
       - uplink
-    links:
-      - uplink
-    environment:
-      - VIRTUAL_HOST=localhost
     build:
       context: .
       dockerfile: Dockerfile

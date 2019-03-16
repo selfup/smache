@@ -25,8 +25,8 @@ then
   echo 'PLEASE PROVIDE $1 and $2 FOR PORTS'
 else
   ab \
-  -n 20000 \
-  -c 700 \
+  -n 50000 \
+  -c 400 \
   -k -v 1 \
   -H "Accept-Encoding: gzip, deflate" \
   -T "application/json" \
@@ -41,12 +41,12 @@ else
     $(grep -w longest $SMACHE_LOG_FILE)
   " \
   && ab \
-    -n 20000 \
-    -c 700 \
+    -n 50000 \
+    -c 400 \
     -k -v 1 \
     -H "Accept-Encoding: gzip, deflate" \
     -T "application/json" \
-    -p ./scripts/bench.data.two.json http://$HOST:$1/api > $SMACHE_TWO_LOG_FILE \
+    -p ./scripts/bench.data.two.json http://$HOST:$2/api > $SMACHE_TWO_LOG_FILE \
     && echo "" \
     && echo "--> results:
 
@@ -55,33 +55,5 @@ else
     $(grep -w '50%' $SMACHE_TWO_LOG_FILE) ms
     $(grep -w '95%' $SMACHE_TWO_LOG_FILE) ms
     $(grep -w longest $SMACHE_TWO_LOG_FILE)
-    " \
-  && ab \
-    -n 20000 \
-    -c 700 \
-    -k -v 1 \
-    "http://$HOST:$1/api/?key=1" > $SMACHE_THREE_LOG_FILE \
-    && echo "" \
-    && echo "--> results:
-
-    $(grep seconds $SMACHE_THREE_LOG_FILE)
-    $(grep -w second $SMACHE_THREE_LOG_FILE)
-    $(grep -w '50%' $SMACHE_THREE_LOG_FILE) ms
-    $(grep -w '95%' $SMACHE_THREE_LOG_FILE) ms
-    $(grep -w longest $SMACHE_THREE_LOG_FILE)
-    " \
-  && ab \
-    -n 20000 \
-    -c 700 \
-    -k -v 1 \
-    "http://$HOST:$2/api/?key=2" > $SMACHE_FOUR_LOG_FILE \
-    && echo "" \
-    && echo "--> results:
-
-    $(grep seconds $SMACHE_FOUR_LOG_FILE)
-    $(grep -w second $SMACHE_FOUR_LOG_FILE)
-    $(grep -w '50%' $SMACHE_FOUR_LOG_FILE) ms
-    $(grep -w '95%' $SMACHE_FOUR_LOG_FILE) ms
-    $(grep -w longest $SMACHE_FOUR_LOG_FILE)
     "
 fi
