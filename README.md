@@ -183,7 +183,7 @@ This is normal.
 
 This will suck because it just does.
 
-However this is a masterles system. So technically data will provided and rebuilt in the available network.
+Tchnically data (null or expected values) will be provided in the event of a split and rebuilt in the available network (if null).
 
 Once the network is restored:
 
