@@ -19,8 +19,6 @@ services:
   downlink:
     depends_on:
       - uplink
-    links:
-      - uplink
     build:
       context: .
       dockerfile: Dockerfile
