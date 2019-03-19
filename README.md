@@ -47,9 +47,9 @@ Returns (for now) key/data/node
 
 ```json
 {
-  key: "some_key",
-  data: null,
-  node: "smache@localhost",
+  "key": "some_key",
+  "data": null,
+  "node": "smache@localhost",
 }
 ```
 
@@ -62,9 +62,9 @@ Post Data **POST** `/api`
 
 ```json
 {
-  key: "something",
-  data: {
-    msg: "hello"
+  "key": "something",
+  "data": {
+    "msg": "hello"
   }
 }
 ```
