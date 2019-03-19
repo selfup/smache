@@ -29,36 +29,36 @@ Common use cases would be something like location data for realtime applications
 
 ### Example JSON API
 
-1.
+### Healthcheck
 
-Healthcheck **GET** `/`
+**GET** `/`
 
 Returns an empty object in json: `{}`
 
-2.
+### Get Key
 
-Get Info About Key **GET** `/api`
+**GET** `/api`
 
 Params: `?key=some_key`
 
 Returns (for now) key/data/node
 
-// if no data for key
-
 ```json
 {
   "key": "some_key",
-  "data": null,
+  "data": {
+    "color": "blue"
+  },
   "node": "smache@localhost",
 }
 ```
 
-3.
+### Post Data
+**POST** `/api`
 
-Post Data **POST** `/api`
+_key should be numbers but can be any string_
 
-// key should be numbers but can be any string
-// data key must always have an object value
+_data key must always be an object_
 
 ```json
 {
