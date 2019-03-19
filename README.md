@@ -4,7 +4,7 @@ Cache that can get Smashed :tada: _warning this is alpha stage software_
 
 Distributed - Scalable - Serialized - Immutable - Fault Tolerant - Self Sharding - Key Value Cache :rocket:
 
-1. Provides a RESTful API that can handle concurrent requests (Phoenix) but serializes all writes to memory
+1. Provides a JSON API that can handle concurrent requests (Phoenix) but serializes all writes to memory
 1. When nodes are behind a load balancer every node you add can become connected to each other (distributed)
 1. Distribute your cache by adding machines (shards) and they automaitcally figure out where to grab data
 1. RAM IO and all cache is handled using [ETS](https://elixir-lang.org/getting-started/mix-otp/ets.html)
@@ -26,6 +26,48 @@ Image tag: `registry.gitlab.com/selfup/smache:latest`
 High frequency short term cache storage. If this does not fit your bill there are caveats!
 
 Common use cases would be something like location data for realtime applications (Uber/Lyft/etc...)
+
+### Example JSON API
+
+1.
+
+Healthcheck **GET** `/`
+
+Returns an empty object in json: `{}`
+
+2.
+
+Get Info About Key **GET** `/api`
+
+Params: `?key=some_key`
+
+Returns (for now) key/data/node
+
+// if no data for key
+
+```json
+{
+  key: "some_key",
+  data: null,
+  node: "smache@localhost",
+}
+```
+
+3.
+
+Post Data **POST** `/api`
+
+// key should be numbers but can be any string
+// data key must always have an object value
+
+```json
+{
+  key: "something",
+  data: {
+    msg: "hello"
+  }
+}
+```
 
 ## Caching solutions already exist?
 
@@ -167,8 +209,6 @@ Now run the curl scripts (in a third shell):
 
 ## Deployment
 
-Other than Docker no deps are needed to build containers.
-
 If you have your own load balancer just: `docker-compose -f kompose/docker-compose.yml build`
 
 Do needed modifications to the deployment yamls for K8S or roll your own.
@@ -178,15 +218,3 @@ Ship the nodes to your prefered orchestrator.
 With K8s when the downlinks boot up they might restart once if the uplink service is not up yet.
 
 This is normal.
-
-## Network split
-
-This will suck because it just does.
-
-Tchnically data (null or expected values) will be provided in the event of a split and rebuilt in the available network (if null).
-
-Once the network is restored:
-
-1. At this point scale down to a good amount of nodes
-1. Let the cache rebuild
-1. Scale up or let autoscalers do their thing
