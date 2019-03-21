@@ -20,8 +20,8 @@ then
 fi
 
 ab \
-  -n 5000 \
-  -c 200 \
+  -n 50000 \
+  -c 150 \
   -k -v 1 \
   -H "Accept-Encoding: gzip, deflate" \
   -T "application/json" \
