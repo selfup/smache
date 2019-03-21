@@ -21,11 +21,27 @@ fi
 
 ab \
   -n 50000 \
-  -c 150 \
+  -c 200 \
   -k -v 1 \
   -H "Accept-Encoding: gzip, deflate" \
   -T "application/json" \
   -p ./scripts/bench.data.one.json http://$HOST:$1/api > $SMACHE_LOG_FILE \
+  && echo "" \
+  && echo "--> results:
+
+    $(grep seconds $SMACHE_LOG_FILE)
+    $(grep -w second $SMACHE_LOG_FILE)
+    $(grep -w '50%' $SMACHE_LOG_FILE) ms
+    $(grep -w '95%' $SMACHE_LOG_FILE) ms
+    $(grep -w longest $SMACHE_LOG_FILE)
+  " \
+&& ab \
+  -n 50000 \
+  -c 200 \
+  -k -v 1 \
+  -H "Accept-Encoding: gzip, deflate" \
+  -T "application/json" \
+  http://$HOST:$1/api/?key=1 > $SMACHE_LOG_FILE \
   && echo "" \
   && echo "--> results:
 
