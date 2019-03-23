@@ -49,11 +49,12 @@ Returns (for now) key/data/node
   "data": {
     "color": "blue"
   },
-  "node": "smache@localhost",
+  "node": "smache@localhost"
 }
 ```
 
 ### Post Data
+
 **POST** `/api`
 
 _key should be numbers but can be any string_
@@ -68,20 +69,6 @@ _data key must always be an object_
   }
 }
 ```
-
-## Caching solutions already exist?
-
-Memcache and redis are big players in the game.
-
-These take a different approach. They use connection pools and have a limit of how many clients can be connected.
-
-They are also very fast!
-
-You also run into the idea of a Master/Slave replica concept. Your clusters are really just all the same data, which means RAM and more RAM.
-
-However these are more long term cache solutions. Smache is not that!
-
-Think of this as a RESTful MongoDB without schemas and a flat single table that does not persist.
 
 ## Why was this built?
 
