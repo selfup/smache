@@ -18,7 +18,7 @@ defmodule Smache.Supervisor do
     ]
 
     operators =
-      1..4
+      1..16
       |> Enum.map(fn name ->
         uniq = :"operator_#{name}"
         worker(Operator, [[name: uniq]], id: uniq)
