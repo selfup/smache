@@ -14,37 +14,37 @@ echo "
 $(curl \
   --fail --silent --show-error \
   -H "Content-Type: application/json" \
-  -X POST -d @scripts/bench.data.one.json \
+  -X POST -d @scripts/json/bench.data.one.json \
   http://$HOST:$1/api/)
 $(curl \
   --fail --silent --show-error \
   -H "Content-Type: application/json" \
-  -X POST -d @scripts/bench.data.two.json \
+  -X POST -d @scripts/json/bench.data.two.json \
   http://$HOST:$1/api/)
 $(curl \
   --fail --silent --show-error \
   -H "Content-Type: application/json" \
-  -X POST -d @scripts/bench.data.three.json \
+  -X POST -d @scripts/json/bench.data.three.json \
   http://$HOST:$1/api/)
 $(curl \
   --fail --silent --show-error \
   -H "Content-Type: application/json" \
-  -X POST -d @scripts/bench.data.four.json \
+  -X POST -d @scripts/json/bench.data.four.json \
   http://$HOST:$1/api/)
 $(curl \
   --fail --silent --show-error \
   -H "Content-Type: application/json" \
-  -X POST -d @scripts/bench.data.five.json \
+  -X POST -d @scripts/json/bench.data.five.json \
   http://$HOST:$1/api/)
 $(curl \
   --fail --silent --show-error \
   -H "Content-Type: application/json" \
-  -X POST -d @scripts/bench.data.six.json \
+  -X POST -d @scripts/json/bench.data.six.json \
   http://$HOST:$1/api/)
 $(curl \
   --fail --silent --show-error \
   -H "Content-Type: application/json" \
-  -X POST -d @scripts/bench.data.seven.json \
+  -X POST -d @scripts/json/bench.data.seven.json \
   http://$HOST:$1/api/)
 "
 fi

@@ -30,7 +30,7 @@ else
   -k -v 1 \
   -H "Accept-Encoding: gzip, deflate" \
   -T "application/json" \
-  -p ./scripts/bench.data.one.json http://$HOST:$1/api > $SMACHE_LOG_FILE \
+  -p ./scripts/json/bench.data.one.json http://$HOST:$1/api > $SMACHE_LOG_FILE \
   && echo "" \
   && echo "--> results:
 
@@ -46,7 +46,7 @@ else
     -k -v 1 \
     -H "Accept-Encoding: gzip, deflate" \
     -T "application/json" \
-    -p ./scripts/bench.data.two.json http://$HOST:$2/api > $SMACHE_TWO_LOG_FILE \
+    -p ./scripts/json/bench.data.two.json http://$HOST:$2/api > $SMACHE_TWO_LOG_FILE \
     && echo "" \
     && echo "--> results:
 
