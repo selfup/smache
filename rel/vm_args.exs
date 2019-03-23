@@ -19,9 +19,9 @@ sname_ip = "smache@#{ip}"
 env_vars = [
   "REPLACE_OS_VARS=true",
   "SNAME_IP=#{sname_ip}",
-  "COOKIE=#{cookie}",
+  "COOKIE=#{cookie}"
 ]
 
 env_vars
 |> Enum.map(&"export #{&1} ")
-|> IO.puts
+|> IO.puts()

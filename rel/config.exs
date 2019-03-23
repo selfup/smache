@@ -7,15 +7,18 @@ use Mix.Releases.Config,
   default_environment: Mix.env()
 
 environment :prod do
-  set include_erts: false
-  set include_src: false
-  set cookie: :"base_cookie_will_be_changed_at_runtime"
-  set vm_args: "./rel/vm.args"
+  set(include_erts: false)
+  set(include_src: false)
+  set(cookie: :base_cookie_will_be_changed_at_runtime)
+  set(vm_args: "./rel/vm.args")
 end
 
 release :smache do
-  set version: current_version(:smache)
-  set applications: [
-    :runtime_tools
-  ]
+  set(version: current_version(:smache))
+
+  set(
+    applications: [
+      :runtime_tools
+    ]
+  )
 end
