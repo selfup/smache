@@ -82,30 +82,26 @@ Here's why developement has continued:
 1. Location data is only valid for a certain amount of time
 1. This was initially built as a backpressure mitigation tool for High IO NoSQL data
 1. It turns out it's really fast
-1. It's only 300 ish lines of runtime code
-1. The rest of the functionality comes from the battletested Erlang BEAM
 
 ## Built for Load Balancing
 
-Load Balance your cluster of cache nodes (static or dynamic) and performance increases linearly! :tada:
+Load Balance your cluster of cache nodes (static or dynamic)
 
 1.  Static clusters (say you stick with 20 forever)
 
         a. Will never lose references to existing data (unless rebooted, or the node crashes)
         b. Will be easier to maintain
-        c. No big worry about data loss, it will be very rare (if at all)
 
 2.  Dynamic clusters (auto scaling)
 
-        a. Will lose data per shard on expansion as well as shrinkage
+        a. Will lose a percentage of data per shard on expansion/shrinkage
         b. Data rebuilds as fast as it did the first time
         c. Best price to performance ratio
-        d. Requires being ok with losing cache at the cost of reducing price
 
 ## TODOS
 
 1. Figure out cache invalidation strategies
-1. Wipe old data from nodes that have a new respective shard (dynamic expansion)
+1. Wipe old data from nodes that have a new respective shard
 
 ## Caveats
 
@@ -154,9 +150,8 @@ Consider using shas or ids only. Numeric ids are prefered!
 
 `./scripts/services.sh`
 
-1. Generate Secret
+1. Generate Secret/Cookie
 1. Ensure deps are installed and compiled
-1. Run tests
 1. Build the image
 1. Run all 4 containers
 
@@ -184,7 +179,7 @@ Now run the curl scripts (in a third shell):
 ### How to have 4 nodes talk via docker
 
 ```bash
-# boots a Load Balancer (nginx) and 4 smache nodes
+# boots a Load Balancer (haproxy) and 4 smache nodes
 ./scripts/services.sh
 
 # posts 7 different keys and data
@@ -193,15 +188,3 @@ Now run the curl scripts (in a third shell):
 # gets all posted data
 ./scripts/curl.get.sh 8080
 ```
-
-## Deployment
-
-If you have your own load balancer just: `docker-compose -f kompose/docker-compose.yml build`
-
-Do needed modifications to the deployment yamls for K8S or roll your own.
-
-Ship the nodes to your prefered orchestrator.
-
-With K8s when the downlinks boot up they might restart once if the uplink service is not up yet.
-
-This is normal.
