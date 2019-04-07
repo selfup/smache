@@ -77,4 +77,32 @@ defmodule Smache.Mitigator do
 
     GenServer.call({rand_robin(), delegator}, {:get, {key}})
   end
+
+  ############################################################
+  ########################### Please only use this for testing
+  ############################################################
+
+  def populate() do
+    records =
+      1..10_000
+      |> Enum.map(fn key ->
+        %{key: key, color: "some random color"}
+      end)
+
+    records
+    |> Enum.map(fn record ->
+      put_or_post(record[:key], record)
+    end)
+
+    records
+    |> Enum.each(fn record ->
+      {_node, _data} = get_data(record[:key])
+    end)
+  end
+
+  def bench do
+    ok = :timer.tc(fn -> populate() end) |> elem(0)
+
+    IO.puts("10k records written then read in: " <> "#{ok / 1000} " <> "ms")
+  end
 end

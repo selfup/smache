@@ -188,3 +188,109 @@ Now run the curl scripts (in a third shell):
 # gets all posted data
 ./scripts/curl.get.sh 8080
 ```
+
+### Performance (stress test)
+
+Linux / Ubuntu 18.04.1
+
+**Single node**
+
+_900 clients_
+
+Control (health check returning empty JSON object):
+
+```ocaml
+Finished 50000 requests
+
+--> results:
+
+    Time taken for tests:   1.637 seconds
+    Requests per second:    30539.96 [#/sec] (mean)
+      50%     28 ms
+      95%     46 ms
+     100%     76 (longest request)
+```
+
+---
+
+**Single Node**
+
+_900 clients_
+
+POST key/data return data in JSON:
+
+```ocaml
+Finished 50000 requests
+
+--> results:
+
+    Time taken for tests:   2.136 seconds
+    Requests per second:    23411.13 [#/sec] (mean)
+      50%     37 ms
+      95%     62 ms
+     100%     94 (longest request)
+```
+
+GET key return key/data/node in JSON:
+
+```ocaml
+Finished 50000 requests
+
+--> results:
+
+    Time taken for tests:   1.880 seconds
+    Requests per second:    26595.15 [#/sec] (mean)
+      50%     32 ms
+      95%     52 ms
+     100%     78 (longest request)
+```
+
+**Two Nodes (force distributed RPC calls)**
+
+_900 clients_
+
+POST key/data return data in JSON:
+
+```ocaml
+Finished 50000 requests
+
+--> results:
+
+    Time taken for tests:   2.845 seconds
+    Requests per second:    17576.51 [#/sec] (mean)
+      50%     50 ms
+      95%     77 ms
+     100%    118 (longest request)
+```
+
+GET key return key/data/node in JSON:
+
+```ocaml
+Finished 50000 requests
+
+--> results:
+
+    Time taken for tests:   2.681 seconds
+    Requests per second:    18651.75 [#/sec] (mean)
+      50%     46 ms
+      95%     76 ms
+     100%    167 (longest request)
+```
+
+### Internal Performance
+
+```elixir
+1..4 |> Enum.each(fn _ -> Smache.Mitigator.bench() end)
+```
+
+Results:
+
+10k records written then read in: 18.593 ms
+10k records written then read in: 17.226 ms
+10k records written then read in: 15.206 ms
+10k records written then read in: 15.007 ms
+
+10k records written then read in: 39.919 ms
+10k records written then read in: 15.344 ms
+10k records written then read in: 16.827 ms
+10k records written then read in: 15.346 ms
