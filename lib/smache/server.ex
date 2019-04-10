@@ -1,6 +1,4 @@
 defmodule Smache.Ets.Table do
-  alias Smache.Cache, as: Cache
-
   use GenServer
 
   def start_link() do
