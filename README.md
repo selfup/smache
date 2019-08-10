@@ -6,7 +6,7 @@ Distributed - Scalable - Serialized - Immutable - Fault Tolerant - Self Sharding
 
 1. Provides a JSON API that can handle concurrent requests (Phoenix) but serializes all writes to memory
 1. When nodes are behind a load balancer every node you add can become connected to each other (distributed)
-1. Distribute your cache by adding machines (shards) and they automaitcally figure out where to grab data
+1. Distribute your cache by adding machines (shards) and they automatically figure out where to grab data
 1. RAM IO and all cache is handled using [ETS](https://elixir-lang.org/getting-started/mix-otp/ets.html)
 
 _Suprisingly performant_ :smile:
