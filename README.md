@@ -285,12 +285,11 @@ Finished 50000 requests
 
 Results:
 
-10k records written then read in: 18.593 ms
-10k records written then read in: 17.226 ms
-10k records written then read in: 15.206 ms
-10k records written then read in: 15.007 ms
-
-10k records written then read in: 39.919 ms
-10k records written then read in: 15.344 ms
-10k records written then read in: 16.827 ms
-10k records written then read in: 15.346 ms
+- 10k records written then read in: 18.593 ms
+- 10k records written then read in: 17.226 ms
+- 10k records written then read in: 15.206 ms
+- 10k records written then read in: 15.007 ms
+- 10k records written then read in: 39.919 ms
+- 10k records written then read in: 15.344 ms
+- 10k records written then read in: 16.827 ms
+- 10k records written then read in: 15.346 ms
