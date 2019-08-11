@@ -2,6 +2,21 @@
 
 # generates a strong secret and rpc cookie
 
+function genSec32() {
+  openssl rand -base64 32
+}
+
+function genSec64() {
+  openssl rand -base64 64
+}
+
+function genEnv() {
+  echo "
+export SECRET_KEY_BASE=$genSec64
+export COOKIE=$genSec32
+  "
+}
+
 echo 'GENERATING SECRET_KEY_BASE AND COOKIE' \
-  && elixir ./scripts/secret_gen.exs \
+  && genEnv \
   && echo 'SECRETS JOB DONE'
