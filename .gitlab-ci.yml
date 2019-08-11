@@ -11,19 +11,11 @@ elixir:
     - export TEST=1
     - export VERSION=0.0.$CI_PIPELINE_IID
     - ./scripts/test.sh
-    - ./scripts/secret.sh
-
-  artifacts:
-    paths:
-      - .env
 
 build_container:
   only:
     refs:
       - master
-
-  dependencies:
-    - elixir
 
   stage: build
 
@@ -36,6 +28,7 @@ build_container:
     - docker info
 
   script:
+    - ./scripts/secrets.sh
     - export VERSION=0.0.$CI_PIPELINE_IID
     - export SMACHE_BUILD=smache:v$CI_PIPELINE_IID
     - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN registry.gitlab.com
@@ -43,3 +36,5 @@ build_container:
     - docker push registry.gitlab.com/selfup/$SMACHE_BUILD
     - docker build -t registry.gitlab.com/selfup/smache:latest .
     - docker push registry.gitlab.com/selfup/smache:latest
+    - docker logout
+    - rm .env
