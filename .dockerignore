@@ -9,7 +9,6 @@ deps
 test
 
 # dev files
-scripts
 .git
 .gitignore
 *Dockerfile*

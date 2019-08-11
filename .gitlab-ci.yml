@@ -28,7 +28,6 @@ build_container:
     - docker info
 
   script:
-    - ./scripts/secret.sh
     - export VERSION=0.0.$CI_PIPELINE_IID
     - export SMACHE_BUILD=smache:v$CI_PIPELINE_IID
     - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN registry.gitlab.com
@@ -37,4 +36,3 @@ build_container:
     - docker build -t registry.gitlab.com/selfup/smache:latest .
     - docker push registry.gitlab.com/selfup/smache:latest
     - docker logout registry.gitlab.com
-    - rm .env

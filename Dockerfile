@@ -8,11 +8,13 @@ COPY . /workspace
 
 WORKDIR /workspace
 
+RUN ./scripts/secret.sh
+
 RUN source .env \
   && mix do deps.get, compile, release --verbose --no-tar --env=prod
 
 # REMOVE SOURCE CODE
-RUN rm -rf lib mix.exs mix.lock
+RUN rm -rf lib mix.exs mix.lock scripts
 
 # RUNTIME STAGE
 FROM bitwalker/alpine-elixir:1.8.0

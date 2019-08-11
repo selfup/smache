@@ -19,6 +19,4 @@ services:
   downlink:
     depends_on:
       - uplink
-    build:
-      context: .
-      dockerfile: Dockerfile
+    image: smache_uplink:latest
