@@ -28,7 +28,7 @@ build_container:
     - docker info
 
   script:
-    - ./scripts/secrets.sh
+    - ./scripts/secret.sh
     - export VERSION=0.0.$CI_PIPELINE_IID
     - export SMACHE_BUILD=smache:v$CI_PIPELINE_IID
     - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN registry.gitlab.com
