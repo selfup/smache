@@ -10,7 +10,7 @@ config :smache, SmacheWeb.Endpoint,
   url: [host: "localhost"],
   secret_key_base: "gi5/Mtpp81FVVqbDlGAIfEO7ks9hL4OShUDQnmnXazyYGZJYeNl1y9E50GNF99fD",
   render_errors: [view: SmacheWeb.ErrorView, accepts: ~w(html json)],
-  pubsub: [name: Smache.PubSub, adapter: Phoenix.PubSub.PG2]
+  pubsub_server: Smache.PubSub
 
 # Configures Elixir's Logger
 config :logger, :console,

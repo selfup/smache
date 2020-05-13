@@ -18,16 +18,9 @@ defmodule Downlink.Server do
     if uplink_provided != nil do
       uplink_provided
     else
-      :os.cmd(:"
-        nslookup #{name} \
-        | grep Address \
-        | head -2 \
-        | tail -1 \
-        | cut -d \":\" -f 2 \
-        | tr -d \" \" \
-        | tr -d \" \n\" \
-        | tr -d \" \"
-      ")
+      :os.cmd(
+        :"nslookup #{name} | grep 'Address: ' | head -2 | tail -1 | tr -d 'Address: ' | tr -d '\n'"
+      )
       |> to_string
     end
   end
@@ -45,10 +38,14 @@ defmodule Downlink.Server do
   end
 
   defp register do
-    node = :"#{resolved_node() || Node.self()}"
+    node = :"#{resolved_node()}"
 
     Logger.warn("self: #{Node.self()} - uplink: #{node}")
 
-    GenServer.call({Uplink, node}, {:sync, {}})
+    if System.get_env("IS_UPLINK") == "1" do
+      nil
+    else
+      GenServer.call({Uplink, node}, {:sync, {}})
+    end
   end
 end

@@ -26,6 +26,6 @@ defmodule Smache.Supervisor do
 
     all_children = children ++ operators
 
-    supervise(all_children, strategy: :one_for_one)
+    Supervisor.init(all_children, strategy: :one_for_one)
   end
 end

@@ -24,15 +24,13 @@ defmodule Smache.Mixfile do
 
   defp deps do
     [
-      {:phoenix, "~> 1.4.1"},
-      {:phoenix_pubsub, "~> 1.0"},
+      {:phoenix, "~> 1.5.1"},
       {:phoenix_html, "~> 2.10"},
-      {:phoenix_live_reload, "~> 1.0", only: :dev},
+      {:phoenix_live_reload, "~> 1.2", only: :dev},
       {:gettext, "~> 0.11"},
       {:plug_cowboy, "~> 2.0"},
-      {:plug, "~> 1.7"},
-      {:distillery, "~> 2.0", runtime: false, only: :prod},
-      {:jason, "~> 1.0"}
+      {:jason, "~> 1.0"},
+      {:distillery, "~> 2.1.1", runtime: true, only: :prod}
     ]
   end
 end

@@ -17,8 +17,8 @@ then
 fi
 
 ab \
-  -n 50000 \
-  -c 900 \
+  -n 10000 \
+  -c 600 \
   -k -v 1 \
   -H "Accept-Encoding: gzip, deflate" \
   -T "application/json" \
@@ -33,7 +33,7 @@ ab \
     $(grep -w longest $SMACHE_LOG_FILE)
   " \
 && ab \
-  -n 50000 \
+  -n 100000 \
   -c 900 \
   -k -v 1 \
   -H "Accept-Encoding: gzip, deflate" \

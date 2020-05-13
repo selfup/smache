@@ -1,23 +1,32 @@
-FROM bitwalker/alpine-elixir:1.8.0 AS build
+FROM bitwalker/alpine-elixir:1.10.3 AS build
 
 ENV VERSION=0.0.1 APP=smache MIX_ENV=prod
 
 RUN apk --update add make bash && rm -rf /var/cache/apk/*
 
-COPY . /workspace
+COPY mix.exs mix.lock LICENSE /workspace/
+COPY scripts /workspace/scripts
 
 WORKDIR /workspace
 
-RUN ./scripts/secret.sh
+RUN /workspace/scripts/secret.sh
 
-RUN source .env \
-  && mix do deps.get, compile, release --verbose --no-tar --env=prod
+RUN source .env && mix do deps.get, compile
+
+COPY config /workspace/config 
+COPY lib /workspace/lib
+
+RUN source .env && mix compile
+
+COPY rel /workspace/rel
+
+RUN source .env && mix release
 
 # REMOVE SOURCE CODE
 RUN rm -rf lib mix.exs mix.lock scripts
 
 # RUNTIME STAGE
-FROM bitwalker/alpine-elixir:1.8.0
+FROM alpine
 
 EXPOSE 4000
 

@@ -5,6 +5,7 @@ defmodule Smache.Application do
     import Supervisor.Spec
 
     children = [
+      {Phoenix.PubSub, [name: Smache.PubSub, adapter: Phoenix.PubSub.PG2]},
       supervisor(SmacheWeb.Endpoint, []),
       supervisor(Smache.Supervisor, [])
     ]
