@@ -29,8 +29,7 @@ defmodule Smache.Mixfile do
       {:phoenix_live_reload, "~> 1.2", only: :dev},
       {:gettext, "~> 0.11"},
       {:plug_cowboy, "~> 2.0"},
-      {:jason, "~> 1.0"},
-      {:distillery, "~> 2.1.1", runtime: true, only: :prod}
+      {:jason, "~> 1.0"}
     ]
   end
 end

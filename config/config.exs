@@ -8,7 +8,7 @@ use Mix.Config
 # Configures the endpoint
 config :smache, SmacheWeb.Endpoint,
   url: [host: "localhost"],
-  secret_key_base: "gi5/Mtpp81FVVqbDlGAIfEO7ks9hL4OShUDQnmnXazyYGZJYeNl1y9E50GNF99fD",
+  secret_key_base: System.get_env("SECRET_KEY_BASE"),
   render_errors: [view: SmacheWeb.ErrorView, accepts: ~w(html json)],
   pubsub_server: Smache.PubSub
 

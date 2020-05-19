@@ -1,6 +1,7 @@
 FROM bitwalker/alpine-elixir:1.10.3 AS build
 
 ENV VERSION=0.0.1 APP=smache MIX_ENV=prod
+ENV SECRET_KEY_BASE=${SECRET_KEY_BASE}
 
 RUN apk --update add make bash && rm -rf /var/cache/apk/*
 
@@ -11,7 +12,7 @@ WORKDIR /workspace
 
 RUN /workspace/scripts/secret.sh
 
-RUN source .env && mix do deps.get, compile
+RUN source .env && mix do deps.get --only prod, deps.compile
 
 COPY config /workspace/config 
 COPY lib /workspace/lib
@@ -31,6 +32,7 @@ FROM alpine
 EXPOSE 4000
 
 ENV PORT=4000
+ENV COOKIE=${COOKIE}
 
 RUN apk --update add bind-tools bash curl && rm -rf /var/cache/apk/*
 
@@ -38,7 +40,7 @@ COPY --from=build /workspace /workspace
 
 WORKDIR /workspace
 
-HEALTHCHECK --interval=10s --timeout=2s \
+HEALTHCHECK --interval=10s --timeout=2s --start-period=30s \
   CMD curl -f 0.0:4000/healthcheck || exit 1
 
 CMD ["./rel/boot.sh"]

@@ -17,6 +17,5 @@
 *.log
 *.DS_Store
 *release
-*rel
 .vscode
 .elixir_ls

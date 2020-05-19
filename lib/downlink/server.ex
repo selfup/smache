@@ -28,13 +28,7 @@ defmodule Downlink.Server do
   def resolved_node do
     uplink_node = find_dns("uplink")
 
-    case uplink_node =~ "null" || uplink_node =~ "***" || uplink_node =~ "#" do
-      true ->
-        nil
-
-      false ->
-        if System.get_env("TEST"), do: nil, else: "smache@#{uplink_node}"
-    end
+    if System.get_env("TEST"), do: nil, else: "smache@#{uplink_node}"
   end
 
   defp register do
@@ -42,10 +36,6 @@ defmodule Downlink.Server do
 
     Logger.warn("self: #{Node.self()} - uplink: #{node}")
 
-    if System.get_env("IS_UPLINK") == "1" do
-      nil
-    else
-      GenServer.call({Uplink, node}, {:sync, {}})
-    end
+    GenServer.call({Uplink, node}, {:sync, {}})
   end
 end

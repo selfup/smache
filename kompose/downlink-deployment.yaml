@@ -2,7 +2,7 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   annotations:
-    kompose.cmd: kompose convert -f docker-compose.yml
+    kompose.cmd: kompose convert
     kompose.version: 1.17.0 (a74acad)
   creationTimestamp: null
   labels:
@@ -18,10 +18,12 @@ spec:
         io.kompose.service: downlink
     spec:
       containers:
-        - args:
-            - ./rel/boot.sh
-          image: registry.gitlab.com/selfup/smache:latest
-          name: downlink
-          resources: {}
+      - args:
+        - ./rel/boot.sh
+        env:
+        - name: COOKIE
+        image: registry.gitlab.com/selfup/smache:latest
+        name: downlink
+        resources: {}
       restartPolicy: Always
 status: {}

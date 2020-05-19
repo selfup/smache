@@ -1,17 +1,18 @@
-version: '3.1'
+version: "3.1"
 
 services:
   uplink:
-    environment:
-      - UPLINK_NODE=uplink
     image: registry.gitlab.com/selfup/smache:latest
-    command: ['./rel/boot.sh']
+    environment:
+      - COOKIE=${COOKIE}
+    command: ["./rel/boot.sh"]
+
   downlink:
     depends_on:
       - uplink
     links:
       - uplink
-    environment:
-      - UPLINK_NODE=uplink
     image: registry.gitlab.com/selfup/smache:latest
-    command: ['./rel/boot.sh']
+    environment:
+      - COOKIE=${COOKIE}
+    command: ["./rel/boot.sh"]

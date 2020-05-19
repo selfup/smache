@@ -1,24 +1,20 @@
 version: "3.1"
 
 services:
-  lb:
-    image: dockercloud/haproxy
-    ports:
-      - 8080:80
-    links:
-      - uplink
-      - downlink
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-
   uplink:
+    ports:
+      - 8080:4000
     build:
       context: .
       dockerfile: Dockerfile
     environment:
-      - IS_UPLINK=1
+      - COOKIE=${COOKIE}
+      - SECRET_KEY_BASE=${SECRET_KEY_BASE}
 
   downlink:
     depends_on:
       - uplink
     image: smache_uplink:latest
+    environment:
+      - COOKIE=${COOKIE}
+      - SECRET_KEY_BASE=${SECRET_KEY_BASE}
