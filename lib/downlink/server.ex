@@ -28,7 +28,7 @@ defmodule Downlink.Server do
   def resolved_node do
     uplink_node = find_dns("uplink")
 
-    if System.get_env("TEST"), do: nil, else: "smache@#{uplink_node}"
+    if System.get_env("TEST") == "1", do: nil, else: "smache@#{uplink_node}"
   end
 
   defp register do
@@ -36,6 +36,8 @@ defmodule Downlink.Server do
 
     Logger.warn("self: #{Node.self()} - uplink: #{node}")
 
-    GenServer.call({Uplink, node}, {:sync, {}})
+    if node != :"" do
+      GenServer.call({Uplink, node}, {:sync, {}})
+    end
   end
 end
