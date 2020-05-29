@@ -10,7 +10,7 @@ COPY scripts /workspace/scripts
 
 WORKDIR /workspace
 
-RUN /workspace/scripts/secret.sh
+RUN scripts/secret.sh
 
 RUN source .env && mix do deps.get --only prod, deps.compile
 

@@ -1,11 +1,11 @@
 stages:
-  - secrets
+  - test
   - build
 
 elixir:
-  stage: secrets
+  stage: test
 
-  image: bitwalker/alpine-elixir:1.8.0
+  image: bitwalker/alpine-elixir:1.10.3
 
   script:
     - export TEST=1
