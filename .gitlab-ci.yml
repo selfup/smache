@@ -5,7 +5,7 @@ stages:
 elixir:
   stage: test
 
-  image: bitwalker/alpine-elixir:1.10.3
+  image: bitwalker/alpine-elixir:1.12.3
 
   script:
     - export TEST=1
