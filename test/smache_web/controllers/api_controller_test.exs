@@ -21,30 +21,18 @@ defmodule SmacheWeb.ApiControllerTest do
     post_query(1)
     post_query(1)
 
-    assert json_response(get_query(1), 200) == %{
-             "data" => %{"color" => "blue"},
-             "key" => 1,
-             "node" => "nonode@nohost"
-           }
+    assert json_response(get_query(1), 200) == %{"data" => %{"color" => "blue"}, "key" => 1, "node" => "nonode@nohost"}
 
     post_query(2)
     post_query(2)
 
-    assert json_response(get_query(2), 200) == %{
-             "data" => %{"color" => "blue"},
-             "key" => 2,
-             "node" => "nonode@nohost"
-           }
+    assert json_response(get_query(2), 200) == %{"data" => %{"color" => "blue"}, "key" => 2, "node" => "nonode@nohost"}
   end
 
   test "POST /api - can handle unsigned" do
     post_query("aaaa")
 
-    assert json_response(get_query("aaaa"), 200) == %{
-             "data" => %{"color" => "blue"},
-             "key" => "aaaa",
-             "node" => "nonode@nohost"
-           }
+    assert json_response(get_query("aaaa"), 200) == %{"data" => %{"color" => "blue"}, "key" => "aaaa", "node" => "nonode@nohost"}
   end
 
   test "GET /api - returns 403 on nil/null key" do
