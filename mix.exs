@@ -25,11 +25,11 @@ defmodule Smache.Mixfile do
   defp deps do
     [
       {:phoenix, "~> 1.6.2"},
-      {:phoenix_html, ">= 0.0.0"},
-      {:phoenix_live_reload, ">= 0.0.0", only: :dev},
-      {:gettext, ">= 0.0.0"},
-      {:plug_cowboy, ">= 0.0.0"},
-      {:jason, ">= 0.0.0"}
+      {:phoenix_html, "~> 3.1.0"},
+      {:phoenix_live_reload, "~> 1.3.3", only: :dev},
+      {:gettext, "~> 0.18.2"},
+      {:plug_cowboy, "~> 2.5.2"},
+      {:jason, "~> 1.2.2"}
     ]
   end
 end
