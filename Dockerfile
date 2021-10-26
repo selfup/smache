@@ -1,9 +1,9 @@
-FROM bitwalker/alpine-elixir:1.10.3 AS build
+FROM bitwalker/alpine-elixir:1.12.3 AS build
 
 ENV VERSION=0.0.1 APP=smache MIX_ENV=prod
 ENV SECRET_KEY_BASE=${SECRET_KEY_BASE}
 
-RUN apk --update add make bash && rm -rf /var/cache/apk/*
+RUN apk --update add make bash --no-cache
 
 COPY mix.exs mix.lock LICENSE /workspace/
 COPY scripts /workspace/scripts
@@ -34,7 +34,9 @@ EXPOSE 4000
 ENV PORT=4000
 ENV COOKIE=${COOKIE}
 
-RUN apk --update add bind-tools bash curl && rm -rf /var/cache/apk/*
+RUN apk --update add make bash bind-tools curl openssl libgcc ncurses-libs libstdc++ --no-cache
+
+RUN rm -rf /var/cache/apk/*
 
 COPY --from=build /workspace /workspace
 
