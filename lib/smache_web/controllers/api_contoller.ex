@@ -34,12 +34,12 @@ defmodule SmacheWeb.ApiController do
     end
   end
 
-  defp key_is_nil?(conn, key) do
-    case is_nil(key) do
+  defp key_is_nil?(conn, key) do    
+    case is_nil(key) || key == "" || key == "null" do
       true ->
         conn
         |> put_status(405)
-        |> json(%{message: "key cannot be null"})
+        |> json(%{message: "key cannot be nil/null/empty"})
 
       false ->
         :proceed_with_request

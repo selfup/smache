@@ -28,7 +28,9 @@ defmodule Downlink.Server do
   def resolved_node do
     uplink_node = find_dns("uplink")
 
-    if System.get_env("TEST") == "1", do: nil, else: "smache@#{uplink_node}"
+    test_mode = System.get_env("TEST")
+
+    if test_mode == "1", do: nil, else: "smache@#{uplink_node}"
   end
 
   defp register do
