@@ -1,4 +1,4 @@
-FROM bitwalker/alpine-elixir:1.12.3 AS build
+FROM bitwalker/alpine-elixir:1.13.3 AS build
 
 ENV VERSION=0.0.1 APP=smache MIX_ENV=prod
 ENV SECRET_KEY_BASE=${SECRET_KEY_BASE}
@@ -29,10 +29,9 @@ RUN rm -rf lib mix.exs mix.lock scripts
 # RUNTIME STAGE
 FROM alpine
 
-EXPOSE 4000
-
 ENV PORT=4000
 ENV COOKIE=${COOKIE}
+EXPOSE 4000
 
 RUN apk --update add make bash bind-tools curl openssl libgcc ncurses-libs libstdc++ --no-cache
 
