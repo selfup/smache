@@ -1,12 +1,13 @@
-defmodule Smache.Mixfile do
+defmodule Smache.MixProject do
   use Mix.Project
 
   def project do
     [
       app: :smache,
+      elixir: "~> 1.14",
       version: System.get_env("VERSION") || "0.0.1",
       elixirc_paths: elixirc_paths(Mix.env()),
-      compilers: [:phoenix, :gettext] ++ Mix.compilers(),
+      compilers: [:phoenix] ++ Mix.compilers(),
       start_permanent: Mix.env() == :prod,
       deps: deps()
     ]
@@ -24,12 +25,13 @@ defmodule Smache.Mixfile do
 
   defp deps do
     [
-      {:phoenix, "~> 1.6.2"},
-      {:phoenix_html, "~> 3.1.0"},
-      {:phoenix_live_reload, "~> 1.3.3", only: :dev},
-      {:gettext, "~> 0.18.2"},
-      {:plug_cowboy, "~> 2.5.2"},
-      {:jason, "~> 1.2.2"}
+      {:phoenix, "~> 1.7.19"},
+      {:phoenix_html, "~> 4.1"},
+      {:phoenix_html_helpers, "~> 1.0"},
+      {:phoenix_live_reload, "~> 1.2", only: :dev},
+      {:gettext, "~> 0.26"},
+      {:plug_cowboy, "~> 2.7.2"},
+      {:jason, "~> 1.2"}
     ]
   end
 end

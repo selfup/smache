@@ -1,4 +1,4 @@
-use Mix.Config
+import Config
 
 config :smache, SmacheWeb.Endpoint,
   http: [port: 4001],
