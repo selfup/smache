@@ -6,22 +6,22 @@ defmodule Smache.Supervisor do
 
   use Supervisor
 
-  def start_link do
+  def start_link(_opts) do
     Supervisor.start_link(__MODULE__, :ok, name: __MODULE__)
   end
 
   def init(:ok) do
     children = [
-      worker(EtsTable, []),
-      worker(Uplink, [UplinkServer]),
-      worker(Downlink, [DownlinkServer])
+      {EtsTable, []},
+      {Uplink, [UplinkServer]},
+      {Downlink, [DownlinkServer]}
     ]
 
     operators =
       1..16
       |> Enum.map(fn name ->
         uniq = :"operator_#{name}"
-        worker(Operator, [[name: uniq]], id: uniq)
+        Supervisor.child_spec({Operator, [name: uniq]}, id: uniq)
       end)
 
     all_children = children ++ operators

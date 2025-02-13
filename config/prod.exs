@@ -1,4 +1,4 @@
-use Mix.Config
+import Mix.Config
 
 # set server to true for release build via distillery
 
@@ -8,4 +8,4 @@ config :smache, SmacheWeb.Endpoint,
   secret_key_base: Map.fetch!(System.get_env(), "SECRET_KEY_BASE"),
   server: true
 
-config :logger, level: :warn
+config :logger, level: :warning

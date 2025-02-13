@@ -1,4 +1,4 @@
-use Mix.Config
+import Mix.Config
 
 config :smache, SmacheWeb.Endpoint,
   http: [port: System.get_env("PORT") || 4000],
@@ -17,6 +17,6 @@ config :smache, SmacheWeb.Endpoint,
     ]
   ]
 
-config :logger, level: :warn
+config :logger, level: :warning
 
 config :phoenix, :stacktrace_depth, 20

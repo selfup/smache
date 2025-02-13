@@ -7,7 +7,6 @@ defmodule Smache.MixProject do
       elixir: "~> 1.14",
       version: System.get_env("VERSION") || "0.0.1",
       elixirc_paths: elixirc_paths(Mix.env()),
-      compilers: [:phoenix] ++ Mix.compilers(),
       start_permanent: Mix.env() == :prod,
       deps: deps()
     ]

@@ -2,12 +2,10 @@ defmodule Smache.Application do
   use Application
 
   def start(_type, _args) do
-    import Supervisor.Spec
-
     children = [
       {Phoenix.PubSub, [name: Smache.PubSub, adapter: Phoenix.PubSub.PG2]},
-      supervisor(SmacheWeb.Endpoint, []),
-      supervisor(Smache.Supervisor, [])
+      {SmacheWeb.Endpoint, []},
+      {Smache.Supervisor, []}
     ]
 
     opts = [
