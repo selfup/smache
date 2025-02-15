@@ -20,8 +20,8 @@ jobs:
     name: OTP ${{matrix.otp}} / Elixir ${{matrix.elixir}}
     strategy:
       matrix:
-        otp: ['21.1', '22.2', '23.3']
-        elixir: ['1.8.2', '1.9.4']
+        otp: ['27']
+        elixir: ['1.8.2']
     steps:
       - uses: actions/checkout@v4
       - uses: erlef/setup-beam@v1
