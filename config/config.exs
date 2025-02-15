@@ -10,7 +10,7 @@ config :smache, SmacheWeb.Endpoint,
   url: [host: "localhost"],
   secret_key_base: System.get_env("SECRET_KEY_BASE"),
   render_errors: [
-    formats: [html: PhxdemoWeb.ErrorHTML, json: PhxdemoWeb.ErrorJSON],
+    formats: [html: Smache.ErrorHTML, json: Smache.ErrorJSON],
     layout: false
   ],
   pubsub_server: Smache.PubSub
