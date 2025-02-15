@@ -18,7 +18,7 @@ fi
 
 ab \
   -n 10000 \
-  -c 600 \
+  -c 100 \
   -k -v 1 \
   -H "Accept-Encoding: gzip, deflate" \
   -T "application/json" \
@@ -34,7 +34,7 @@ ab \
   " \
 && ab \
   -n 100000 \
-  -c 900 \
+  -c 150 \
   -k -v 1 \
   -H "Accept-Encoding: gzip, deflate" \
   -T "application/json" \

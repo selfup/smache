@@ -1,4 +1,4 @@
-import Mix.Config
+import Config
 
 config :smache, SmacheWeb.Endpoint,
   http: [port: System.get_env("PORT") || 4000],

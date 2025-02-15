@@ -1,4 +1,4 @@
-import Mix.Config
+import Config
 
 # set server to true for release build via distillery
 
