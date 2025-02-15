@@ -21,7 +21,7 @@ jobs:
     strategy:
       matrix:
         otp: ['27']
-        elixir: ['1.8.2']
+        elixir: ['1.18.2']
     steps:
       - uses: actions/checkout@v4
       - uses: erlef/setup-beam@v1
