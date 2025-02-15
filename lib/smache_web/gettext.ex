@@ -1,3 +1,3 @@
 defmodule SmacheWeb.Gettext do
-  use Gettext, otp_app: :smache
+  use Gettext.Backend, otp_app: :smache
 end

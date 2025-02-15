@@ -1,7 +1,7 @@
 defmodule Operator.Server do
   use GenServer
 
-  def start_link(opts \\ []) do
+  def start_link(opts) do
     [name: name] = opts
 
     GenServer.start_link(

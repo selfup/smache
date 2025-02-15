@@ -1,5 +1,6 @@
 defmodule SmacheWeb.ErrorView do
-  use SmacheWeb, :view
+  use PhoenixHTMLHelpers
+  # use SmacheWeb, :view
 
   def render("404.html", _assigns) do
     "Page not found"

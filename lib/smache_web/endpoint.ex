@@ -23,13 +23,4 @@ defmodule SmacheWeb.Endpoint do
   plug(Plug.MethodOverride)
   plug(Plug.Head)
   plug(SmacheWeb.Router)
-
-  def init(_key, config) do
-    if config[:load_from_system_env] do
-      port = System.get_env("PORT") || raise "PLZ SET $PORT ENV VAR"
-      {:ok, Keyword.put(config, :http, [:inet6, port: port])}
-    else
-      {:ok, config}
-    end
-  end
 end
