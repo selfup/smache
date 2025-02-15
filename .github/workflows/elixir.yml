@@ -29,4 +29,4 @@ jobs:
           otp-version: ${{matrix.otp}}
           elixir-version: ${{matrix.elixir}}
       - run: mix deps.get
-      - run: mix test
+      - run: export TEST=1 && mix test
