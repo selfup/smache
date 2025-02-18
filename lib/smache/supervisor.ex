@@ -14,7 +14,8 @@ defmodule Smache.Supervisor do
     children = [
       {EtsTable, []},
       {Uplink, [UplinkServer]},
-      {Downlink, [DownlinkServer]}
+      {Downlink, [DownlinkServer]},
+      {Smache.Broadcaster, []}
     ]
 
     operators =

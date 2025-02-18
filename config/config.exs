@@ -7,7 +7,7 @@ import Config
 
 # Configures the endpoint
 config :smache, SmacheWeb.Endpoint,
-  url: [host: "localhost"],
+  url: [host: "0.0.0.0"],
   secret_key_base: System.get_env("SECRET_KEY_BASE"),
   render_errors: [
     formats: [html: Smache.ErrorHTML, json: Smache.ErrorJSON],
